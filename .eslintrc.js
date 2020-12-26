@@ -7,6 +7,9 @@ module.exports = {
   ],
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'simple-import-sort'],
   settings: {
+    react: {
+      version: 'latest',
+    },
     'import/resolver': {
       node: {
         paths: ['src'],
