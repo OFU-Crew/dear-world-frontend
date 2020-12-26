@@ -1,69 +1,65 @@
-import React, { useMemo } from 'react';
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
 import maps from './maps';
 
-//TODO: styled-component로 재작성
-const appStyle = {
-  display: 'grid',
-  width: '100vh',
-  height: '50vh',
-  gap: '1px',
-  justifyItems: 'center',
-  aliginItems: 'center',
-};
+const PixelMapWrapper = styled.div<{
+  cellSize: number;
+}>`grid-template-rows: ${props => `repeat(52, ${props.cellSize}px)`};
+grid-template-columns: ${props => `repeat(78, ${props.cellSize}px)`};
+display: grid;
+gap: 1px;
+justify-items: center;
+align-items: center;
+}`;
 
-const Cell = ({
-  name,
-  x,
-  y,
-  color,
+const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
+  style: {
+    gridColumn: `${x}/${x}`,
+    gridRow: `${y}/${y}`,
+  },
+}))<{ x: number; y: number; level: number }>`
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  background-color: ${props =>
+    props.theme.backgroundColor[`level${props.level}`]};
+`;
+
+const PixelMap = ({
+  cellSize,
+  countries,
 }: {
-  name: string;
-  x: number;
-  y: number;
-  color: string;
+  cellSize: number;
+  countries: {
+    country: {
+      id: number;
+      code: string;
+      fullName: string;
+      emojiUnicode: string;
+    };
+    messageCount: number;
+    likeCount: number;
+    population: number;
+    level: number;
+  }[];
 }) => {
-  const cellStyle = useMemo(
-    () => ({
-      gridColumn: `${x}/${x}`,
-      gridRow: `${y}/${y}`,
-      width: '85%',
-      height: '85%',
-      backgroundColor: color,
-      borderRadius: '50%',
-    }),
-    [x, y, color],
-  );
-
-  return <div id={name} style={cellStyle} />;
-};
-
-function PixelMap({ cellSize }: { cellSize: number }) {
   return (
-    <div
-      style={{
-        ...appStyle,
-        gridTemplateRows: `repeat(52, ${cellSize}px)`,
-        gridTemplateColumns: `repeat(78, ${cellSize}px)`,
-      }}
-      id="map"
-    >
-      {maps.map(({ name, locations }) => {
+    <PixelMapWrapper cellSize={cellSize}>
+      {maps.map(({ name, locations, countryId }) => {
+        const level =
+          countries.filter(item => item.country.code === countryId)[0]?.level ??
+          0;
+
         return (
-          <>
+          <Fragment key={name}>
             {locations.map(({ x, y }) => (
-              <Cell
-                key={`${name}_${x}_${y}`}
-                name={name}
-                x={x}
-                y={y}
-                color="#e5eafe"
-              />
+              <Cell key={`${name}_${x}_${y}`} x={x} y={y} level={level} />
             ))}
-          </>
+          </Fragment>
         );
       })}
-    </div>
+    </PixelMapWrapper>
   );
-}
+};
 export default PixelMap;
