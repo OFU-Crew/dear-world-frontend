@@ -31,11 +31,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
         # Runs a set of commands using the runners shell
-      - name: Clean Workspace
-        run: sudo rm -rf $GITHUB_WORKSPACE
-
       - name: client build & test
-        working-directory: ./client
         run: |
           npm install
           npm run lint
