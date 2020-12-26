@@ -1,11 +1,18 @@
-import React from 'react';
+import './styles/layout.css';
+
+import React, { FC } from 'react';
 
 import Hello from './components/Hello';
+import ThemeButton from './components/ThemeButton';
+import { ThemeProvider } from './hooks/useTheme';
 
-const App: React.FC = props => {
+const App: FC = props => {
   return (
     <>
-      <Hello name="React" />
+      <ThemeProvider>
+        <Hello name="React" />
+        <ThemeButton />
+      </ThemeProvider>
     </>
   );
 };
