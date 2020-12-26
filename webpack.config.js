@@ -17,10 +17,6 @@ module.exports = {
     rules: [
       // .ts나 .tsx 확장자를 ts-loader가 트랜스파일
       { test: /\.tsx?$/, loader: 'ts-loader' },
-      {
-        test: /\.css?$/,
-        use: ['style-loader', 'css-loader'],
-      },
     ],
   },
   devServer: {
