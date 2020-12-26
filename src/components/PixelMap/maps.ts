@@ -1,7 +1,7 @@
 const maps = [
   {
     name: 'United States',
-    abr2letters: 'US',
+    countryId: 'US',
     locations: [
       { x: 1, y: 16 },
       { x: 1, y: 18 },
@@ -88,7 +88,7 @@ const maps = [
   },
   {
     name: 'Canada',
-    abr2letters: 'CA',
+    countryId: 'CA',
     locations: [
       { x: 7, y: 16 },
       { x: 7, y: 17 },
@@ -301,7 +301,7 @@ const maps = [
   },
   {
     name: 'Mexico',
-    abr2letters: 'MX',
+    countryId: 'MX',
     locations: [
       { x: 12, y: 30 },
       { x: 12, y: 31 },
@@ -316,49 +316,49 @@ const maps = [
       { x: 17, y: 32 },
     ],
   },
-  { name: 'Guatemala', abr2letters: 'GT', locations: [{ x: 17, y: 33 }] },
-  { name: 'El Salvador', abr2letters: 'SV', locations: [{ x: 17, y: 34 }] },
-  { name: 'Belize', abr2letters: 'BZ', locations: [{ x: 18, y: 32 }] },
-  { name: 'Honduras', abr2letters: 'HN', locations: [{ x: 18, y: 33 }] },
-  { name: 'Nicaragua', abr2letters: 'NI', locations: [{ x: 18, y: 34 }] },
-  { name: 'Costa Rico', abr2letters: 'CR', locations: [{ x: 18, y: 35 }] },
-  { name: 'Panama', abr2letters: 'PA', locations: [{ x: 19, y: 35 }] },
+  { name: 'Guatemala', countryId: 'GT', locations: [{ x: 17, y: 33 }] },
+  { name: 'El Salvador', countryId: 'SV', locations: [{ x: 17, y: 34 }] },
+  { name: 'Belize', countryId: 'BZ', locations: [{ x: 18, y: 32 }] },
+  { name: 'Honduras', countryId: 'HN', locations: [{ x: 18, y: 33 }] },
+  { name: 'Nicaragua', countryId: 'NI', locations: [{ x: 18, y: 34 }] },
+  { name: 'Costa Rico', countryId: 'CR', locations: [{ x: 18, y: 35 }] },
+  { name: 'Panama', countryId: 'PA', locations: [{ x: 19, y: 35 }] },
   {
     name: 'Colombia',
-    abr2letters: 'CO',
+    countryId: 'CO',
     locations: [
       { x: 20, y: 35 },
       { x: 20, y: 36 },
       { x: 21, y: 36 },
     ],
   },
-  { name: 'Bahamas', abr2letters: 'BS', locations: [{ x: 20, y: 31 }] },
-  { name: 'Cuba', abr2letters: 'CU', locations: [{ x: 20, y: 32 }] },
-  { name: 'Jamaica', abr2letters: 'JM', locations: [{ x: 20, y: 33 }] },
-  { name: 'Haiti', abr2letters: 'HT', locations: [{ x: 21, y: 32 }] },
+  { name: 'Bahamas', countryId: 'BS', locations: [{ x: 20, y: 31 }] },
+  { name: 'Cuba', countryId: 'CU', locations: [{ x: 20, y: 32 }] },
+  { name: 'Jamaica', countryId: 'JM', locations: [{ x: 20, y: 33 }] },
+  { name: 'Haiti', countryId: 'HT', locations: [{ x: 21, y: 32 }] },
   {
     name: 'Dominican Republic',
-    abr2letters: 'DO',
+    countryId: 'DO',
     locations: [{ x: 22, y: 32 }],
   },
-  { name: 'Puerto Rico', abr2letters: 'PR', locations: [{ x: 22, y: 33 }] },
-  { name: 'Dominica', abr2letters: 'DM', locations: [{ x: 23, y: 32 }] },
-  { name: 'Grenada', abr2letters: 'GD', locations: [{ x: 23, y: 33 }] },
+  { name: 'Puerto Rico', countryId: 'PR', locations: [{ x: 22, y: 33 }] },
+  { name: 'Dominica', countryId: 'DM', locations: [{ x: 23, y: 32 }] },
+  { name: 'Grenada', countryId: 'GD', locations: [{ x: 23, y: 33 }] },
   {
     name: 'Trinidad and Tobago',
-    abr2letters: 'TT',
+    countryId: 'TT',
     locations: [{ x: 23, y: 34 }],
   },
   {
     name: 'Antigua and Barbuda',
-    abr2letters: 'AG',
+    countryId: 'AG',
     locations: [{ x: 24, y: 32 }],
   },
-  { name: 'Saint Lucia', abr2letters: 'LC', locations: [{ x: 24, y: 33 }] },
-  { name: 'Barbados', abr2letters: 'BB', locations: [{ x: 24, y: 34 }] },
+  { name: 'Saint Lucia', countryId: 'LC', locations: [{ x: 24, y: 33 }] },
+  { name: 'Barbados', countryId: 'BB', locations: [{ x: 24, y: 34 }] },
   {
     name: 'Venezuela',
-    abr2letters: 'VE',
+    countryId: 'VE',
     locations: [
       { x: 21, y: 35 },
       { x: 22, y: 35 },
@@ -366,10 +366,10 @@ const maps = [
       { x: 23, y: 35 },
     ],
   },
-  { name: 'Ecuador', abr2letters: 'EC', locations: [{ x: 20, y: 37 }] },
+  { name: 'Ecuador', countryId: 'EC', locations: [{ x: 20, y: 37 }] },
   {
     name: 'Peru',
-    abr2letters: 'PE',
+    countryId: 'PE',
     locations: [
       { x: 21, y: 37 },
       { x: 20, y: 38 },
@@ -380,7 +380,7 @@ const maps = [
   },
   {
     name: 'Brazil',
-    abr2letters: 'BR',
+    countryId: 'BR',
     locations: [
       { x: 21, y: 38 },
       { x: 22, y: 37 },
@@ -416,12 +416,12 @@ const maps = [
       { x: 28, y: 40 },
     ],
   },
-  { name: 'Guyana', abr2letters: 'GY', locations: [{ x: 24, y: 35 }] },
-  { name: 'Suriname', abr2letters: 'SR', locations: [{ x: 24, y: 36 }] },
-  { name: 'French Guiana', abr2letters: 'GF', locations: [{ x: 25, y: 36 }] },
+  { name: 'Guyana', countryId: 'GY', locations: [{ x: 24, y: 35 }] },
+  { name: 'Suriname', countryId: 'SR', locations: [{ x: 24, y: 36 }] },
+  { name: 'French Guiana', countryId: 'GF', locations: [{ x: 25, y: 36 }] },
   {
     name: 'Bolivia',
-    abr2letters: 'BO',
+    countryId: 'BO',
     locations: [
       { x: 22, y: 39 },
       { x: 22, y: 40 },
@@ -432,7 +432,7 @@ const maps = [
   },
   {
     name: 'Chile',
-    abr2letters: 'CL',
+    countryId: 'CL',
     locations: [
       { x: 21, y: 41 },
       { x: 21, y: 42 },
@@ -444,7 +444,7 @@ const maps = [
   },
   {
     name: 'Argentina',
-    abr2letters: 'AR',
+    countryId: 'AR',
     locations: [
       { x: 21, y: 47 },
       { x: 21, y: 48 },
@@ -469,16 +469,16 @@ const maps = [
   },
   {
     name: 'Paraguay',
-    abr2letters: 'PY',
+    countryId: 'PY',
     locations: [
       { x: 24, y: 41 },
       { x: 24, y: 42 },
     ],
   },
-  { name: 'Uruguay', abr2letters: 'UY', locations: [{ x: 24, y: 44 }] },
+  { name: 'Uruguay', countryId: 'UY', locations: [{ x: 24, y: 44 }] },
   {
     name: 'Greenland',
-    abr2letters: 'GL',
+    countryId: 'GL',
     locations: [
       { x: 21, y: 8 },
       { x: 22, y: 8 },
@@ -624,7 +624,7 @@ const maps = [
   },
   {
     name: 'Iceland',
-    abr2letters: 'IS',
+    countryId: 'IS',
     locations: [
       { x: 32, y: 18 },
       { x: 33, y: 18 },
@@ -632,7 +632,7 @@ const maps = [
   },
   {
     name: 'Russian Federation',
-    abr2letters: 'RU',
+    countryId: 'RU',
     locations: [
       { x: 43, y: 20 },
       { x: 43, y: 21 },
@@ -968,7 +968,7 @@ const maps = [
   },
   {
     name: 'Norway',
-    abr2letters: 'NO',
+    countryId: 'NO',
     locations: [
       { x: 38, y: 19 },
       { x: 38, y: 20 },
@@ -992,7 +992,7 @@ const maps = [
   },
   {
     name: 'Sweden',
-    abr2letters: 'SE',
+    countryId: 'SE',
     locations: [
       { x: 40, y: 17 },
       { x: 40, y: 18 },
@@ -1006,7 +1006,7 @@ const maps = [
   },
   {
     name: 'Finland',
-    abr2letters: 'FI',
+    countryId: 'FI',
     locations: [
       { x: 42, y: 16 },
       { x: 42, y: 17 },
@@ -1019,11 +1019,11 @@ const maps = [
       { x: 43, y: 19 },
     ],
   },
-  { name: 'Estonia', abr2letters: 'EE', locations: [{ x: 42, y: 20 }] },
-  { name: 'Latvia', abr2letters: 'LV', locations: [{ x: 42, y: 21 }] },
+  { name: 'Estonia', countryId: 'EE', locations: [{ x: 42, y: 20 }] },
+  { name: 'Latvia', countryId: 'LV', locations: [{ x: 42, y: 21 }] },
   {
     name: 'Lithuania',
-    abr2letters: 'LT',
+    countryId: 'LT',
     locations: [
       { x: 41, y: 22 },
       { x: 42, y: 22 },
@@ -1031,16 +1031,16 @@ const maps = [
   },
   {
     name: 'Belarus',
-    abr2letters: 'BY',
+    countryId: 'BY',
     locations: [
       { x: 42, y: 23 },
       { x: 43, y: 23 },
     ],
   },
-  { name: 'Moldova', abr2letters: 'MD', locations: [{ x: 43, y: 25 }] },
+  { name: 'Moldova', countryId: 'MD', locations: [{ x: 43, y: 25 }] },
   {
     name: 'Ukraine',
-    abr2letters: 'UA',
+    countryId: 'UA',
     locations: [
       { x: 42, y: 24 },
       { x: 43, y: 24 },
@@ -1049,10 +1049,10 @@ const maps = [
       { x: 44, y: 25 },
     ],
   },
-  { name: 'Romania', abr2letters: 'RO', locations: [{ x: 42, y: 25 }] },
+  { name: 'Romania', countryId: 'RO', locations: [{ x: 42, y: 25 }] },
   {
     name: 'United Kingdom',
-    abr2letters: 'GB',
+    countryId: 'GB',
     locations: [
       { x: 35, y: 22 },
       { x: 36, y: 21 },
@@ -1060,10 +1060,10 @@ const maps = [
       { x: 36, y: 23 },
     ],
   },
-  { name: 'Ireland', abr2letters: 'IE', locations: [{ x: 35, y: 23 }] },
+  { name: 'Ireland', countryId: 'IE', locations: [{ x: 35, y: 23 }] },
   {
     name: 'Portugal',
-    abr2letters: 'PT',
+    countryId: 'PT',
     locations: [
       { x: 35, y: 26 },
       { x: 35, y: 27 },
@@ -1071,7 +1071,7 @@ const maps = [
   },
   {
     name: 'Spain',
-    abr2letters: 'ES',
+    countryId: 'ES',
     locations: [
       { x: 36, y: 26 },
       { x: 36, y: 27 },
@@ -1079,48 +1079,48 @@ const maps = [
   },
   {
     name: 'France',
-    abr2letters: 'FR',
+    countryId: 'FR',
     locations: [
       { x: 36, y: 25 },
       { x: 37, y: 25 },
     ],
   },
-  { name: 'Andorra', abr2letters: 'AD', locations: [{ x: 37, y: 26 }] },
+  { name: 'Andorra', countryId: 'AD', locations: [{ x: 37, y: 26 }] },
   {
     name: 'Italy',
-    abr2letters: 'IT',
+    countryId: 'IT',
     locations: [
       { x: 39, y: 27 },
       { x: 40, y: 27 },
     ],
   },
-  { name: 'Monaco', abr2letters: 'MC', locations: [{ x: 38, y: 26 }] },
-  { name: 'San Marino', abr2letters: 'SM', locations: [{ x: 39, y: 26 }] },
-  { name: 'Germany', abr2letters: 'DE', locations: [{ x: 39, y: 23 }] },
-  { name: 'Netherlands', abr2letters: 'NL', locations: [{ x: 38, y: 23 }] },
-  { name: 'Belgium', abr2letters: 'NL', locations: [{ x: 37, y: 24 }] },
-  { name: 'Luxembourg', abr2letters: 'LU', locations: [{ x: 38, y: 24 }] },
-  { name: 'Liechtenstein', abr2letters: 'LI', locations: [{ x: 39, y: 24 }] },
-  { name: 'Poland', abr2letters: 'PL', locations: [{ x: 41, y: 23 }] },
-  { name: 'Slovakia', abr2letters: 'SK', locations: [{ x: 41, y: 24 }] },
-  { name: 'Hungary', abr2letters: 'HU', locations: [{ x: 41, y: 25 }] },
-  { name: 'Czech Republic', abr2letters: 'CZ', locations: [{ x: 40, y: 23 }] },
-  { name: 'Austria', abr2letters: 'AT', locations: [{ x: 40, y: 24 }] },
-  { name: 'Switzerland', abr2letters: 'CH', locations: [{ x: 38, y: 25 }] },
-  { name: 'Slovenia', abr2letters: 'SI', locations: [{ x: 39, y: 25 }] },
-  { name: 'Croatia', abr2letters: 'HR', locations: [{ x: 40, y: 25 }] },
-  { name: 'Bosnia', abr2letters: 'BA', locations: [{ x: 40, y: 26 }] },
-  { name: 'Serbia', abr2letters: 'CS', locations: [{ x: 41, y: 26 }] },
-  { name: 'Macedonia', abr2letters: 'MK', locations: [{ x: 42, y: 27 }] },
-  { name: 'Albania', abr2letters: 'AL', locations: [{ x: 41, y: 27 }] },
-  { name: 'Greece', abr2letters: 'GR', locations: [{ x: 41, y: 28 }] },
-  { name: 'Bulgaria', abr2letters: 'BG', locations: [{ x: 42, y: 26 }] },
-  { name: 'Georgia', abr2letters: 'GE', locations: [{ x: 46, y: 26 }] },
-  { name: 'Armenia', abr2letters: 'AM', locations: [{ x: 46, y: 27 }] },
-  { name: 'Azerbaijan', abr2letters: 'AZ', locations: [{ x: 47, y: 27 }] },
+  { name: 'Monaco', countryId: 'MC', locations: [{ x: 38, y: 26 }] },
+  { name: 'San Marino', countryId: 'SM', locations: [{ x: 39, y: 26 }] },
+  { name: 'Germany', countryId: 'DE', locations: [{ x: 39, y: 23 }] },
+  { name: 'Netherlands', countryId: 'NL', locations: [{ x: 38, y: 23 }] },
+  { name: 'Belgium', countryId: 'NL', locations: [{ x: 37, y: 24 }] },
+  { name: 'Luxembourg', countryId: 'LU', locations: [{ x: 38, y: 24 }] },
+  { name: 'Liechtenstein', countryId: 'LI', locations: [{ x: 39, y: 24 }] },
+  { name: 'Poland', countryId: 'PL', locations: [{ x: 41, y: 23 }] },
+  { name: 'Slovakia', countryId: 'SK', locations: [{ x: 41, y: 24 }] },
+  { name: 'Hungary', countryId: 'HU', locations: [{ x: 41, y: 25 }] },
+  { name: 'Czech Republic', countryId: 'CZ', locations: [{ x: 40, y: 23 }] },
+  { name: 'Austria', countryId: 'AT', locations: [{ x: 40, y: 24 }] },
+  { name: 'Switzerland', countryId: 'CH', locations: [{ x: 38, y: 25 }] },
+  { name: 'Slovenia', countryId: 'SI', locations: [{ x: 39, y: 25 }] },
+  { name: 'Croatia', countryId: 'HR', locations: [{ x: 40, y: 25 }] },
+  { name: 'Bosnia', countryId: 'BA', locations: [{ x: 40, y: 26 }] },
+  { name: 'Serbia', countryId: 'CS', locations: [{ x: 41, y: 26 }] },
+  { name: 'Macedonia', countryId: 'MK', locations: [{ x: 42, y: 27 }] },
+  { name: 'Albania', countryId: 'AL', locations: [{ x: 41, y: 27 }] },
+  { name: 'Greece', countryId: 'GR', locations: [{ x: 41, y: 28 }] },
+  { name: 'Bulgaria', countryId: 'BG', locations: [{ x: 42, y: 26 }] },
+  { name: 'Georgia', countryId: 'GE', locations: [{ x: 46, y: 26 }] },
+  { name: 'Armenia', countryId: 'AM', locations: [{ x: 46, y: 27 }] },
+  { name: 'Azerbaijan', countryId: 'AZ', locations: [{ x: 47, y: 27 }] },
   {
     name: 'Turkey',
-    abr2letters: 'TR',
+    countryId: 'TR',
     locations: [
       { x: 44, y: 27 },
       { x: 45, y: 27 },
@@ -1128,24 +1128,24 @@ const maps = [
   },
   {
     name: 'Syrian Arab Republic',
-    abr2letters: 'SY',
+    countryId: 'SY',
     locations: [{ x: 45, y: 28 }],
   },
-  { name: 'Cyprus', abr2letters: 'CY', locations: [{ x: 43, y: 28 }] },
-  { name: 'Lebanon', abr2letters: 'LB', locations: [{ x: 44, y: 28 }] },
+  { name: 'Cyprus', countryId: 'CY', locations: [{ x: 43, y: 28 }] },
+  { name: 'Lebanon', countryId: 'LB', locations: [{ x: 44, y: 28 }] },
   {
     name: 'Saint Vincent and the Grenadines',
-    abr2letters: 'VC',
+    countryId: 'VC',
     locations: [{ x: 44, y: 29 }],
   },
-  { name: 'Israel', abr2letters: 'IL', locations: [{ x: 43, y: 30 }] },
-  { name: 'Jordan', abr2letters: 'JO', locations: [{ x: 45, y: 29 }] },
-  { name: 'Bahrain', abr2letters: 'BH', locations: [{ x: 46, y: 30 }] },
-  { name: 'Qatar', abr2letters: 'QA', locations: [{ x: 47, y: 31 }] },
-  { name: 'Kuwait', abr2letters: 'KW', locations: [{ x: 47, y: 30 }] },
+  { name: 'Israel', countryId: 'IL', locations: [{ x: 43, y: 30 }] },
+  { name: 'Jordan', countryId: 'JO', locations: [{ x: 45, y: 29 }] },
+  { name: 'Bahrain', countryId: 'BH', locations: [{ x: 46, y: 30 }] },
+  { name: 'Qatar', countryId: 'QA', locations: [{ x: 47, y: 31 }] },
+  { name: 'Kuwait', countryId: 'KW', locations: [{ x: 47, y: 30 }] },
   {
     name: 'Saudi Arabia',
-    abr2letters: 'SA',
+    countryId: 'SA',
     locations: [
       { x: 45, y: 30 },
       { x: 45, y: 31 },
@@ -1157,7 +1157,7 @@ const maps = [
   },
   {
     name: 'Iraq',
-    abr2letters: 'IQ',
+    countryId: 'IQ',
     locations: [
       { x: 46, y: 28 },
       { x: 46, y: 29 },
@@ -1165,12 +1165,12 @@ const maps = [
   },
   {
     name: 'United Arab Emirates',
-    abr2letters: 'AE',
+    countryId: 'AE',
     locations: [{ x: 48, y: 31 }],
   },
   {
     name: 'Oman',
-    abr2letters: 'OM',
+    countryId: 'OM',
     locations: [
       { x: 49, y: 32 },
       { x: 48, y: 33 },
@@ -1178,7 +1178,7 @@ const maps = [
   },
   {
     name: 'Yemen',
-    abr2letters: 'YE',
+    countryId: 'YE',
     locations: [
       { x: 46, y: 33 },
       { x: 47, y: 33 },
@@ -1186,7 +1186,7 @@ const maps = [
   },
   {
     name: 'Iran',
-    abr2letters: 'IR',
+    countryId: 'IR',
     locations: [
       { x: 47, y: 28 },
       { x: 47, y: 29 },
@@ -1201,7 +1201,7 @@ const maps = [
   },
   {
     name: 'Pakistan',
-    abr2letters: 'PK',
+    countryId: 'PK',
     locations: [
       { x: 51, y: 30 },
       { x: 51, y: 31 },
@@ -1212,7 +1212,7 @@ const maps = [
   },
   {
     name: 'Afghanistan',
-    abr2letters: 'AF',
+    countryId: 'AF',
     locations: [
       { x: 50, y: 29 },
       { x: 51, y: 29 },
@@ -1222,7 +1222,7 @@ const maps = [
   },
   {
     name: 'Turkmenistan',
-    abr2letters: 'TM',
+    countryId: 'TM',
     locations: [
       { x: 50, y: 28 },
       { x: 50, y: 27 },
@@ -1231,7 +1231,7 @@ const maps = [
   },
   {
     name: 'Uzbekistan',
-    abr2letters: 'UZ',
+    countryId: 'UZ',
     locations: [
       { x: 49, y: 26 },
       { x: 50, y: 26 },
@@ -1239,11 +1239,11 @@ const maps = [
       { x: 51, y: 27 },
     ],
   },
-  { name: 'Tajikistan', abr2letters: 'TJ', locations: [{ x: 52, y: 27 }] },
-  { name: 'Kyrgyzstan', abr2letters: 'KG', locations: [{ x: 53, y: 27 }] },
+  { name: 'Tajikistan', countryId: 'TJ', locations: [{ x: 52, y: 27 }] },
+  { name: 'Kyrgyzstan', countryId: 'KG', locations: [{ x: 53, y: 27 }] },
   {
     name: 'Kazakhstan',
-    abr2letters: 'KZ',
+    countryId: 'KZ',
     locations: [
       { x: 47, y: 24 },
       { x: 47, y: 25 },
@@ -1275,7 +1275,7 @@ const maps = [
   },
   {
     name: 'Mongolia',
-    abr2letters: 'MN',
+    countryId: 'MN',
     locations: [
       { x: 56, y: 24 },
       { x: 56, y: 25 },
@@ -1296,15 +1296,15 @@ const maps = [
   },
   {
     name: 'Korea, Democratic Peoples Republic',
-    abr2letters: 'KP',
+    countryId: 'KP',
     locations: [{ x: 64, y: 27 }],
   },
-  { name: 'Korea, Republic', abr2letters: 'KR', locations: [{ x: 64, y: 28 }] },
-  { name: 'Bhutan', abr2letters: 'BT', locations: [{ x: 56, y: 30 }] },
-  { name: 'Bangladesh', abr2letters: 'BD', locations: [{ x: 56, y: 31 }] },
+  { name: 'Korea, Republic', countryId: 'KR', locations: [{ x: 64, y: 28 }] },
+  { name: 'Bhutan', countryId: 'BT', locations: [{ x: 56, y: 30 }] },
+  { name: 'Bangladesh', countryId: 'BD', locations: [{ x: 56, y: 31 }] },
   {
     name: 'Myanmar',
-    abr2letters: 'MM',
+    countryId: 'MM',
     locations: [
       { x: 57, y: 30 },
       { x: 57, y: 31 },
@@ -1312,11 +1312,11 @@ const maps = [
       { x: 58, y: 32 },
     ],
   },
-  { name: 'Laos', abr2letters: 'LA', locations: [{ x: 59, y: 32 }] },
-  { name: 'Cambodia', abr2letters: 'KH', locations: [{ x: 59, y: 34 }] },
+  { name: 'Laos', countryId: 'LA', locations: [{ x: 59, y: 32 }] },
+  { name: 'Cambodia', countryId: 'KH', locations: [{ x: 59, y: 34 }] },
   {
     name: 'Vietnam',
-    abr2letters: 'VT',
+    countryId: 'VT',
     locations: [
       { x: 60, y: 33 },
       { x: 60, y: 34 },
@@ -1324,26 +1324,26 @@ const maps = [
   },
   {
     name: 'Thailand',
-    abr2letters: 'TW',
+    countryId: 'TW',
     locations: [
       { x: 58, y: 33 },
       { x: 58, y: 34 },
       { x: 59, y: 33 },
     ],
   },
-  { name: 'Malaysia', abr2letters: 'MY', locations: [{ x: 58, y: 35 }] },
+  { name: 'Malaysia', countryId: 'MY', locations: [{ x: 58, y: 35 }] },
   {
     name: 'Nepal',
-    abr2letters: 'NP',
+    countryId: 'NP',
     locations: [
       { x: 54, y: 30 },
       { x: 55, y: 30 },
     ],
   },
-  { name: 'Sri Lanka', abr2letters: 'LK', locations: [{ x: 54, y: 35 }] },
+  { name: 'Sri Lanka', countryId: 'LK', locations: [{ x: 54, y: 35 }] },
   {
     name: 'India',
-    abr2letters: 'IN',
+    countryId: 'IN',
     locations: [
       { x: 53, y: 28 },
       { x: 53, y: 29 },
@@ -1361,15 +1361,15 @@ const maps = [
       { x: 53, y: 34 },
     ],
   },
-  { name: 'Singapore', abr2letters: 'SG', locations: [{ x: 59, y: 36 }] },
+  { name: 'Singapore', countryId: 'SG', locations: [{ x: 59, y: 36 }] },
   {
     name: 'Brunei Darussalam',
-    abr2letters: 'BN',
+    countryId: 'BN',
     locations: [{ x: 61, y: 36 }],
   },
   {
     name: 'Indonesia',
-    abr2letters: 'ID',
+    countryId: 'ID',
     locations: [
       { x: 58, y: 36 },
       { x: 59, y: 37 },
@@ -1388,7 +1388,7 @@ const maps = [
   },
   {
     name: 'Papua New Guinea',
-    abr2letters: 'PG',
+    countryId: 'PG',
     locations: [
       { x: 68, y: 38 },
       { x: 68, y: 37 },
@@ -1396,57 +1396,57 @@ const maps = [
   },
   {
     name: 'Philippines',
-    abr2letters: 'PH',
+    countryId: 'PH',
     locations: [
       { x: 63, y: 34 },
       { x: 63, y: 33 },
       { x: 64, y: 35 },
     ],
   },
-  { name: 'East Timor', abr2letters: 'TL', locations: [{ x: 65, y: 38 }] },
-  { name: 'Palau', abr2letters: 'PW', locations: [{ x: 67, y: 35 }] },
-  { name: 'Guam', abr2letters: 'GU', locations: [{ x: 67, y: 34 }] },
+  { name: 'East Timor', countryId: 'TL', locations: [{ x: 65, y: 38 }] },
+  { name: 'Palau', countryId: 'PW', locations: [{ x: 67, y: 35 }] },
+  { name: 'Guam', countryId: 'GU', locations: [{ x: 67, y: 34 }] },
   {
     name: 'Commonwealth of the Northern Mariana Islands',
-    abr2letters: 'MP',
+    countryId: 'MP',
     locations: [{ x: 69, y: 33 }],
   },
   {
     name: 'Marshall Islands',
-    abr2letters: 'MH',
+    countryId: 'MH',
     locations: [{ x: 74, y: 34 }],
   },
-  { name: 'Nauru', abr2letters: 'NR', locations: [{ x: 72, y: 37 }] },
+  { name: 'Nauru', countryId: 'NR', locations: [{ x: 72, y: 37 }] },
   {
     name: 'Solomon Islands',
-    abr2letters: 'SB',
+    countryId: 'SB',
     locations: [
       { x: 70, y: 38 },
       { x: 71, y: 38 },
     ],
   },
-  { name: 'Vanuatu', abr2letters: 'VU', locations: [{ x: 73, y: 40 }] },
+  { name: 'Vanuatu', countryId: 'VU', locations: [{ x: 73, y: 40 }] },
   {
     name: 'New Caledonia',
-    abr2letters: 'NC',
+    countryId: 'NC',
     locations: [
       { x: 72, y: 41 },
       { x: 73, y: 42 },
     ],
   },
-  { name: 'Fiji', abr2letters: 'FJ', locations: [{ x: 75, y: 40 }] },
-  { name: 'Samoa', abr2letters: 'WS', locations: [{ x: 77, y: 40 }] },
-  { name: 'Tonga', abr2letters: 'TO', locations: [{ x: 77, y: 42 }] },
+  { name: 'Fiji', countryId: 'FJ', locations: [{ x: 75, y: 40 }] },
+  { name: 'Samoa', countryId: 'WS', locations: [{ x: 77, y: 40 }] },
+  { name: 'Tonga', countryId: 'TO', locations: [{ x: 77, y: 42 }] },
   {
     name: 'Wallis and Futuna',
-    abr2letters: 'WF',
+    countryId: 'WF',
     locations: [{ x: 75, y: 39 }],
   },
-  { name: 'Kiribati', abr2letters: 'KI', locations: [{ x: 77, y: 36 }] },
-  { name: 'Tuvalu', abr2letters: 'TV', locations: [{ x: 75, y: 37 }] },
+  { name: 'Kiribati', countryId: 'KI', locations: [{ x: 77, y: 36 }] },
+  { name: 'Tuvalu', countryId: 'TV', locations: [{ x: 75, y: 37 }] },
   {
     name: 'New Zealand',
-    abr2letters: 'NZ',
+    countryId: 'NZ',
     locations: [
       { x: 75, y: 45 },
       { x: 75, y: 46 },
@@ -1457,7 +1457,7 @@ const maps = [
   },
   {
     name: 'Australia',
-    abr2letters: 'AU',
+    countryId: 'AU',
     locations: [
       { x: 68, y: 47 },
       { x: 69, y: 45 },
@@ -1503,7 +1503,7 @@ const maps = [
   },
   {
     name: 'Japan',
-    abr2letters: 'JP',
+    countryId: 'JP',
     locations: [
       { x: 65, y: 29 },
       { x: 66, y: 29 },
@@ -1516,7 +1516,7 @@ const maps = [
   },
   {
     name: 'China',
-    abr2letters: 'CN',
+    countryId: 'CN',
     locations: [
       { x: 54, y: 27 },
       { x: 54, y: 28 },
@@ -1573,7 +1573,7 @@ const maps = [
   },
   {
     name: 'Egypt',
-    abr2letters: 'EG',
+    countryId: 'EG',
     locations: [
       { x: 42, y: 30 },
       { x: 42, y: 31 },
@@ -1583,7 +1583,7 @@ const maps = [
   },
   {
     name: 'Libya',
-    abr2letters: 'LY',
+    countryId: 'LY',
     locations: [
       { x: 39, y: 30 },
       { x: 39, y: 31 },
@@ -1593,10 +1593,10 @@ const maps = [
       { x: 41, y: 31 },
     ],
   },
-  { name: 'Tunisia', abr2letters: 'TN', locations: [{ x: 39, y: 29 }] },
+  { name: 'Tunisia', countryId: 'TN', locations: [{ x: 39, y: 29 }] },
   {
-    name: 'Algeria',
-    abr2letters: 'DZ',
+    name: 'geria',
+    countryId: 'DZ',
     locations: [
       { x: 35, y: 30 },
       { x: 36, y: 30 },
@@ -1613,25 +1613,25 @@ const maps = [
   },
   {
     name: 'Morocco',
-    abr2letters: 'MA',
+    countryId: 'MA',
     locations: [
       { x: 35, y: 29 },
       { x: 36, y: 29 },
     ],
   },
-  { name: 'Guinea Bissau', abr2letters: 'BW', locations: [{ x: 33, y: 34 }] },
-  { name: 'Senegal', abr2letters: 'SN', locations: [{ x: 33, y: 33 }] },
-  { name: 'Guinea', abr2letters: 'GN', locations: [{ x: 34, y: 34 }] },
-  { name: 'Sierra Leone', abr2letters: 'SL', locations: [{ x: 33, y: 35 }] },
-  { name: 'Liberia', abr2letters: 'LR', locations: [{ x: 34, y: 35 }] },
-  { name: 'Cote DIvoire', abr2letters: 'CI', locations: [{ x: 35, y: 35 }] },
-  { name: 'Ghana', abr2letters: 'GH', locations: [{ x: 36, y: 35 }] },
-  { name: 'Togo', abr2letters: 'TG', locations: [{ x: 37, y: 35 }] },
-  { name: 'Benin', abr2letters: 'BJ', locations: [{ x: 37, y: 34 }] },
-  { name: 'Burkina Faso', abr2letters: 'BF', locations: [{ x: 36, y: 34 }] },
+  { name: 'Guinea Bissau', countryId: 'BW', locations: [{ x: 33, y: 34 }] },
+  { name: 'Senegal', countryId: 'SN', locations: [{ x: 33, y: 33 }] },
+  { name: 'Guinea', countryId: 'GN', locations: [{ x: 34, y: 34 }] },
+  { name: 'Sierra Leone', countryId: 'SL', locations: [{ x: 33, y: 35 }] },
+  { name: 'Liberia', countryId: 'LR', locations: [{ x: 34, y: 35 }] },
+  { name: 'Cote DIvoire', countryId: 'CI', locations: [{ x: 35, y: 35 }] },
+  { name: 'Ghana', countryId: 'GH', locations: [{ x: 36, y: 35 }] },
+  { name: 'Togo', countryId: 'TG', locations: [{ x: 37, y: 35 }] },
+  { name: 'Benin', countryId: 'BJ', locations: [{ x: 37, y: 34 }] },
+  { name: 'Burkina Faso', countryId: 'BF', locations: [{ x: 36, y: 34 }] },
   {
     name: 'Western Sahara',
-    abr2letters: 'EH',
+    countryId: 'EH',
     locations: [
       { x: 33, y: 32 },
       { x: 34, y: 31 },
@@ -1639,7 +1639,7 @@ const maps = [
   },
   {
     name: 'Mali',
-    abr2letters: 'ML',
+    countryId: 'ML',
     locations: [
       { x: 35, y: 34 },
       { x: 36, y: 33 },
@@ -1649,7 +1649,7 @@ const maps = [
   },
   {
     name: 'Mauritania',
-    abr2letters: 'MR',
+    countryId: 'MR',
     locations: [
       { x: 34, y: 32 },
       { x: 34, y: 33 },
@@ -1658,21 +1658,21 @@ const maps = [
       { x: 35, y: 33 },
     ],
   },
-  { name: 'Cameroon', abr2letters: 'CM', locations: [{ x: 39, y: 35 }] },
+  { name: 'Cameroon', countryId: 'CM', locations: [{ x: 39, y: 35 }] },
   {
     name: 'Equatorial Guinea',
-    abr2letters: 'CQ',
+    countryId: 'CQ',
     locations: [{ x: 39, y: 36 }],
   },
-  { name: 'Gabon', abr2letters: 'GA', locations: [{ x: 39, y: 37 }] },
+  { name: 'Gabon', countryId: 'GA', locations: [{ x: 39, y: 37 }] },
   {
     name: 'Sao Tome and Principe',
-    abr2letters: 'ST',
+    countryId: 'ST',
     locations: [{ x: 38, y: 37 }],
   },
   {
     name: 'Congo',
-    abr2letters: 'CG',
+    countryId: 'CG',
     locations: [
       { x: 40, y: 37 },
       { x: 40, y: 36 },
@@ -1680,7 +1680,7 @@ const maps = [
   },
   {
     name: 'Central African Republic',
-    abr2letters: 'CF',
+    countryId: 'CF',
     locations: [
       { x: 40, y: 35 },
       { x: 41, y: 35 },
@@ -1688,26 +1688,26 @@ const maps = [
   },
   {
     name: 'South Sudan',
-    abr2letters: 'SS',
+    countryId: 'SS',
     locations: [
       { x: 42, y: 35 },
       { x: 43, y: 35 },
     ],
   },
-  { name: 'Uganda', abr2letters: 'UG', locations: [{ x: 44, y: 36 }] },
+  { name: 'Uganda', countryId: 'UG', locations: [{ x: 44, y: 36 }] },
   {
     name: 'Somalia',
-    abr2letters: 'SO',
+    countryId: 'SO',
     locations: [
       { x: 46, y: 36 },
       { x: 47, y: 35 },
     ],
   },
-  { name: 'Djibouti', abr2letters: 'DJ', locations: [{ x: 46, y: 34 }] },
-  { name: 'Eritrea', abr2letters: 'ER', locations: [{ x: 45, y: 33 }] },
+  { name: 'Djibouti', countryId: 'DJ', locations: [{ x: 46, y: 34 }] },
+  { name: 'Eritrea', countryId: 'ER', locations: [{ x: 45, y: 33 }] },
   {
     name: 'Sudan',
-    abr2letters: 'SD',
+    countryId: 'SD',
     locations: [
       { x: 42, y: 32 },
       { x: 42, y: 33 },
@@ -1722,7 +1722,7 @@ const maps = [
   },
   {
     name: 'Niger',
-    abr2letters: 'NE',
+    countryId: 'NE',
     locations: [
       { x: 39, y: 32 },
       { x: 39, y: 33 },
@@ -1731,7 +1731,7 @@ const maps = [
   },
   {
     name: 'Chad',
-    abr2letters: 'TD',
+    countryId: 'TD',
     locations: [
       { x: 40, y: 32 },
       { x: 40, y: 33 },
@@ -1743,7 +1743,7 @@ const maps = [
   },
   {
     name: 'Nigeria',
-    abr2letters: 'NG',
+    countryId: 'NG',
     locations: [
       { x: 38, y: 35 },
       { x: 38, y: 34 },
@@ -1752,7 +1752,7 @@ const maps = [
   },
   {
     name: 'Kenya',
-    abr2letters: 'KE',
+    countryId: 'KE',
     locations: [
       { x: 45, y: 36 },
       { x: 45, y: 37 },
@@ -1760,7 +1760,7 @@ const maps = [
   },
   {
     name: 'Ethiopia',
-    abr2letters: 'ET',
+    countryId: 'ET',
     locations: [
       { x: 44, y: 35 },
       { x: 45, y: 35 },
@@ -1768,11 +1768,11 @@ const maps = [
       { x: 46, y: 35 },
     ],
   },
-  { name: 'Rwanda', abr2letters: 'RW', locations: [{ x: 43, y: 36 }] },
-  { name: 'Burundi', abr2letters: 'BI', locations: [{ x: 43, y: 37 }] },
+  { name: 'Rwanda', countryId: 'RW', locations: [{ x: 43, y: 36 }] },
+  { name: 'Burundi', countryId: 'BI', locations: [{ x: 43, y: 37 }] },
   {
     name: 'Tanzania',
-    abr2letters: 'TZ',
+    countryId: 'TZ',
     locations: [
       { x: 44, y: 37 },
       { x: 44, y: 38 },
@@ -1781,7 +1781,7 @@ const maps = [
   },
   {
     name: 'Mozambique',
-    abr2letters: 'MZ',
+    countryId: 'MZ',
     locations: [
       { x: 45, y: 39 },
       { x: 45, y: 40 },
@@ -1789,21 +1789,21 @@ const maps = [
       { x: 44, y: 41 },
     ],
   },
-  { name: 'Zimbabwe', abr2letters: 'ZW', locations: [{ x: 43, y: 41 }] },
+  { name: 'Zimbabwe', countryId: 'ZW', locations: [{ x: 43, y: 41 }] },
   {
     name: 'Zambia',
-    abr2letters: 'ZM',
+    countryId: 'ZM',
     locations: [
       { x: 43, y: 40 },
       { x: 43, y: 39 },
       { x: 42, y: 40 },
     ],
   },
-  { name: 'Swaziland', abr2letters: 'SZ', locations: [{ x: 44, y: 42 }] },
-  { name: 'Lesotho', abr2letters: 'LS', locations: [{ x: 43, y: 43 }] },
+  { name: 'Swaziland', countryId: 'SZ', locations: [{ x: 44, y: 42 }] },
+  { name: 'Lesotho', countryId: 'LS', locations: [{ x: 43, y: 43 }] },
   {
     name: 'Botswana',
-    abr2letters: 'BW',
+    countryId: 'BW',
     locations: [
       { x: 42, y: 42 },
       { x: 42, y: 41 },
@@ -1812,7 +1812,7 @@ const maps = [
   },
   {
     name: 'South Africa',
-    abr2letters: 'ZA',
+    countryId: 'ZA',
     locations: [
       { x: 43, y: 42 },
       { x: 42, y: 43 },
@@ -1823,7 +1823,7 @@ const maps = [
   },
   {
     name: 'Namibia',
-    abr2letters: 'NA',
+    countryId: 'NA',
     locations: [
       { x: 40, y: 42 },
       { x: 40, y: 41 },
@@ -1832,7 +1832,7 @@ const maps = [
   },
   {
     name: 'Angola',
-    abr2letters: 'AO',
+    countryId: 'AO',
     locations: [
       { x: 40, y: 40 },
       { x: 40, y: 39 },
@@ -1843,7 +1843,7 @@ const maps = [
   },
   {
     name: 'Democratic Republic of the Congo',
-    abr2letters: 'CD',
+    countryId: 'CD',
     locations: [
       { x: 41, y: 38 },
       { x: 41, y: 37 },
@@ -1857,17 +1857,17 @@ const maps = [
   },
   {
     name: 'Madagascar',
-    abr2letters: 'MG',
+    countryId: 'MG',
     locations: [
       { x: 46, y: 42 },
       { x: 47, y: 41 },
       { x: 47, y: 40 },
     ],
   },
-  { name: 'Comoros', abr2letters: 'KM', locations: [{ x: 46, y: 39 }] },
-  { name: 'Mayotte', abr2letters: 'YT', locations: [{ x: 47, y: 39 }] },
-  { name: 'Seychelles', abr2letters: 'SC', locations: [{ x: 48, y: 38 }] },
-  { name: 'Maldives', abr2letters: 'MV', locations: [{ x: 52, y: 35 }] },
-  { name: 'Malawi', abr2letters: 'MW', locations: [{ x: 44, y: 39 }] },
+  { name: 'Comoros', countryId: 'KM', locations: [{ x: 46, y: 39 }] },
+  { name: 'Mayotte', countryId: 'YT', locations: [{ x: 47, y: 39 }] },
+  { name: 'Seychelles', countryId: 'SC', locations: [{ x: 48, y: 38 }] },
+  { name: 'Maldives', countryId: 'MV', locations: [{ x: 52, y: 35 }] },
+  { name: 'Malawi', countryId: 'MW', locations: [{ x: 44, y: 39 }] },
 ];
 export default maps;
