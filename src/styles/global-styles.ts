@@ -4,6 +4,10 @@ import { normalize } from 'styled-normalize';
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
 
+  html, body, #app {
+    height: 100%; 
+  }
+
   body {
     margin: 0;
     padding: 0;

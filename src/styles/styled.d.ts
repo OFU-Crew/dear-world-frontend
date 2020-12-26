@@ -11,10 +11,8 @@ export interface Media {
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    backgroundColor: {
-      first: string;
-      secondary: string;
-    };
+    backgroundColor: Record<string, string>;
+
     color: {
       first: string;
       secondary: string;
