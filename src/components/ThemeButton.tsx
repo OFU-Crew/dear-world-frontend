@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import { THEME, useTheme } from '../hooks/useTheme';
 
-const ThemeButton = () => {
+const ThemeButton: FC = () => {
   const [theme, setTheme] = useTheme();
   const changeTheme = useCallback(
     () => setTheme(theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT),

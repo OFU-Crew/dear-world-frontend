@@ -1,8 +1,6 @@
 // src/styles/theme.ts
 import { DefaultTheme } from 'styled-components';
 
-import { THEME } from '../hooks/useTheme';
-
 const darkTheme: DefaultTheme = {
   backgroundColor: {
     first: '#292a2d',
