@@ -1,17 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Helmet } from 'react-helmet';
 
 import { THEME, useTheme } from '../hooks/useTheme';
-
-const ThemeClassOnBody: FC = () => {
-  const [theme] = useTheme();
-
-  return (
-    <Helmet>
-      <body className={theme} />
-    </Helmet>
-  );
-};
 
 const ThemeButton = () => {
   const [theme, setTheme] = useTheme();
@@ -20,12 +9,7 @@ const ThemeButton = () => {
     [theme, setTheme],
   );
 
-  return (
-    <>
-      <ThemeClassOnBody />
-      <button onClick={changeTheme}>Change Theme</button>
-    </>
-  );
+  return <button onClick={changeTheme}>Change Theme</button>;
 };
 
 export default ThemeButton;

@@ -6,10 +6,13 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+
+import { themes } from '../styles/theme';
 
 export const THEME = {
-  LIGHT: 'light-theme',
-  DARK: 'dark-theme',
+  LIGHT: 'light',
+  DARK: 'dark',
 };
 
 const getMql = () =>
@@ -82,7 +85,11 @@ export const ThemeProvider: FC = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={[theme, updateTheme]}>
-      {children}
+      <StyledThemeProvider
+        theme={theme === THEME.DARK ? themes.dark : themes.light}
+      >
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };
