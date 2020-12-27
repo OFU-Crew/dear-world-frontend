@@ -12,11 +12,7 @@ export interface Media {
 declare module 'styled-components' {
   export interface DefaultTheme {
     backgroundColor: Record<string, string>;
-
-    color: {
-      first: string;
-      secondary: string;
-    };
+    color: Record<string, string>;
     borderColor: string;
     media: Media;
   }

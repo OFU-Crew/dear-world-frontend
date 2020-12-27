@@ -56,8 +56,10 @@ Object.keys(sizes).reduce((acc: Media, label: string) => {
 
 const darkTheme: DefaultTheme = {
   backgroundColor: {
-    first: '#292a2d',
-    secondary: '#3b3d42',
+    body: '#212E5A',
+    activeMenu: '#20D7D7',
+    sendButton: '#F8E36C',
+    sendButtonHover: '#20D7D7',
     level0: '#445282',
     level1: '#F5EEC7',
     level2: '#F5EEC7',
@@ -66,8 +68,12 @@ const darkTheme: DefaultTheme = {
     level5: '#F8E26C',
   },
   color: {
-    first: '#a9a9b3',
-    secondary: '#73747b',
+    message: '#212E5A',
+    menu: '#F4F7FF',
+    activeMenu: '#212E5A',
+    sendButton: '#212E5A',
+    sendButtonHover: '#212E5A',
+    messageCount: '#F8E36C',
   },
   borderColor: '#4a4b50',
   media,
@@ -75,8 +81,10 @@ const darkTheme: DefaultTheme = {
 
 const lightTheme: DefaultTheme = {
   backgroundColor: {
-    first: '#f4f7ff',
-    secondary: '#eaeaea',
+    body: '#F4F7FF',
+    activeMenu: '#212E5A',
+    sendButton: '#20D7D7',
+    sendButtonHover: '#212E5A',
     level0: '#E5EAFF',
     level1: '#94FBFB',
     level2: '#77F1F1',
@@ -85,8 +93,12 @@ const lightTheme: DefaultTheme = {
     level5: '#07C9C9',
   },
   color: {
-    first: '#212e5a',
-    secondary: '#999',
+    message: '#212E5A',
+    menu: '#212E5A',
+    activeMenu: '#F4F7FF',
+    sendButton: '#F4F7FF',
+    sendButtonHover: '#20D7D7',
+    messageCount: '#2AD9D9',
   },
   borderColor: '#dcdcdc',
   media,

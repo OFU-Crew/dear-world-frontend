@@ -15,8 +15,7 @@ export const GlobalStyle = createGlobalStyle`
         'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    background-color: ${props => props.theme.backgroundColor.first};
-    color: ${props => props.theme.color.first};
+    background-color: ${props => props.theme.backgroundColor.body};
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
     -webkit-text-size-adjust: 100%;
