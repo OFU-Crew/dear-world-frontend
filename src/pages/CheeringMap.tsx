@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PixelMap from '../components/PixelMap';
+import { Layout, PixelMap } from '../components';
 
 const CheeringMapWrapper = styled.div`
   width: 100%;
@@ -103,12 +103,14 @@ const data = [
 
 const CheeringMap = () => {
   return (
-    <CheeringMapWrapper>
-      <PixelMapWrapper>
-        <PixelMap cellSize={9} countries={data} />
-      </PixelMapWrapper>
-      <CheerRankWRapper>Cheer Rank</CheerRankWRapper>
-    </CheeringMapWrapper>
+    <Layout>
+      <CheeringMapWrapper>
+        <PixelMapWrapper>
+          <PixelMap cellSize={9} countries={data} />
+        </PixelMapWrapper>
+        <CheerRankWRapper>Cheer Rank</CheerRankWRapper>
+      </CheeringMapWrapper>
+    </Layout>
   );
 };
 

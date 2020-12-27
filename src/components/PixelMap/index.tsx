@@ -5,13 +5,14 @@ import maps from './maps';
 
 const PixelMapWrapper = styled.div<{
   cellSize: number;
-}>`grid-template-rows: ${props => `repeat(52, ${props.cellSize}px)`};
-grid-template-columns: ${props => `repeat(78, ${props.cellSize}px)`};
-display: grid;
-gap: 1px;
-justify-items: center;
-align-items: center;
-}`;
+}>`
+  grid-template-rows: ${props => `repeat(52, ${props.cellSize}px)`};
+  grid-template-columns: ${props => `repeat(78, ${props.cellSize}px)`};
+  display: grid;
+  gap: 1px;
+  justify-items: center;
+  align-items: center;
+`;
 
 const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
   style: {
