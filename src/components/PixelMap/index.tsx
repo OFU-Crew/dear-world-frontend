@@ -3,15 +3,16 @@ import styled from 'styled-components';
 
 import maps from './maps';
 
-const PixelMapWrapper = styled.div`grid-template-rows: repeat(52, 1fr);
-grid-template-columns: repeat(78, 1fr);
-display: grid;
-gap: 1px;
-justify-items: center;
-align-items: center;
-width: 100%;
-height: 100%;
-}`;
+const PixelMapWrapper = styled.div`
+  grid-template-rows: repeat(52, 1fr);
+  grid-template-columns: repeat(78, 1fr);
+  display: grid;
+  gap: 1px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
 
 const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
   style: {

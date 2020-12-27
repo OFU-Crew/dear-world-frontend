@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CheerRank from '../components/CheerRank';
-import PixelMap from '../components/PixelMap';
+import { CheerRank, Layout, PixelMap } from '../components';
 
 const CheeringMapWrapper = styled.div`
   width: 100%;
@@ -95,12 +94,14 @@ const data = [
 
 const CheeringMap = () => {
   return (
-    <CheeringMapWrapper>
-      <PixelMapWrapper>
-        <PixelMap countries={data} />
-      </PixelMapWrapper>
-      <CheerRank countries={data} />
-    </CheeringMapWrapper>
+    <Layout>
+      <CheeringMapWrapper>
+        <PixelMapWrapper>
+          <PixelMap countries={data} />
+        </PixelMapWrapper>
+        <CheerRank countries={data} />
+      </CheeringMapWrapper>
+    </Layout>
   );
 };
 
