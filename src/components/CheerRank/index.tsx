@@ -22,12 +22,13 @@ const CheerRankList = styled.div`
   height: 90%;
   margin-left: 16px;
   margin-right: 16px;
+  margin-top: 16px;
+  row-gap: 10px;
 `;
 
 const CheerRankItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 8fr;
-  align-items: center;
   column-gap: 10px;
 `;
 
@@ -37,6 +38,7 @@ const CheerRankNumber = styled.div<{ index: number }>`
   font-size: 11px;
   line-height: 13px;
   color: ${props => ([0, 1, 2].includes(props.index) ? '#20d7d7' : '442852')};
+  text-align: center;
 `;
 
 const CheerRankCountry = styled.div`
@@ -54,7 +56,6 @@ const CountryMessageCount = styled.span`
   font-size: 12px;
   line-height: 14px;
   font-weight: normal;
-  margin-top: 5px;
 `;
 
 const convertNumberToOrdinalNumber = (n: number) => {
@@ -93,7 +94,8 @@ const CheerRank = ({
             <CheerRankCountry>
               <CountryName>{country.country.fullName}</CountryName>
               <CountryMessageCount>
-                <Emoji code="✉️" /> {country.messageCount}
+                <img className="emoji" src="message-icon.svg" />
+                {`  ${country.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
           </CheerRankItem>
