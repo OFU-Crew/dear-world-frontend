@@ -10,11 +10,17 @@ const LayoutWrapper = styled.div`
   flex-direction: column;
 `;
 
+const Main = styled.main`
+  display: flex;
+  padding: 50px;
+  height: 100%;
+`;
+
 const Layout: FC = ({ children }) => {
   return (
     <LayoutWrapper>
       <Header />
-      {children}
+      <Main>{children}</Main>
     </LayoutWrapper>
   );
 };
