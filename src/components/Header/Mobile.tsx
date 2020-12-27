@@ -20,23 +20,6 @@ const LeftWrapper = styled.span`
   position: relative;
 `;
 
-const Menu = styled(NavLink)`
-  width: 135px;
-  height: 45px;
-  border-radius: 9px;
-  margin-left: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: ${props => props.theme.color.menu};
-
-  &.selected {
-    background: ${props => props.theme.backgroundColor.activeMenu};
-    color: ${props => props.theme.color.activeMenu};
-  }
-`;
-
 const RightWrapper = styled.span`
   display: flex;
   position: relative;
