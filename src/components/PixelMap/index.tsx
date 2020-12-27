@@ -3,15 +3,15 @@ import styled from 'styled-components';
 
 import maps from './maps';
 
-const PixelMapWrapper = styled.div<{
-  cellSize: number;
-}>`
-  grid-template-rows: ${props => `repeat(52, ${props.cellSize}px)`};
-  grid-template-columns: ${props => `repeat(78, ${props.cellSize}px)`};
+const PixelMapWrapper = styled.div`
+  grid-template-rows: repeat(52, 1fr);
+  grid-template-columns: repeat(78, 1fr);
   display: grid;
   gap: 1px;
   justify-items: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
@@ -28,10 +28,8 @@ const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
 `;
 
 const PixelMap = ({
-  cellSize,
   countries,
 }: {
-  cellSize: number;
   countries: {
     country: {
       id: number;
@@ -46,7 +44,7 @@ const PixelMap = ({
   }[];
 }) => {
   return (
-    <PixelMapWrapper cellSize={cellSize}>
+    <PixelMapWrapper>
       {maps.map(({ name, locations, countryId }) => {
         const level =
           countries.filter(item => item.country.code === countryId)[0]?.level ??
