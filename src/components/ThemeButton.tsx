@@ -1,6 +1,13 @@
 import React, { FC, useCallback } from 'react';
+import styled from 'styled-components';
 
 import { THEME, useTheme } from '../hooks/useTheme';
+
+const ThemeButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+`;
 
 const ThemeButton: FC = () => {
   const [theme, setTheme] = useTheme();
@@ -9,7 +16,11 @@ const ThemeButton: FC = () => {
     [theme, setTheme],
   );
 
-  return <button onClick={changeTheme}>Change Theme</button>;
+  return (
+    <ThemeButtonWrapper>
+      <button onClick={changeTheme}>Change Theme</button>
+    </ThemeButtonWrapper>
+  );
 };
 
 export default ThemeButton;
