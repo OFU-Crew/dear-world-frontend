@@ -5,13 +5,8 @@ import baseStyled, {
   ThemedStyledInterface,
 } from 'styled-components';
 
+import { sizes } from '../constants';
 import { Media } from './styled';
-
-const sizes: { [key: string]: number } = {
-  mobile: 320,
-  tablet: 768,
-  desktop: 1024,
-};
 
 type BackQuoteArgs = string[];
 
