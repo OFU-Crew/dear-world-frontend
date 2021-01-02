@@ -45,7 +45,7 @@ const NotFound: FC<RouteComponentProps> = ({ history }) => {
   return (
     <Layout>
       <Wrapper>
-        <Image src="not-found.svg" />
+        <Image src="/not-found.svg" />
         <MessageWrapper>Ooops..</MessageWrapper>
         <MessageWrapper>This page does not exist</MessageWrapper>
         <BackButton onClick={goHome}>Go to main page</BackButton>

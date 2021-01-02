@@ -54,7 +54,7 @@ const Logo: FC<LogoProps> = props => {
   return (
     <LogoWrapper>
       <img
-        src={props.theme === THEME.DARK ? 'logo-dark.svg' : 'logo-light.svg'}
+        src={props.theme === THEME.DARK ? '/logo-dark.svg' : '/logo-light.svg'}
       />
       <MessageCountBadge>{`+${props.messageCount || 34.5}K`}</MessageCountBadge>
     </LogoWrapper>
