@@ -37,15 +37,21 @@ const BackButton = styled.button`
   color: ${props => props.theme.color.menu};
 `;
 
-const NotFound: FC<RouteComponentProps> = ({ history }) => (
-  <Layout>
-    <Wrapper>
-      <Image src="not-found.svg" />
-      <MessageWrapper>Ooops..</MessageWrapper>
-      <MessageWrapper>This page does not exist</MessageWrapper>
-      <BackButton onClick={history.goBack}>Go to main page</BackButton>
-    </Wrapper>
-  </Layout>
-);
+const NotFound: FC<RouteComponentProps> = ({ history }) => {
+  const goHome = () => {
+    history.push('/');
+  };
+
+  return (
+    <Layout>
+      <Wrapper>
+        <Image src="not-found.svg" />
+        <MessageWrapper>Ooops..</MessageWrapper>
+        <MessageWrapper>This page does not exist</MessageWrapper>
+        <BackButton onClick={goHome}>Go to main page</BackButton>
+      </Wrapper>
+    </Layout>
+  );
+};
 
 export default NotFound;
