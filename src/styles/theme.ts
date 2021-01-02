@@ -80,6 +80,7 @@ const lightTheme: DefaultTheme = {
     activeMenu: '#212E5A',
     sendButton: '#20D7D7',
     sendButtonHover: '#212E5A',
+    card: '#fff',
     level0: '#E5EAFF',
     level1: '#94FBFB',
     level2: '#77F1F1',
@@ -90,6 +91,7 @@ const lightTheme: DefaultTheme = {
   color: {
     message: '#212E5A',
     menu: '#212E5A',
+    card: '#212E5A',
     activeMenu: '#F4F7FF',
     sendButton: '#F4F7FF',
     sendButtonHover: '#20D7D7',
