@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { size } from 'twemoji';
 
 import { CheerRank, Layout, PixelMap } from '../components';
 
@@ -7,9 +8,17 @@ const CheeringMapWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  justify-content: space-around;
   gap: 60px;
-  grid-template-columns: 70% 310px;
+
+  ${({ theme }) => theme.media.desktop`
+    grid-template-columns: 70% 310px;
+  `};
+  ${({ theme }) => theme.media.tablet`
+  grid-template-rows: 400px auto;
+`};
+  ${({ theme }) => theme.media.mobile`
+  grid-template-rows: 300px auto;
+`};
 `;
 
 const PixelMapWrapper = styled.div`

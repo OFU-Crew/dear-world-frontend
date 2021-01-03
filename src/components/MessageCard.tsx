@@ -44,7 +44,7 @@ const HeaderImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(message-bg.svg) no-repeat center;
+  background: url(/message-bg.svg) no-repeat center;
   background-size: cover;
   margin-right: 12px;
 `;
@@ -83,25 +83,39 @@ const MessageFooter = styled.div`
   align-items: center;
 `;
 
-const MeesageHeart = styled.img`
+const MessageHeart = styled.img`
   margin-right: 4px;
 `;
 
-const MeesageButton = styled.button<{ background: boolean; like: boolean }>`
+const LikeWrapper = styled.div<{ like: boolean }>`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: ${props => (props.like ? '#fa3766' : '#d6ddfb')};
+`;
+
+const LikeButton = styled.button`
   flex: 0 0 48px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${props =>
-    props.background ? 'url(message-bg.svg) no-repeat center' : '#fff'};
+  background: #fff;
   background-size: cover;
   border-style: none;
-  color: ${props => (props.like ? '#fa3766' : '#212e5a')};
-  font-size: 14px;
-  font-weight: 400;
 `;
 
+const ShareButton = styled.button`
+  flex: 0 0 48px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(share-bg.svg) no-repeat center;
+  background-size: cover;
+  border-style: none;
+`;
 const MessageCard = () => {
   return (
     <MessageCardWrapper>
@@ -123,15 +137,18 @@ const MessageCard = () => {
       </MessageHeader>
       <Contents>{data.content}</Contents>
       <MessageFooter>
-        <MeesageButton background={false} like={data.like}>
-          <MeesageHeart
-            src={data.like ? 'heart-activate.svg' : 'heart-inactivate.svg'}
-          />
+        <LikeWrapper like={data.like}>
+          <LikeButton>
+            <MessageHeart
+              src={data.like ? 'heart-activate.svg' : 'heart-inactivate.svg'}
+            />
+          </LikeButton>
           {data.likeCount}
-        </MeesageButton>
-        <MeesageButton background={true} like={data.like}>
+        </LikeWrapper>
+
+        <ShareButton>
           <img src="share-icon.svg"></img>
-        </MeesageButton>
+        </ShareButton>
       </MessageFooter>
     </MessageCardWrapper>
   );
