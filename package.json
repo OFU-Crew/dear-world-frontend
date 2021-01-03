@@ -24,11 +24,12 @@
   "dependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "axios": "^0.21.1",
     "@types/twemoji": "^12.1.1",
+    "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "recoil": "^0.1.2",
     "styled-components": "^5.2.1",
     "styled-normalize": "^8.0.7",
     "twemoji": "^13.0.1"

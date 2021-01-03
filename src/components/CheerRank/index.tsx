@@ -69,16 +69,17 @@ const CheerRank = ({
   countries,
 }: {
   countries: {
-    country: {
+    countryStatus: {
       id: number;
-      code: string;
-      fullName: string;
-      emojiUnicode: string;
+      level: number;
+      likeCount: string;
+      messageCount: number;
+      population: string;
     };
-    messageCount: number;
-    likeCount: number;
-    population: number;
-    level: number;
+    emojiUnicode: string;
+    code: string;
+    fullName: string;
+    id: string;
   }[];
 }) => {
   return (
@@ -86,16 +87,16 @@ const CheerRank = ({
       <CheerRankTitle>Cheer Rank</CheerRankTitle>
       <CheerRankList>
         {countries.map((country, index) => (
-          <CheerRankItem key={country.country.code}>
+          <CheerRankItem key={country.code}>
             <CheerRankNumber index={index}>
               {convertNumberToOrdinalNumber(index + 1)}
             </CheerRankNumber>
-            <Emoji code={country.country.emojiUnicode} />
+            <Emoji code={country.emojiUnicode} />
             <CheerRankCountry>
-              <CountryName>{country.country.fullName}</CountryName>
+              <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
                 <img className="emoji" src="/message-icon.svg" />
-                {`  ${country.messageCount}`}
+                {`  ${country.countryStatus.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
           </CheerRankItem>
