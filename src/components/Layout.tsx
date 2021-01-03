@@ -12,10 +12,14 @@ const LayoutWrapper = styled.div`
 
 const Main = styled.main`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 50px;
+  margin: 0 auto;
+  width: 1200px;
+  max-width: 100%;
   height: 100%;
+  padding: 20px;
+  position: relative;
 `;
 
 const Layout: FC = ({ children }) => {
