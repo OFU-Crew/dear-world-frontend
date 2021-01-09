@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://52.79.222.79/api/v1',
+  baseURL: 'https://api.dear-world.live/api/v1',
   timeout: 30000,
 });
 
