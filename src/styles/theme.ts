@@ -46,6 +46,7 @@ const darkTheme: DefaultTheme = {
     activeMenu: '#20D7D7',
     sendButton: '#F8E36C',
     sendButtonHover: '#20D7D7',
+    cheerRank: '#2E3D6D',
     level0: '#445282',
     level1: '#9D9D9C',
     level2: '#E3DAA7',
@@ -60,8 +61,9 @@ const darkTheme: DefaultTheme = {
     sendButton: '#212E5A',
     sendButtonHover: '#212E5A',
     messageCount: '#F8E36C',
+    cheerCount: '#D6DDFB',
   },
-  borderColor: '#4a4b50',
+  borderColor: '#445282',
   media,
 };
 
@@ -71,6 +73,7 @@ const lightTheme: DefaultTheme = {
     activeMenu: '#212E5A',
     sendButton: '#20D7D7',
     sendButtonHover: '#212E5A',
+    cheerRank: '#fff',
     card: '#fff',
     level0: '#E5EAFF',
     level1: '#94FBFB',
@@ -87,8 +90,9 @@ const lightTheme: DefaultTheme = {
     sendButton: '#F4F7FF',
     sendButtonHover: '#20D7D7',
     messageCount: '#2AD9D9',
+    cheerCount: '#445282',
   },
-  borderColor: '#dcdcdc',
+  borderColor: '#F4F7FF',
   media,
 };
 

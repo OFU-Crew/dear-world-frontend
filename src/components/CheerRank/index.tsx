@@ -5,15 +5,20 @@ import Emoji from '../Emoji';
 
 const CheerRankWrapper = styled.div`
   border-radius: 10px;
-  background-color: #fff;
+  background-color: ${props => props.theme.backgroundColor.cheerRank};
   font-size: 20px;
   font-weight: bold;
 `;
 
 const CheerRankTitle = styled.div`
-  border-bottom: 3px solid #f4f7ff;
-  color: #212e5a;
   padding: 16px 0 16px 20px;
+
+  border-bottom: 3px solid ${props => props.theme.borderColor};
+  color: ${props => props.theme.color.menu};
+
+  ${({ theme }) => theme.media.mobile`
+    font-size: 16px;
+  `};
 `;
 
 const CheerRankList = styled.div`
@@ -24,6 +29,11 @@ const CheerRankList = styled.div`
   margin-right: 16px;
   margin-top: 16px;
   row-gap: 10px;
+
+  ${({ theme }) => theme.media.mobile`
+    padding-bottom: 10px;
+    box-sizing: border-box;
+  `};
 `;
 
 const CheerRankItem = styled.div`
@@ -36,8 +46,9 @@ const CheerRankNumber = styled.div<{ index: number }>`
   font-style: italic;
   font-weight: bold;
   font-size: 11px;
-  line-height: 13px;
-  color: ${props => ([0, 1, 2].includes(props.index) ? '#20d7d7' : '442852')};
+  line-height: 18px;
+  color: ${props =>
+    [0, 1, 2].includes(props.index) ? '#20d7d7' : props.theme.color.menu};
   text-align: center;
 `;
 
@@ -46,16 +57,32 @@ const CheerRankCountry = styled.div`
   flex-wrap: wrap;
 `;
 
-const CountryName = styled.span`
+const CountryName = styled.div`
   flex: 0 0 100%;
   font-size: 14px;
   line-height: 17px;
+  height: 10px;
+
+  color: ${props => props.theme.color.menu};
+
+  ${({ theme }) => theme.media.mobile`
+    font-size: 12px;
+    line-height: 18px;
+    height: 20px;
+  `}
 `;
 const CountryMessageCount = styled.span`
   flex: 0 0 100%;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 13px;
+  line-height: 15px;
   font-weight: normal;
+
+  color: ${props => props.theme.color.cheerCount};
+
+  ${({ theme }) => theme.media.mobile`
+    font-size: 12px;
+    line-height: 14px;
+  `}
 `;
 
 const convertNumberToOrdinalNumber = (n: number) => {
@@ -96,7 +123,7 @@ const CheerRank = ({
               <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
                 <img className="emoji" src="/message-icon.svg" />
-                {`  ${country.countryStatus.messageCount}`}
+                {`   ${country.countryStatus.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
           </CheerRankItem>
