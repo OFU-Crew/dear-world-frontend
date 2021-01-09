@@ -1,69 +1,62 @@
-import React, { useMemo } from 'react';
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 
 import maps from './maps';
 
-//TODO: styled-component로 재작성
-const appStyle = {
-  display: 'grid',
-  width: '100vh',
-  height: '50vh',
-  gap: '1px',
-  justifyItems: 'center',
-  aliginItems: 'center',
-};
+const PixelMapWrapper = styled.div`
+  grid-template-rows: repeat(52, 1fr);
+  grid-template-columns: repeat(78, 1fr);
+  display: grid;
+  gap: 1px;
+  width: 100%;
+  height: 100%;
+`;
 
-const Cell = ({
-  name,
-  x,
-  y,
-  color,
+const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
+  style: {
+    gridColumn: `${x}/${x}`,
+    gridRow: `${y}/${y}`,
+  },
+}))<{ x: number; y: number; level: number }>`
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  background-color: ${props =>
+    props.theme.backgroundColor[`level${props.level}`]};
+`;
+
+const PixelMap = ({
+  countries,
 }: {
-  name: string;
-  x: number;
-  y: number;
-  color: string;
+  countries: {
+    countryStatus: {
+      id: number;
+      level: number;
+      likeCount: string;
+      population: string;
+    };
+    emojiUnicode: string;
+    code: string;
+    fullName: string;
+    id: string;
+  }[];
 }) => {
-  const cellStyle = useMemo(
-    () => ({
-      gridColumn: `${x}/${x}`,
-      gridRow: `${y}/${y}`,
-      width: '85%',
-      height: '85%',
-      backgroundColor: color,
-      borderRadius: '50%',
-    }),
-    [x, y, color],
-  );
-
-  return <div id={name} style={cellStyle} />;
-};
-
-function PixelMap({ cellSize }: { cellSize: number }) {
   return (
-    <div
-      style={{
-        ...appStyle,
-        gridTemplateRows: `repeat(52, ${cellSize}px)`,
-        gridTemplateColumns: `repeat(78, ${cellSize}px)`,
-      }}
-      id="map"
-    >
-      {maps.map(({ name, locations }) => {
+    <PixelMapWrapper>
+      {maps.map(({ name, locations, countryId }) => {
+        const level =
+          countries.filter(item => item.code === countryId)[0]?.countryStatus
+            .level ?? 0;
+
         return (
-          <>
+          <Fragment key={name}>
             {locations.map(({ x, y }) => (
-              <Cell
-                key={`${name}_${x}_${y}`}
-                name={name}
-                x={x}
-                y={y}
-                color="#e5eafe"
-              />
+              <Cell key={`${name}_${x}_${y}`} x={x} y={y} level={level} />
             ))}
-          </>
+          </Fragment>
         );
       })}
-    </div>
+    </PixelMapWrapper>
   );
-}
+};
 export default PixelMap;
