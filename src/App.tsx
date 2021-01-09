@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 

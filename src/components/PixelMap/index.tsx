@@ -31,24 +31,24 @@ const PixelMap = ({
   countries,
 }: {
   countries: {
-    country: {
+    countryStatus: {
       id: number;
-      code: string;
-      fullName: string;
-      emojiUnicode: string;
+      level: number;
+      likeCount: string;
+      population: string;
     };
-    messageCount: number;
-    likeCount: number;
-    population: number;
-    level: number;
+    emojiUnicode: string;
+    code: string;
+    fullName: string;
+    id: string;
   }[];
 }) => {
   return (
     <PixelMapWrapper>
       {maps.map(({ name, locations, countryId }) => {
         const level =
-          countries.filter(item => item.country.code === countryId)[0]?.level ??
-          0;
+          countries.filter(item => item.code === countryId)[0]?.countryStatus
+            .level ?? 0;
 
         return (
           <Fragment key={name}>

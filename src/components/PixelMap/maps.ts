@@ -1098,7 +1098,7 @@ const maps = [
   { name: 'San Marino', countryId: 'SM', locations: [{ x: 39, y: 26 }] },
   { name: 'Germany', countryId: 'DE', locations: [{ x: 39, y: 23 }] },
   { name: 'Netherlands', countryId: 'NL', locations: [{ x: 38, y: 23 }] },
-  { name: 'Belgium', countryId: 'NL', locations: [{ x: 37, y: 24 }] },
+  { name: 'Belgium', countryId: 'BE', locations: [{ x: 37, y: 24 }] },
   { name: 'Luxembourg', countryId: 'LU', locations: [{ x: 38, y: 24 }] },
   { name: 'Liechtenstein', countryId: 'LI', locations: [{ x: 39, y: 24 }] },
   { name: 'Poland', countryId: 'PL', locations: [{ x: 41, y: 23 }] },
