@@ -9,9 +9,11 @@ const DesktopHeaderWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  width: 1200px;
-  max-width: 100%;
+  max-width: 1240px;
+  width: 100%;
+  min-width: 1000px;
   padding: 20px;
+  box-sizing: border-box;
   position: relative;
 `;
 

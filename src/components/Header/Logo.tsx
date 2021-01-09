@@ -15,12 +15,6 @@ const LogoWrapper = styled.div`
     display: none;
   }
 
-  ${({ theme }) => theme.media.tablet`
-    span {
-        display: inline;
-    }
-  `};
-
   ${({ theme }) => theme.media.mobile`
     span {
         display: inline;
