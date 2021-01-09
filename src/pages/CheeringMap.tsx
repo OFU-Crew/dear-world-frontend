@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { getCountriesCount } from '../apis';
 import { CheerRank, Layout, PixelMap } from '../components';
+import { sizes } from '../constants';
+import { useWindowDimensions } from '../hooks';
 import { countriesCountState, countriesRankState } from '../modules/countries';
 
 const CheeringMapWrapper = styled.div`
@@ -22,6 +24,14 @@ const CheeringMapWrapper = styled.div`
   `};
 `;
 
+const CheeringMapTitle = styled.div`
+  font-size: 22px;
+  font-weight: bold;
+  margin: 28px 36px;
+
+  color: ${props => props.theme.color.menu};
+`;
+
 const AsyncCheerRank = () => {
   const ranking = useRecoilValue(countriesRankState);
 
@@ -35,8 +45,13 @@ const AsyncPixelMap = () => {
 };
 
 const CheeringMap = () => {
+  const [width] = useWindowDimensions();
+
   return (
     <Layout>
+      {width < sizes.desktop && (
+        <CheeringMapTitle>Cheering Map</CheeringMapTitle>
+      )}
       <CheeringMapWrapper>
         <Suspense fallback={<div />}>
           <AsyncPixelMap />

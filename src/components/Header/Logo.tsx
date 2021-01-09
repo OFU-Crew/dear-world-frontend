@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { THEME } from '../../hooks/useTheme';
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +16,7 @@ const LogoWrapper = styled.div`
   }
 
   ${({ theme }) => theme.media.mobile`
+    margin: 0px;
     span {
         display: inline;
     }

@@ -13,7 +13,7 @@ const Header: FC<HeaderProps> = props => {
   const [theme] = useTheme();
   const [width] = useWindowDimensions();
 
-  return width < sizes.mobile ? (
+  return width < sizes.desktop ? (
     <MobileHeader theme={theme} messageCount={props.messageCount!} />
   ) : (
     <DesktopHeader theme={theme} />

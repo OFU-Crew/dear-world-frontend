@@ -27,7 +27,7 @@ const Main = styled.main`
     margin: 0 auto;
     width: 100%;
     min-width: 200px;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     box-sizing: border-box;
   `};
 `;
