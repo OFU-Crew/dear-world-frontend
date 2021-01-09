@@ -27,4 +27,14 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 .05em 0 .1em;
     vertical-align: -0.1em;
  }
+
+  button {
+    outline: 0;
+    cursor: pointer;
+  }
+
+  ul {
+    list-style:none;
+    padding-left:0px;
+  }
 `;
