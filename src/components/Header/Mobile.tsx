@@ -6,12 +6,11 @@ import Logo from './Logo';
 
 const MobileHeaderWrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
-  width: 1200px;
-  max-width: 100%;
+  width: 100%;
+  min-width: 200px;
   padding: 20px;
+  box-sizing: border-box;
   position: relative;
 `;
 

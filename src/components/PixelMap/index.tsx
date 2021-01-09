@@ -8,8 +8,6 @@ const PixelMapWrapper = styled.div`
   grid-template-columns: repeat(78, 1fr);
   display: grid;
   gap: 1px;
-  justify-items: center;
-  align-items: center;
   width: 100%;
   height: 100%;
 `;

@@ -15,11 +15,21 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 1200px;
-  max-width: 100%;
+  max-width: 1240px;
+  width: 100%;
+  min-width: 1000px;
   height: 100%;
-  padding: 20px;
+  padding: 53px 20px;
+  box-sizing: border-box;
   position: relative;
+
+  ${({ theme }) => theme.media.mobile`
+    margin: 0 auto;
+    width: 100%;
+    min-width: 200px;
+    padding: 0 20px 20px 20px;
+    box-sizing: border-box;
+  `};
 `;
 
 const Layout: FC = ({ children }) => {
