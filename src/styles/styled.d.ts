@@ -5,7 +5,6 @@ import { THEME } from '../hooks/useTheme';
 
 export interface Media {
   mobile: (...args: BackQuoteArgs) => CSSProp | undefined;
-  tablet: (...args: BackQuoteArgs) => CSSProp | undefined;
   desktop: (...args: BackQuoteArgs) => CSSProp | undefined;
 }
 

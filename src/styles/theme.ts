@@ -12,7 +12,6 @@ type BackQuoteArgs = string[];
 
 const media: Media = {
   mobile: (...args: BackQuoteArgs) => undefined,
-  tablet: (...args: BackQuoteArgs) => undefined,
   desktop: (...args: BackQuoteArgs) => undefined,
 };
 
@@ -26,19 +25,10 @@ Object.keys(sizes).reduce((acc: Media, label: string) => {
           }
         `;
       break;
-    case 'tablet':
-      acc.tablet = (...args: BackQuoteArgs) =>
-        css`
-          @media only screen and (max-width: ${sizes.desktop -
-            1}px) and (min-width: ${sizes.tablet}px) {
-            ${args}
-          }
-        `;
-      break;
     case 'mobile':
       acc.mobile = (...args: BackQuoteArgs) =>
         css`
-          @media only screen and (max-width: ${sizes.tablet}px) {
+          @media only screen and (max-width: ${sizes.mobile}px) {
             ${args}
           }
         `;
