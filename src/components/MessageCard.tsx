@@ -44,7 +44,7 @@ const HeaderImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(/message-bg.svg) no-repeat center;
+  background: url(/images/message-bg.svg) no-repeat center;
   background-size: cover;
   margin-right: 12px;
 `;
@@ -112,10 +112,11 @@ const ShareButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(share-bg.svg) no-repeat center;
+  background: url(/images/share-bg.svg) no-repeat center;
   background-size: cover;
   border-style: none;
 `;
+
 const MessageCard = () => {
   return (
     <MessageCardWrapper>
@@ -140,14 +141,18 @@ const MessageCard = () => {
         <LikeWrapper like={data.like}>
           <LikeButton>
             <MessageHeart
-              src={data.like ? 'heart-activate.svg' : 'heart-inactivate.svg'}
+              src={
+                data.like
+                  ? '/images/heart-activate.svg'
+                  : '/images/heart-inactivate.svg'
+              }
             />
           </LikeButton>
           {data.likeCount}
         </LikeWrapper>
 
         <ShareButton>
-          <img src="share-icon.svg"></img>
+          <img src="/images/share-icon.svg"></img>
         </ShareButton>
       </MessageFooter>
     </MessageCardWrapper>

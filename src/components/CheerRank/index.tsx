@@ -122,7 +122,7 @@ const CheerRank = ({
             <CheerRankCountry>
               <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
-                <img className="emoji" src="/message-icon.svg" />
+                <img className="emoji" src="/images/message-icon.svg" />
                 {`   ${country.countryStatus.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
