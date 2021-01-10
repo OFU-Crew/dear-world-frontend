@@ -18,7 +18,7 @@ const ToggleButton = styled.button`
   font-weight: 700;
   text-align: left;
   margin-right: 20px;
-  background: 14px 8px no-repeat url('/arrow.svg');
+  background: 14px 8px no-repeat url('/images/arrow.svg');
   background-position: bottom 50% right 18px;
   border-radius: 10px;
   -webkit-appearance: none;
