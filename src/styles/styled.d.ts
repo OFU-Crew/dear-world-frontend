@@ -1,7 +1,7 @@
 // src/styles/styled.d.ts
 import 'styled-components';
 
-import { THEME } from '../hooks/useTheme';
+import { THEME } from '../hooks';
 
 export interface Media {
   desktop: (...args: BackQuoteArgs) => CSSProp | undefined;

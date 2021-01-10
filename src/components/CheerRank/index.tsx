@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Emoji from '../Emoji';
+import Emoji from '../common/Emoji';
 
 const CheerRankWrapper = styled.div`
   border-radius: 10px;

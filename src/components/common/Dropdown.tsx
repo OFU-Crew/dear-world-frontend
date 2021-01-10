@@ -1,8 +1,7 @@
-import React, { Children, FC, useRef, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { FC, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useOnClickOutside } from '../hooks';
+import { useOnClickOutside } from '../../hooks';
 
 const Wrapper = styled.div`
   position: relative;

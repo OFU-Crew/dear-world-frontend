@@ -2,8 +2,8 @@ import React, { FC, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { countriesSelector } from '../store';
-import Dropdown from './Dropdown';
+import { countriesSelector } from '../../store';
+import Dropdown from '../common/Dropdown';
 
 const Wrapper = styled.div`
   width: 100%;
