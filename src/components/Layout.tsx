@@ -19,7 +19,7 @@ const Main = styled.main`
   width: 100%;
   min-width: 1000px;
   height: 100%;
-  padding: 53px 20px;
+  padding: 20px;
   box-sizing: border-box;
   position: relative;
 
