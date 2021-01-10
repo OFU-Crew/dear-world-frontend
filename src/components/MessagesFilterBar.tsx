@@ -25,10 +25,10 @@ const MessageUnit = styled.span`
   font-size: 25px;
 `;
 
-const ContriesFilter: FC = () => {
+const CountriesFilter: FC = () => {
   const countries = useRecoilValue(countriesSelector);
 
-  return <Dropdown type="contries" items={countries} />;
+  return <Dropdown type="countries" items={countries} />;
 };
 
 const MessageFilterBar: FC = () => {
@@ -38,12 +38,12 @@ const MessageFilterBar: FC = () => {
         <Suspense
           fallback={
             <Dropdown
-              type="contries"
+              type="countries"
               items={[{ id: 1, fullName: 'Whole world' }]}
             />
           }
         >
-          <ContriesFilter />
+          <CountriesFilter />
         </Suspense>
 
         <Dropdown

@@ -108,7 +108,7 @@ interface ItemProps {
 }
 
 interface DropdownProps {
-  type: 'contries' | 'ordering';
+  type: 'countries' | 'ordering';
   items: Array<ItemProps>;
 }
 
@@ -118,7 +118,7 @@ const Dropdown: FC<DropdownProps> = ({ items, type }) => {
   const boxRef = useRef(null);
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<string>(
-    type === 'contries' ? 'Whole world' : items[0].fullName,
+    type === 'countries' ? 'Whole world' : items[0].fullName,
   );
 
   const isSelected = (name: string) => name === selectedItem;
@@ -145,7 +145,7 @@ const Dropdown: FC<DropdownProps> = ({ items, type }) => {
       </ToggleButton>
       {visible && (
         <ItemBox ref={boxRef}>
-          {type === 'contries' && (
+          {type === 'countries' && (
             <>
               <SearchInput placeholder="Search the country" />
               <i className="fas fa-search"></i>
@@ -157,7 +157,7 @@ const Dropdown: FC<DropdownProps> = ({ items, type }) => {
             </>
           )}
           <ItemList onClick={handleClickItem}>
-            {type === 'contries' && !isSelected('Whole world') && (
+            {type === 'countries' && !isSelected('Whole world') && (
               <Item className={isSelected('Whole world') ? 'selected' : ''}>
                 Whole world
               </Item>
