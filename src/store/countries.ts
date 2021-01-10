@@ -1,10 +1,6 @@
 import { selector } from 'recoil';
 
-import {
-  getCountries,
-  getCountriesCount,
-  getCountriesRank,
-} from '../api/countries';
+import { getCountries, getCountriesCount, getCountriesRank } from '../api';
 
 export const countriesSelector = selector({
   key: 'countries',

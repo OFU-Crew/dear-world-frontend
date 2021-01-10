@@ -6,7 +6,7 @@ import { getCountriesCount } from '../api';
 import { CheerRank, Layout, PixelMap } from '../components';
 import { sizes } from '../constants';
 import { useWindowDimensions } from '../hooks';
-import { countriesCountState, countriesRankState } from '../store/countries';
+import { countriesCountState, countriesRankState } from '../store';
 
 const CheeringMapWrapper = styled.div`
   width: 100%;
