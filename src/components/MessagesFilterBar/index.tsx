@@ -2,8 +2,9 @@ import React, { FC, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { countriesSelector } from '../../store';
-import Dropdown from '../common/Dropdown';
+import { messagesCountState } from '../../store';
+import CountriesFilter from './CountriesFilter';
+import OrderingFilter from './OrderingFilter';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,41 +26,29 @@ const MessageUnit = styled.span`
   font-size: 25px;
 `;
 
-const CountriesFilter: FC = () => {
-  const countries = useRecoilValue(countriesSelector);
+const AsyncMessagesFilterBar: FC = () => {
+  const messagesCount = useRecoilValue(messagesCountState({ countryCode: '' }));
 
-  return <Dropdown type="countries" items={countries} />;
-};
-
-const MessageFilterBar: FC = () => {
   return (
     <Wrapper>
       <span>
-        <Suspense
-          fallback={
-            <Dropdown
-              type="countries"
-              items={[{ id: 1, fullName: 'Whole world' }]}
-            />
-          }
-        >
-          <CountriesFilter />
-        </Suspense>
-
-        <Dropdown
-          type="ordering"
-          items={[
-            { id: 1, fullName: 'Recent' },
-            { id: 2, fullName: 'Weekly HOT' },
-          ]}
-        />
+        <CountriesFilter />
+        <OrderingFilter />
       </span>
       <span>
-        <MessageCount>100,000</MessageCount>
+        <MessageCount>{messagesCount}</MessageCount>
         <MessageUnit>Messages</MessageUnit>
       </span>
     </Wrapper>
   );
 };
 
-export default MessageFilterBar;
+const MessagesFilterBar: FC = () => {
+  return (
+    <Suspense fallback={<div />}>
+      <AsyncMessagesFilterBar />
+    </Suspense>
+  );
+};
+
+export default MessagesFilterBar;
