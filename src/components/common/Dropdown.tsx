@@ -37,11 +37,13 @@ const ItemBox = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
 
+  visibility: hidden;
   opacity: 0;
   transform: translateY(-20px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 
   &.active {
+    visibility: visible;
     opacity: 1;
     transform: translateY(0px);
   }
