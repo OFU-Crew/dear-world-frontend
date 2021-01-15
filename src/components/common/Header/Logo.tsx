@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { THEME } from '../../hooks/useTheme';
+import { THEME } from '../../../hooks';
 
 const LogoWrapper = styled.span`
   display: flex;

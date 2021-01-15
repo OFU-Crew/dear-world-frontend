@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import styled from 'styled-components';
 
-import { THEME, useTheme } from '../hooks/useTheme';
+import { THEME, useTheme } from '../../hooks';
 
 const ThemeButtonWrapper = styled.div`
   position: fixed;
