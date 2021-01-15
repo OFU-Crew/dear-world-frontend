@@ -1,9 +1,9 @@
-import React, { FC, Suspense, useState } from 'react';
+import React, { ChangeEvent, FC, Suspense, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { countriesSelector } from '../../store';
+import { countriesSelector, CountryProps } from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
 const SearchInput = styled.input`
@@ -34,6 +34,8 @@ const SearchInput = styled.input`
 
 const AsyncCountriesFilter: FC = () => {
   const countries = useRecoilValue(countriesSelector);
+  const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
   const ordering = new URLSearchParams(useLocation().search).get('ordering');
 
@@ -45,10 +47,29 @@ const AsyncCountriesFilter: FC = () => {
     });
   };
 
+  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const regex = new RegExp(value, 'gi');
+    const newCountries = countries.filter((country: CountryProps) =>
+      regex.test(country.fullName),
+    );
+
+    setSearchValue(value);
+    setFilteredCountries(newCountries);
+  };
+
   return (
-    <Dropdown type="countries" items={countries} onClickItem={onClickItem}>
+    <Dropdown
+      type="countries"
+      items={filteredCountries}
+      onClickItem={onClickItem}
+    >
       <React.Fragment>
-        <SearchInput placeholder="Search the country" />
+        <SearchInput
+          placeholder="Search the country"
+          value={searchValue}
+          onChange={onChangeValue}
+        />
         <i className="fas fa-search"></i>
       </React.Fragment>
     </Dropdown>

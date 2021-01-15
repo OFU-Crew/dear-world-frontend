@@ -175,6 +175,12 @@ const Dropdown: FC<DropdownProps> = ({
 
   useOnClickOutside([buttonRef, boxRef], handleClickOutside);
 
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTop = 0;
+    }
+  }, [items]);
+
   return (
     <Wrapper>
       <ToggleButton ref={buttonRef} onClick={handleClickButton}>
