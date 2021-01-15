@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
-import { Layout } from '../components';
-import MessageCard from '../components/MessageCard';
+import { Layout, MessageCard, MessagesFilterBar } from '../components';
 
 interface DearWorldProps {}
 
 const DearWorld: FC<DearWorldProps> = props => {
   return (
     <Layout>
+      <MessagesFilterBar />
       <MessageCard />
     </Layout>
   );
