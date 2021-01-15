@@ -12,7 +12,8 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     backgroundColor: Record<string, string>;
     color: Record<string, string>;
-    borderColor: string;
+    borderColor: Record<string, string>;
+    url: Record<string, string>;
     media: Media;
   }
 }

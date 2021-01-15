@@ -13,18 +13,20 @@ const Wrapper = styled.div`
 export const ToggleButton = styled.button`
   height: 45px;
   padding: 0 42px 0 21px;
-  border: 1px solid #999;
+  border: 2px solid ${props => props.theme.borderColor.filter};
   font-family: inherit;
   font-size: 18px;
   font-weight: 700;
   text-align: left;
   margin-right: 20px;
-  background: 14px 8px no-repeat url('/images/arrow.svg');
+  background: 14px 8px no-repeat url(${props => props.theme.url.filterArrow});
   background-position: bottom 50% right 18px;
   border-radius: 10px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+
+  color: ${props => props.theme.color.filter};
 `;
 
 const ItemBox = styled.div`
@@ -32,15 +34,16 @@ const ItemBox = styled.div`
   margin-top: 10px;
   max-width: 270px;
   min-width: 170px;
-  background: #f4f7ff;
-  border: 2px solid #d6ddfb;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  border: 2px solid ${props => props.theme.borderColor.filter};
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
 
   visibility: hidden;
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+
+  background: ${props => props.theme.backgroundColor.filter};
 
   &.active {
     visibility: visible;
@@ -65,17 +68,19 @@ const WholeWorldItem = styled.button`
   width: 100%;
   height: 38px;
   padding: 3px 12px;
-  background: #f4f7ff;
   border: 0;
   text-align: left;
   font-size: 18px;
 
   height: 45px;
-  border-top: 1px solid #d6ddfb;
-  border-bottom: 1px solid #d6ddfb;
+  border-top: 1px solid ${props => props.theme.borderColor.filter};
+  border-bottom: 1px solid ${props => props.theme.borderColor.filter};
+
+  color: ${props => props.theme.color.filter};
+  background: ${props => props.theme.backgroundColor.filter};
 
   &.selected {
-    color: #20d7d7;
+    color: ${props => props.theme.color.selectedFilterItem};
     font-weight: bold;
   }
 `;
@@ -86,13 +91,15 @@ const Item = styled.button`
   width: 100%;
   height: 38px;
   padding: 3px 12px;
-  background: #f4f7ff;
   border: 0;
   text-align: left;
   font-size: 18px;
 
+  color: ${props => props.theme.color.filter};
+  background: ${props => props.theme.backgroundColor.filter};
+
   &.selected {
-    color: #20d7d7;
+    color: ${props => props.theme.color.selectedFilterItem};
     font-weight: bold;
   }
 `;
@@ -148,10 +155,22 @@ const Dropdown: FC<DropdownProps> = ({
 
   const handleClickButton = () => {
     setVisible(prev => !prev);
+
+    setTimeout(() => {
+      if (listRef.current) {
+        listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
+      }
+    }, 200);
   };
 
   const handleClickOutside = () => {
     setVisible(false);
+
+    setTimeout(() => {
+      if (listRef.current) {
+        listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
+      }
+    }, 200);
   };
 
   useOnClickOutside([buttonRef, boxRef], handleClickOutside);

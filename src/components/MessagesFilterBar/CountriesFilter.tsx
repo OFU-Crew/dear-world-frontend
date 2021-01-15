@@ -10,23 +10,24 @@ const SearchInput = styled.input`
   width: 242px;
   height: 38px;
   padding: 3px 12px;
-  background: #f4f7ff;
   border: 0;
   border-radius: 20px;
   outline: 0;
   font-size: 18px;
   font-weight: bold;
 
+  color: ${props => props.theme.color.filter};
+  background: ${props => props.theme.backgroundColor.filter};
+
   &::placeholder {
-    color: #d6ddfb;
+    color: ${props => props.theme.color.search};
   }
 
   & + i {
     position: relative;
     z-index: 1;
     left: -25px;
-    top: 1px;
-    color: #445282;
+    color: ${props => props.theme.color.search};
     width: 0;
   }
 `;
