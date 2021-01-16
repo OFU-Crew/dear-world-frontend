@@ -137,20 +137,19 @@ const Dropdown: FC<DropdownProps> = ({
   const isSelected = (id: number) => id === selectedItemId;
 
   const handleClickItem = (event: any) => {
-    const {
-      dataset: { id },
-      innerHTML: title,
-    } = event.target;
+    const { innerHTML: title } = event.target;
 
     setVisible(false);
     setSelectedItemTitle(title);
     onClickItem && onClickItem(title);
 
+    const index = items.findIndex(item => item.fullName === title);
+
     setTimeout(() => {
-      setSelectedItemId(parseInt(id, 10));
+      setSelectedItemId(index);
 
       if (listRef.current) {
-        listRef.current.scrollTop = (id - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = (index - 1) * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
@@ -213,10 +212,7 @@ const Dropdown: FC<DropdownProps> = ({
         <ItemList ref={listRef} onClick={handleClickItem}>
           {items.map(item => (
             <li key={item.id}>
-              <Item
-                className={isSelected(item.id) ? 'selected' : ''}
-                data-id={item.id}
-              >
+              <Item className={isSelected(item.id) ? 'selected' : ''}>
                 {item.fullName}
               </Item>
             </li>

@@ -1,14 +1,7 @@
-import React, { FC, Suspense, useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { FC } from 'react';
 
 import { Layout, MessageCard, MessageFilterBar } from '../components';
 import { useSearchParams } from '../hooks';
-import {
-  countriesState,
-  CountryProps,
-  decodeURI,
-  selectedCountryState,
-} from '../store';
 
 const DearWorld: FC = () => {
   useSearchParams();

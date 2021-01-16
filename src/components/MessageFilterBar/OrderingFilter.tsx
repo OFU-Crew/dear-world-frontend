@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 import {
@@ -18,7 +18,7 @@ const OrderingFilter: FC = () => {
   const history = useHistory();
   const countryQuery = useRecoilValue(countriesQueryState);
   const orderingQuery = useRecoilValue(orderingQueryState);
-  const initialOrdering = orderings.find(
+  const selectedOrdering = orderings.find(
     (ordering: OrderingProps) => ordering.fullName === orderingQuery,
   );
 
@@ -33,7 +33,7 @@ const OrderingFilter: FC = () => {
   return (
     <Dropdown
       type="ordering"
-      selectedItem={initialOrdering}
+      selectedItem={selectedOrdering}
       items={orderings}
       onClickItem={onClickItem}
     />
