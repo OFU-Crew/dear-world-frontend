@@ -8,6 +8,11 @@ import {
   getMessagesCount,
 } from '../api';
 
+export interface OrderingProps {
+  id: number;
+  fullName: string;
+}
+
 export interface CountryProps {
   id: number;
   code?: string;
