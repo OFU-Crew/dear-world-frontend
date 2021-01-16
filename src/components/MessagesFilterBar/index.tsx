@@ -1,8 +1,13 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC, Suspense, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { messagesCountState } from '../../store';
+import {
+  countriesQueryState,
+  decodeURI,
+  messagesCountState,
+} from '../../store';
+import maps from '../PixelMap/maps';
 import CountriesFilter from './CountriesFilter';
 import OrderingFilter from './OrderingFilter';
 
@@ -27,7 +32,12 @@ const MessageUnit = styled.span`
 `;
 
 const AsyncMessagesFilterBar: FC = () => {
-  const messagesCount = useRecoilValue(messagesCountState({ countryCode: '' }));
+  const countryQuery = useRecoilValue(countriesQueryState);
+  const country = maps.find(
+    country => country.name === decodeURI(countryQuery),
+  );
+  const countryCode = country ? country.countryId : '';
+  const messagesCount = useRecoilValue(messagesCountState({ countryCode }));
 
   return (
     <Wrapper>

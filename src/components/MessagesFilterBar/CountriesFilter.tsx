@@ -1,9 +1,16 @@
-import React, { ChangeEvent, FC, Suspense, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import React, { ChangeEvent, FC, Suspense, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { countriesSelector, CountryProps } from '../../store';
+import {
+  countriesQueryState,
+  countriesSelector,
+  CountryProps,
+  decodeURI,
+  encodeURI,
+  orderingQueryState,
+} from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
 const SearchInput = styled.input`
@@ -37,13 +44,17 @@ const AsyncCountriesFilter: FC = () => {
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
-  const ordering = new URLSearchParams(useLocation().search).get('ordering');
+  const orderingQuery = useRecoilValue(orderingQueryState);
+  const countryQuery = useRecoilValue(countriesQueryState);
+  const initialCountry = countries.find(
+    (country: CountryProps) => country.fullName === decodeURI(countryQuery),
+  );
 
   const onClickItem = (country: string) => {
-    country = country.replace(/ /gi, '-');
+    country = encodeURI(country);
     history.push({
       pathname: '',
-      search: `countries=${country}&ordering=${ordering}`,
+      search: `countries=${country}&ordering=${orderingQuery}`,
     });
   };
 
@@ -61,6 +72,7 @@ const AsyncCountriesFilter: FC = () => {
   return (
     <Dropdown
       type="countries"
+      initialItem={initialCountry}
       items={filteredCountries}
       onClickItem={onClickItem}
     >
@@ -77,8 +89,10 @@ const AsyncCountriesFilter: FC = () => {
 };
 
 const CountriesFilter: FC = () => {
+  const countryQuery = useRecoilValue(countriesQueryState);
+
   return (
-    <Suspense fallback={<ToggleButton>Whole world</ToggleButton>}>
+    <Suspense fallback={<ToggleButton>{countryQuery}</ToggleButton>}>
       <AsyncCountriesFilter />
     </Suspense>
   );
