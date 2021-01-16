@@ -5,5 +5,5 @@ export { default as Header } from './common/Header';
 export { default as Layout } from './common/Layout';
 export { default as ThemeButton } from './common/ThemeButton';
 export { default as MessageCard } from './MessageCard';
-export { default as MessagesFilterBar } from './MessagesFilterBar';
+export { default as MessageFilterBar } from './MessageFilterBar';
 export { default as PixelMap } from './PixelMap';

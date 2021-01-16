@@ -1,16 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense, useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { Layout, MessageCard, MessagesFilterBar } from '../components';
+import { Layout, MessageCard, MessageFilterBar } from '../components';
 import { useSearchParams } from '../hooks';
+import {
+  countriesState,
+  CountryProps,
+  decodeURI,
+  selectedCountryState,
+} from '../store';
 
-interface DearWorldProps {}
-
-const DearWorld: FC<DearWorldProps> = props => {
+const DearWorld: FC = () => {
   useSearchParams();
 
   return (
     <Layout>
-      <MessagesFilterBar />
+      <MessageFilterBar />
       <MessageCard />
     </Layout>
   );

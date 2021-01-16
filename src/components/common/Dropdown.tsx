@@ -113,7 +113,7 @@ interface ItemProps {
 
 interface DropdownProps {
   type: string;
-  initialItem?: ItemProps | undefined;
+  selectedItem?: ItemProps | undefined;
   items: ItemProps[];
   onClickItem?: (country: string) => void;
 }
@@ -121,7 +121,7 @@ interface DropdownProps {
 const Dropdown: FC<DropdownProps> = ({
   children,
   type,
-  initialItem,
+  selectedItem,
   items,
   onClickItem,
 }) => {
@@ -129,11 +129,9 @@ const Dropdown: FC<DropdownProps> = ({
   const boxRef = useRef(null);
   const listRef = useRef<HTMLUListElement | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedItemId, setSelectedItemId] = useState<number>(
-    initialItem ? initialItem.id : 0,
-  );
+  const [selectedItemId, setSelectedItemId] = useState<number>(0);
   const [selectedItemTitle, setSelectedItemTitle] = useState<string>(
-    initialItem ? initialItem.fullName : 'Whole world',
+    type === 'countries' ? 'Whole world' : 'Recent',
   );
 
   const isSelected = (id: number) => id === selectedItemId;
@@ -190,6 +188,11 @@ const Dropdown: FC<DropdownProps> = ({
       listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
     }
   }, []);
+
+  useEffect(() => {
+    setSelectedItemId(selectedItem ? selectedItem.id : 0);
+    setSelectedItemTitle(selectedItem ? selectedItem.fullName : 'Whole world');
+  }, [selectedItem]);
 
   return (
     <Wrapper>

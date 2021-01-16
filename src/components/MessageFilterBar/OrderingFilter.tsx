@@ -19,7 +19,7 @@ const OrderingFilter: FC = () => {
   const countryQuery = useRecoilValue(countriesQueryState);
   const orderingQuery = useRecoilValue(orderingQueryState);
   const initialOrdering = orderings.find(
-    (ordering: OrderingProps) => encodeURI(ordering.fullName) === orderingQuery,
+    (ordering: OrderingProps) => ordering.fullName === orderingQuery,
   );
 
   const onClickItem = (ordering: string) => {
@@ -33,7 +33,7 @@ const OrderingFilter: FC = () => {
   return (
     <Dropdown
       type="ordering"
-      initialItem={initialOrdering}
+      selectedItem={initialOrdering}
       items={orderings}
       onClickItem={onClickItem}
     />
