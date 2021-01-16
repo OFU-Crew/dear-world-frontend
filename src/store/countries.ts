@@ -1,12 +1,11 @@
-import { selector, selectorFamily, SerializableParam } from 'recoil';
+import { atom, selector } from 'recoil';
 
-import { messagesCountParams } from '../api';
-import {
-  getCountries,
-  getCountriesCount,
-  getCountriesRank,
-  getMessagesCount,
-} from '../api';
+import { getCountries, getCountriesCount, getCountriesRank } from '../api';
+
+export interface OrderingProps {
+  id: number;
+  fullName: string;
+}
 
 export interface CountryProps {
   id: number;
@@ -15,23 +14,21 @@ export interface CountryProps {
   emojiUnicode?: string;
 }
 
-export const countriesSelector = selector({
+export const selectedCountryState = atom({
+  key: 'selectedCountry',
+  default: {
+    id: 0,
+    code: '',
+    fullName: 'Whole world',
+  },
+});
+
+export const countriesState = selector({
   key: 'countries',
   get: async () => {
     const response = await getCountries();
 
     return response.data.countries;
-  },
-});
-
-export const messagesCountState = selectorFamily({
-  key: 'messagesCount',
-  get: (params: SerializableParam = {}) => async () => {
-    const {
-      data: { messageCount },
-    } = await getMessagesCount(params as messagesCountParams);
-
-    return messageCount;
   },
 });
 

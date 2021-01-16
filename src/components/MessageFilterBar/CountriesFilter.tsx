@@ -1,9 +1,17 @@
 import React, { ChangeEvent, FC, Suspense, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useHistory } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { countriesSelector, CountryProps } from '../../store';
+import {
+  countriesQueryState,
+  countriesState,
+  CountryProps,
+  decodeURI,
+  encodeURI,
+  orderingQueryState,
+  selectedCountryState,
+} from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
 const SearchInput = styled.input`
@@ -33,17 +41,22 @@ const SearchInput = styled.input`
 `;
 
 const AsyncCountriesFilter: FC = () => {
-  const countries = useRecoilValue(countriesSelector);
+  const countries = useRecoilValue(countriesState);
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
-  const ordering = new URLSearchParams(useLocation().search).get('ordering');
+  const orderingQuery = useRecoilValue(orderingQueryState);
+  const countriesQuery = useRecoilValue(countriesQueryState);
+  const setSelectedCountry = useSetRecoilState(selectedCountryState);
+  const selectedCountry = countries.find(
+    (country: CountryProps) => country.fullName === countriesQuery,
+  );
 
   const onClickItem = (country: string) => {
-    country = country.replace(/ /gi, '-');
+    country = encodeURI(country);
     history.push({
       pathname: '',
-      search: `countries=${country}&ordering=${ordering}`,
+      search: `countries=${country}&ordering=${orderingQuery}`,
     });
   };
 
@@ -58,9 +71,18 @@ const AsyncCountriesFilter: FC = () => {
     setFilteredCountries(newCountries);
   };
 
+  useEffect(() => {
+    const country = countries.find(
+      (country: CountryProps) => country.fullName === decodeURI(countriesQuery),
+    );
+
+    setSelectedCountry(country);
+  }, [countriesQuery]);
+
   return (
     <Dropdown
       type="countries"
+      selectedItem={selectedCountry}
       items={filteredCountries}
       onClickItem={onClickItem}
     >
@@ -77,8 +99,10 @@ const AsyncCountriesFilter: FC = () => {
 };
 
 const CountriesFilter: FC = () => {
+  const countriesQuery = useRecoilValue(countriesQueryState);
+
   return (
-    <Suspense fallback={<ToggleButton>Whole world</ToggleButton>}>
+    <Suspense fallback={<ToggleButton>{countriesQuery}</ToggleButton>}>
       <AsyncCountriesFilter />
     </Suspense>
   );
