@@ -6,7 +6,6 @@ export const messagesState = selector({
   key: 'messages',
   get: async () => {
     const response = await getMessages({});
-    console.log('messages');
 
     return response.data;
   },
