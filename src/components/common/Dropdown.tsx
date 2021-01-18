@@ -116,6 +116,7 @@ interface DropdownProps {
   type: string;
   selectedItem?: ItemProps | undefined;
   items: ItemProps[];
+  onClickButton?: () => void;
   onClickItem?: (country: string) => void;
 }
 
@@ -124,6 +125,7 @@ const Dropdown: FC<DropdownProps> = ({
   type,
   selectedItem,
   items,
+  onClickButton,
   onClickItem,
 }) => {
   const buttonRef = useRef(null);
@@ -153,7 +155,7 @@ const Dropdown: FC<DropdownProps> = ({
 
     setTimeout(() => {
       setSelectedItemIndex(index + 1);
-      setSelectedItemId(items[index].id);
+      items[index] && setSelectedItemId(items[index].id);
 
       if (listRef.current) {
         listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
@@ -163,6 +165,7 @@ const Dropdown: FC<DropdownProps> = ({
 
   const handleClickButton = () => {
     setVisible(prev => !prev);
+    onClickButton && onClickButton();
 
     setTimeout(() => {
       if (listRef.current) {

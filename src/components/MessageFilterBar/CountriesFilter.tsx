@@ -1,4 +1,11 @@
-import React, { ChangeEvent, FC, Suspense, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -44,6 +51,7 @@ const AsyncCountriesFilter: FC = () => {
   const countries = useRecoilValue(countriesState);
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchValue, setSearchValue] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const history = useHistory();
   const orderingQuery = useRecoilValue(orderingQueryState);
@@ -53,6 +61,14 @@ const AsyncCountriesFilter: FC = () => {
   const selectedCountry = countries.find(
     (country: CountryProps) => country.fullName === decodeURI(countriesQuery),
   );
+
+  const onClickButton = () => {
+    setTimeout(() => {
+      if (inputRef && inputRef.current) {
+        inputRef.current!.focus();
+      }
+    }, 200);
+  };
 
   const onClickItem = (country: string) => {
     country = encodeURI(country);
@@ -86,10 +102,12 @@ const AsyncCountriesFilter: FC = () => {
       type="countries"
       selectedItem={selectedCountry}
       items={filteredCountries}
+      onClickButton={onClickButton}
       onClickItem={onClickItem}
     >
       <React.Fragment>
         <SearchInput
+          ref={inputRef}
           placeholder="Search the country"
           value={searchValue}
           onChange={onChangeValue}
