@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
-import { countriesQueryState, orderingQueryState } from '../store';
+import { countriesQueryState, encodeURI, orderingQueryState } from '../store';
 
 export const useSearchParams = () => {
   const location = useLocation();
@@ -15,7 +15,7 @@ export const useSearchParams = () => {
     );
     const orderingQuery = new URLSearchParams(location.search).get('ordering');
 
-    setCountriesQuery(countriesQuery || 'Whole world');
-    setOrderingQuery(orderingQuery || 'Recent');
+    setCountriesQuery(encodeURI(countriesQuery || 'Whole world'));
+    setOrderingQuery(encodeURI(orderingQuery || 'Recent'));
   }, [location.search]);
 };

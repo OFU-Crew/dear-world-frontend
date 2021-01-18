@@ -37,6 +37,7 @@ const ItemBox = styled.div`
   border: 2px solid ${props => props.theme.borderColor.filter};
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
+  z-index: 1;
 
   visibility: hidden;
   opacity: 0;
@@ -129,9 +130,14 @@ const Dropdown: FC<DropdownProps> = ({
   const boxRef = useRef(null);
   const listRef = useRef<HTMLUListElement | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
-  const [selectedItemId, setSelectedItemId] = useState<number>(0);
+  const [selectedItemId, setSelectedItemId] = useState<number>(
+    selectedItem ? selectedItem.id : 0,
+  );
   const [selectedItemTitle, setSelectedItemTitle] = useState<string>(
-    type === 'countries' ? 'Whole world' : 'Recent',
+    selectedItem ? selectedItem.fullName : 'Whole world',
+  );
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(
+    selectedItem ? selectedItem.id : 0,
   );
 
   const isSelected = (id: number) => id === selectedItemId;
@@ -146,10 +152,11 @@ const Dropdown: FC<DropdownProps> = ({
     const index = items.findIndex(item => item.fullName === title);
 
     setTimeout(() => {
-      setSelectedItemId(index);
+      setSelectedItemIndex(index + 1);
+      setSelectedItemId(items[index].id);
 
       if (listRef.current) {
-        listRef.current.scrollTop = (index - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
@@ -159,7 +166,7 @@ const Dropdown: FC<DropdownProps> = ({
 
     setTimeout(() => {
       if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
@@ -169,7 +176,7 @@ const Dropdown: FC<DropdownProps> = ({
 
     setTimeout(() => {
       if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
@@ -183,14 +190,12 @@ const Dropdown: FC<DropdownProps> = ({
   }, [items]);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = (selectedItemId - 1) * ITEM_HEIGHT - 3;
-    }
-  }, []);
-
-  useEffect(() => {
     setSelectedItemId(selectedItem ? selectedItem.id : 0);
     setSelectedItemTitle(selectedItem ? selectedItem.fullName : 'Whole world');
+
+    if (listRef.current) {
+      listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
+    }
   }, [selectedItem]);
 
   return (
@@ -203,7 +208,6 @@ const Dropdown: FC<DropdownProps> = ({
         {type === 'countries' && (
           <WholeWorldItem
             className={isSelected(0) ? 'selected' : ''}
-            data-id={0}
             onClick={handleClickItem}
           >
             Whole world

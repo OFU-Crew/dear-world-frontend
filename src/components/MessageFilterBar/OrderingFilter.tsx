@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import {
   countriesQueryState,
+  decodeURI,
   encodeURI,
   OrderingProps,
   orderingQueryState,
@@ -19,7 +20,7 @@ const OrderingFilter: FC = () => {
   const countryQuery = useRecoilValue(countriesQueryState);
   const orderingQuery = useRecoilValue(orderingQueryState);
   const selectedOrdering = orderings.find(
-    (ordering: OrderingProps) => ordering.fullName === orderingQuery,
+    (ordering: OrderingProps) => ordering.fullName === decodeURI(orderingQuery),
   );
 
   const onClickItem = (ordering: string) => {

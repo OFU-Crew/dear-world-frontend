@@ -44,12 +44,14 @@ const AsyncCountriesFilter: FC = () => {
   const countries = useRecoilValue(countriesState);
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchValue, setSearchValue] = useState('');
+
   const history = useHistory();
   const orderingQuery = useRecoilValue(orderingQueryState);
   const countriesQuery = useRecoilValue(countriesQueryState);
+
   const setSelectedCountry = useSetRecoilState(selectedCountryState);
   const selectedCountry = countries.find(
-    (country: CountryProps) => country.fullName === countriesQuery,
+    (country: CountryProps) => country.fullName === decodeURI(countriesQuery),
   );
 
   const onClickItem = (country: string) => {
@@ -102,7 +104,9 @@ const CountriesFilter: FC = () => {
   const countriesQuery = useRecoilValue(countriesQueryState);
 
   return (
-    <Suspense fallback={<ToggleButton>{countriesQuery}</ToggleButton>}>
+    <Suspense
+      fallback={<ToggleButton>{decodeURI(countriesQuery)}</ToggleButton>}
+    >
       <AsyncCountriesFilter />
     </Suspense>
   );
