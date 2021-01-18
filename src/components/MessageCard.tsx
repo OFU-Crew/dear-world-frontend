@@ -3,32 +3,13 @@ import styled from 'styled-components';
 
 import Emoji from './common/Emoji';
 
-const data = {
-  uuid: '',
-  anonymousUser: {
-    id: 0,
-    country: {
-      id: 0,
-      shortName: '',
-      fullName: 'South Korea',
-      image: '🇰🇷',
-    },
-    nickname: '철수',
-    profileImage: '🍻',
-  },
-  content:
-    '아이들의 쉬이 토끼, 어머님, 청춘이 그리워 벌레는 다 동경과 듯합니다. 언덕 때 슬퍼하는 이름을 둘 듯합니다. 나는 걱정도 계절이 가난한 멀리 어머님, 봅니다. 옥 것은 별을 봅니다. 것은 별 아이들의 별 밤을 아침이 불러 이런 어머니, 까닭입니다. 나는 어머니, 한 소학교 시인의 하늘에는 말 걱정도 밤이 듯합니다. 멀리 풀이 하늘에는 계십니다. 쓸쓸함과 파란 슬퍼하는 까닭입니다. 추억과 속의 내린 걱정도 벌레는 이름자 말 봅니다. 멀리 풀이 하늘에는 계십니다. 쓸쓸함과 파란 슬퍼하는 까닭입니다. 추억과 속의 내린 걱정도 벌레는 이름자 말 봅니다. 멀리 풀이 하늘에는 계십니다. 쓸쓸함과 파란 슬퍼하는 까닭입니다. 추억과 속의 내린 걱정도 벌레는 이름자 말 봅니다. 멀리 풀이 하늘에는 계십니다. 쓸쓸함과 파란 슬퍼하는 까닭입니다. 추억과 속의 내린 걱정도 벌레는 이름자 말 봅니다.',
-  likeCount: 1234,
-  createdAt: '2020-02-29T21:02:57.857214+00:00',
-  like: true,
-};
-
 const MessageCardWrapper = styled.div`
   background: #fff;
   box-shadow: 0px 4px 10px 10px rgba(33, 46, 90, 0.02);
   border-radius: 30px;
   width: 380px;
   padding: 30px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 `;
@@ -117,38 +98,55 @@ const ShareButton = styled.button`
   border-style: none;
 `;
 
-const MessageCard = () => {
+export interface MessageCardProps {
+  id?: number;
+  anonymousUser: {
+    id: number;
+    emoji: { unicode: string };
+    nickname: string;
+    country: {
+      emojiUnicode: string;
+      fullName: string;
+    };
+  };
+  content: string;
+  like: boolean;
+  likeCount: number;
+  groupKey?: any;
+}
+
+const MessageCard = (props: MessageCardProps) => {
   return (
     <MessageCardWrapper>
       <MessageHeader>
         <HeaderImage>
-          <Emoji code={data.anonymousUser.profileImage} />
+          <Emoji code={props.anonymousUser.emoji.unicode} />
         </HeaderImage>
         <HeaderDescription>
           <HeaderDescriptionName>
-            {data.anonymousUser.nickname}
+            {props.anonymousUser.nickname}
           </HeaderDescriptionName>
           <HeaderDescriptionCountry>
             <span style={{ marginRight: 5 }}>
-              <Emoji code={data.anonymousUser.country.image} />
+              <Emoji code={props.anonymousUser.country.emojiUnicode} />
             </span>
-            {data.anonymousUser.country.fullName}
+            {props.anonymousUser.country.fullName}
           </HeaderDescriptionCountry>
         </HeaderDescription>
       </MessageHeader>
-      <Contents>{data.content}</Contents>
+      <Contents>{props.content}</Contents>
       <MessageFooter>
-        <LikeWrapper like={data.like}>
+        <LikeWrapper like={props.like}>
           <LikeButton>
             <MessageHeart
               src={
-                data.like
+                props.like
                   ? '/images/heart-activate.svg'
                   : '/images/heart-inactivate.svg'
               }
             />
           </LikeButton>
-          {data.likeCount}
+          {props.likeCount}
         </LikeWrapper>
 
         <ShareButton>
