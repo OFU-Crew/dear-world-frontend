@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Layout, MessageCard, MessageFilterBar } from '../components';
+import { Layout, MessageFilterBar, MessageList } from '../components';
 import { useSearchParams } from '../hooks';
 
 const DearWorld: FC = () => {
@@ -9,7 +9,7 @@ const DearWorld: FC = () => {
   return (
     <Layout>
       <MessageFilterBar />
-      <MessageCard />
+      <MessageList />
     </Layout>
   );
 };
