@@ -1,14 +1,15 @@
 import React, { FC } from 'react';
 
-import { Layout } from '../components';
-import MessageCard from '../components/MessageCard';
+import { Layout, MessageFilterBar, MessageList } from '../components';
+import { useSearchParams } from '../hooks';
 
-interface DearWorldProps {}
+const DearWorld: FC = () => {
+  useSearchParams();
 
-const DearWorld: FC<DearWorldProps> = props => {
   return (
     <Layout>
-      <MessageCard />
+      <MessageFilterBar />
+      <MessageList />
     </Layout>
   );
 };

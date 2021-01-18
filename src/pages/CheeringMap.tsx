@@ -1,17 +1,18 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { getCountriesCount } from '../apis';
+import { getCountriesCount } from '../api';
 import { CheerRank, Layout, PixelMap } from '../components';
 import { sizes } from '../constants';
 import { useWindowDimensions } from '../hooks';
-import { countriesCountState, countriesRankState } from '../modules/countries';
+import { countriesCountState, countriesRankState } from '../store';
 
 const CheeringMapWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
+  padding: 16px 0 20px 0;
 
   ${({ theme }) => theme.media.desktop`
     grid-template-columns: 65% auto;

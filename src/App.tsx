@@ -2,8 +2,8 @@ import React, { FC, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import ThemeButton from './components/ThemeButton';
-import { ThemeProvider } from './hooks/useTheme';
+import { ThemeButton } from './components';
+import { ThemeProvider } from './hooks';
 import { About, CheeringMap, DearWorld, NotFound } from './pages';
 import { GlobalStyle } from './styles/global-styles';
 

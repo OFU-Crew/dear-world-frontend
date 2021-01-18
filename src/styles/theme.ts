@@ -53,6 +53,7 @@ const darkTheme: DefaultTheme = {
     level3: '#F8E36C',
     level4: '#FFE134',
     level5: '#FFE600',
+    filter: '#212E5A',
   },
   color: {
     message: '#212E5A',
@@ -62,8 +63,17 @@ const darkTheme: DefaultTheme = {
     sendButtonHover: '#212E5A',
     messageCount: '#F8E36C',
     cheerCount: '#D6DDFB',
+    filter: '#F4F7FF',
+    search: '#445282',
+    selectedFilterItem: '#F8E36C',
   },
-  borderColor: '#445282',
+  borderColor: {
+    cheerRank: '#445282',
+    filter: '#445282',
+  },
+  url: {
+    filterArrow: '/images/filter-arrow-dark.svg',
+  },
   media,
 };
 
@@ -81,6 +91,7 @@ const lightTheme: DefaultTheme = {
     level3: '#42E5E5',
     level4: '#22D7D7',
     level5: '#07C9C9',
+    filter: '#f4f7ff',
   },
   color: {
     message: '#212E5A',
@@ -91,8 +102,17 @@ const lightTheme: DefaultTheme = {
     sendButtonHover: '#20D7D7',
     messageCount: '#2AD9D9',
     cheerCount: '#445282',
+    filter: '#212E5A',
+    search: '#D6DDFB',
+    selectedFilterItem: '#2AD9D9',
   },
-  borderColor: '#F4F7FF',
+  borderColor: {
+    cheerRank: '#F4F7FF',
+    filter: '#D6DDFB',
+  },
+  url: {
+    filterArrow: '/images/filter-arrow.svg',
+  },
   media,
 };
 

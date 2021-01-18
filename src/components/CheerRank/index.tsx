@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Emoji from '../Emoji';
+import Emoji from '../common/Emoji';
 
 const CheerRankWrapper = styled.div`
   border-radius: 10px;
@@ -13,7 +13,7 @@ const CheerRankWrapper = styled.div`
 const CheerRankTitle = styled.div`
   padding: 16px 0 16px 20px;
 
-  border-bottom: 3px solid ${props => props.theme.borderColor};
+  border-bottom: 3px solid ${props => props.theme.borderColor.cheerRank};
   color: ${props => props.theme.color.menu};
 
   ${({ theme }) => theme.media.mobile`

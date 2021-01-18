@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { sizes } from '../../constants';
-import { useTheme, useWindowDimensions } from '../../hooks';
+import { sizes } from '../../../constants';
+import { useTheme, useWindowDimensions } from '../../../hooks';
 import DesktopHeader from './Desktop';
 import MobileHeader from './Mobile';
 
