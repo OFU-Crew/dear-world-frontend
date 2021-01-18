@@ -94,9 +94,12 @@ const MessageList: FC = () => {
   const orderingQuery = useRecoilValue(orderingQueryState);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 100);
+    const id = setTimeout(() => setVisible(true), 100);
 
-    return () => setVisible(false);
+    return () => {
+      clearTimeout(id);
+      setVisible(false);
+    };
   }, [selectedCountry, orderingQuery]);
 
   return (
