@@ -3,19 +3,17 @@ import {
   OnAppend,
   OnLayoutComplete,
 } from '@egjs/react-infinitegrid';
-import React, {
-  ComponentType,
-  FC,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ComponentType, FC, Suspense, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { getMessages } from '../api';
-import { decodeURI, orderingQueryState, selectedCountryState } from '../store';
+import {
+  countriesQueryState,
+  decodeURI,
+  orderingQueryState,
+  selectedCountryState,
+} from '../store';
 import Loading from './common/Loading';
 import MessageCard, { MessageCardProps } from './MessageCard';
 
@@ -29,7 +27,7 @@ const AsyncMessageList: FC = () => {
   const [messageList, setMessageList] = useState<
     ComponentType<MessageCardProps>[]
   >([]);
-  const [lastId, setLastId] = useState<any>();
+  const [lastId, setLastId] = useState<string>();
 
   const onAppend = async ({ groupKey, startLoading }: OnAppend) => {
     if (decodeURI(orderingQuery) === 'Weekly HOT' && messageList.length) {
@@ -43,8 +41,6 @@ const AsyncMessageList: FC = () => {
       lastId,
     });
 
-    setLastId(data.lastId);
-
     const messages = data.messages.map((message: MessageCardProps) => (
       <MessageCard
         groupKey={groupKey}
@@ -57,6 +53,7 @@ const AsyncMessageList: FC = () => {
     ));
 
     setMessageList([...messageList, messages]);
+    setLastId(data.lastId);
   };
 
   const onLayoutComplete = ({ isLayout, endLoading }: OnLayoutComplete) => {
@@ -90,17 +87,18 @@ const AsyncMessageList: FC = () => {
 
 const MessageList: FC = () => {
   const [visible, setVisible] = useState(false);
-  const selectedCountry = useRecoilValue(selectedCountryState);
+  const countriesQuery = useRecoilValue(countriesQueryState);
   const orderingQuery = useRecoilValue(orderingQueryState);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const id = setTimeout(() => setVisible(true), 100);
 
     return () => {
       clearTimeout(id);
       setVisible(false);
     };
-  }, [selectedCountry, orderingQuery]);
+  }, [countriesQuery, orderingQuery]);
 
   return (
     <Suspense fallback={<Loading />}>
