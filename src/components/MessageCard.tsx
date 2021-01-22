@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import FadeIn from './common/animation/FadeIn';
 import Emoji from './common/Emoji';
 
 const MessageCardWrapper = styled.div`
@@ -117,43 +118,45 @@ export interface MessageCardProps {
 
 const MessageCard = (props: MessageCardProps) => {
   return (
-    <MessageCardWrapper>
-      <MessageHeader>
-        <HeaderImage>
-          <Emoji code={props.anonymousUser.emoji.unicode} />
-        </HeaderImage>
-        <HeaderDescription>
-          <HeaderDescriptionName>
-            {props.anonymousUser.nickname}
-          </HeaderDescriptionName>
-          <HeaderDescriptionCountry>
-            <span style={{ marginRight: 5 }}>
-              <Emoji code={props.anonymousUser.country.emojiUnicode} />
-            </span>
-            {props.anonymousUser.country.fullName}
-          </HeaderDescriptionCountry>
-        </HeaderDescription>
-      </MessageHeader>
-      <Contents>{props.content}</Contents>
-      <MessageFooter>
-        <LikeWrapper like={props.like}>
-          <LikeButton>
-            <MessageHeart
-              src={
-                props.like
-                  ? '/images/heart-activate.svg'
-                  : '/images/heart-inactivate.svg'
-              }
-            />
-          </LikeButton>
-          {props.likeCount}
-        </LikeWrapper>
+    <FadeIn show={true}>
+      <MessageCardWrapper>
+        <MessageHeader>
+          <HeaderImage>
+            <Emoji code={props.anonymousUser.emoji.unicode} />
+          </HeaderImage>
+          <HeaderDescription>
+            <HeaderDescriptionName>
+              {props.anonymousUser.nickname}
+            </HeaderDescriptionName>
+            <HeaderDescriptionCountry>
+              <span style={{ marginRight: 5 }}>
+                <Emoji code={props.anonymousUser.country.emojiUnicode} />
+              </span>
+              {props.anonymousUser.country.fullName}
+            </HeaderDescriptionCountry>
+          </HeaderDescription>
+        </MessageHeader>
+        <Contents>{props.content}</Contents>
+        <MessageFooter>
+          <LikeWrapper like={props.like}>
+            <LikeButton>
+              <MessageHeart
+                src={
+                  props.like
+                    ? '/images/heart-activate.svg'
+                    : '/images/heart-inactivate.svg'
+                }
+              />
+            </LikeButton>
+            {props.likeCount}
+          </LikeWrapper>
 
-        <ShareButton>
-          <img src="/images/share-icon.svg"></img>
-        </ShareButton>
-      </MessageFooter>
-    </MessageCardWrapper>
+          <ShareButton>
+            <img src="/images/share-icon.svg"></img>
+          </ShareButton>
+        </MessageFooter>
+      </MessageCardWrapper>
+    </FadeIn>
   );
 };
 
