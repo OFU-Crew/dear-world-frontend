@@ -80,9 +80,9 @@ const AsyncCountriesFilter: FC = () => {
 
   const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const regex = new RegExp(value, 'gi');
+    const exp = new RegExp(value, 'gi');
     const newCountries = countries.filter((country: CountryProps) =>
-      regex.test(country.fullName),
+      country.fullName.match(exp),
     );
 
     setSearchValue(value);
