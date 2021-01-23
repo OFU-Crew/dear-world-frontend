@@ -12,7 +12,7 @@ import {
   countriesQueryState,
   decodeURI,
   orderingQueryState,
-  selectedCountryState,
+  selectedCountryAtom,
 } from '../store';
 import Loading from './common/Loading';
 import MessageCard, { MessageCardProps } from './MessageCard';
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 
 const AsyncMessageList: FC = () => {
   const orderingQuery = useRecoilValue(orderingQueryState);
-  const selectedCountry = useRecoilValue(selectedCountryState);
+  const selectedCountry = useRecoilValue(selectedCountryAtom);
   const [messageList, setMessageList] = useState<
     ComponentType<MessageCardProps>[]
   >([]);

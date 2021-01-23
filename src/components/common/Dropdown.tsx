@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { useOnClickOutside } from '../../hooks';
+import { CountryState, OrderingState } from '../../store';
 
 const ITEM_HEIGHT = 38;
 
@@ -67,7 +68,6 @@ const WholeWorldItem = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 38px;
   padding: 3px 12px;
   border: 0;
   text-align: left;
@@ -105,19 +105,15 @@ const Item = styled.button`
   }
 `;
 
-interface ItemProps {
-  id: number;
-  code?: string;
-  fullName: string;
-  emojiUnicode?: string;
-}
+type ItemType = CountryState | OrderingState;
 
 interface DropdownProps {
   type: string;
-  selectedItem?: ItemProps | undefined;
-  items: ItemProps[];
+  selectedItem?: ItemType | undefined;
+  items: ItemType[];
   onClickButton?: () => void;
   onClickItem?: (country: string) => void;
+  // setSearchValue?: () => void;
 }
 
 const Dropdown: FC<DropdownProps> = ({
@@ -217,7 +213,7 @@ const Dropdown: FC<DropdownProps> = ({
           </WholeWorldItem>
         )}
         <ItemList ref={listRef} onClick={handleClickItem}>
-          {items.map(item => (
+          {items.map((item: ItemType) => (
             <li key={item.id}>
               <Item className={isSelected(item.id) ? 'selected' : ''}>
                 {item.fullName}

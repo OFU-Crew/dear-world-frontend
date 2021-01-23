@@ -6,8 +6,8 @@ import {
   countriesQueryState,
   decodeURI,
   encodeURI,
-  OrderingProps,
   orderingQueryState,
+  OrderingState,
 } from '../../store';
 import Dropdown from '../common/Dropdown';
 
@@ -20,7 +20,7 @@ const OrderingFilter: FC = () => {
   const countryQuery = useRecoilValue(countriesQueryState);
   const orderingQuery = useRecoilValue(orderingQueryState);
   const selectedOrdering = orderings.find(
-    (ordering: OrderingProps) => ordering.fullName === decodeURI(orderingQuery),
+    (ordering: OrderingState) => ordering.fullName === decodeURI(orderingQuery),
   );
 
   const onClickItem = (ordering: string) => {

@@ -12,12 +12,12 @@ import styled from 'styled-components';
 
 import {
   countriesQueryState,
-  countriesState,
-  CountryProps,
+  countriesSelector,
+  CountryState,
   decodeURI,
   encodeURI,
   orderingQueryState,
-  selectedCountryState,
+  selectedCountryAtom,
 } from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
@@ -48,7 +48,7 @@ const SearchInput = styled.input`
 `;
 
 const AsyncCountriesFilter: FC = () => {
-  const countries = useRecoilValue(countriesState);
+  const countries = useRecoilValue(countriesSelector);
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -57,9 +57,9 @@ const AsyncCountriesFilter: FC = () => {
   const orderingQuery = useRecoilValue(orderingQueryState);
   const countriesQuery = useRecoilValue(countriesQueryState);
 
-  const setSelectedCountry = useSetRecoilState(selectedCountryState);
+  const setSelectedCountry = useSetRecoilState(selectedCountryAtom);
   const selectedCountry = countries.find(
-    (country: CountryProps) => country.fullName === decodeURI(countriesQuery),
+    (country: CountryState) => country.fullName === decodeURI(countriesQuery),
   );
 
   const onClickButton = () => {
@@ -81,7 +81,7 @@ const AsyncCountriesFilter: FC = () => {
   const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const exp = new RegExp(value, 'gi');
-    const newCountries = countries.filter((country: CountryProps) =>
+    const newCountries = countries.filter((country: CountryState) =>
       country.fullName.match(exp),
     );
 
@@ -91,10 +91,10 @@ const AsyncCountriesFilter: FC = () => {
 
   useEffect(() => {
     const country = countries.find(
-      (country: CountryProps) => country.fullName === decodeURI(countriesQuery),
+      (country: CountryState) => country.fullName === decodeURI(countriesQuery),
     );
 
-    setSelectedCountry(country);
+    setSelectedCountry(country!);
   }, [countriesQuery]);
 
   return (

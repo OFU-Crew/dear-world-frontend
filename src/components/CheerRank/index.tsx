@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { CountryState } from '../../store';
 import Emoji from '../common/Emoji';
 
 const CheerRankWrapper = styled.div`
@@ -85,6 +86,10 @@ const CountryMessageCount = styled.span`
   `}
 `;
 
+interface CheerRank {
+  countries: CountryState[];
+}
+
 const convertNumberToOrdinalNumber = (n: number) => {
   if (n === 1) return '1st';
   else if (n === 2) return '2nd';
@@ -92,23 +97,7 @@ const convertNumberToOrdinalNumber = (n: number) => {
   else return `${n}th`;
 };
 
-const CheerRank = ({
-  countries,
-}: {
-  countries: {
-    countryStatus: {
-      id: number;
-      level: number;
-      likeCount: string;
-      messageCount: number;
-      population: string;
-    };
-    emojiUnicode: string;
-    code: string;
-    fullName: string;
-    id: string;
-  }[];
-}) => {
+const CheerRank: FC<CheerRank> = ({ countries }) => {
   return (
     <CheerRankWrapper>
       <CheerRankTitle>Cheer Rank</CheerRankTitle>
@@ -118,12 +107,12 @@ const CheerRank = ({
             <CheerRankNumber index={index}>
               {convertNumberToOrdinalNumber(index + 1)}
             </CheerRankNumber>
-            <Emoji code={country.emojiUnicode} />
+            <Emoji code={country.emojiUnicode!} />
             <CheerRankCountry>
               <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
                 <img className="emoji" src="/images/message-icon.svg" />
-                {`   ${country.countryStatus.messageCount}`}
+                {`   ${country.countryStatus!.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
           </CheerRankItem>

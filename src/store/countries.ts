@@ -2,38 +2,52 @@ import { atom, selector } from 'recoil';
 
 import { getCountries, getCountriesCount, getCountriesRank } from '../api';
 
-export interface OrderingProps {
+export interface OrderingState {
   id: number;
   fullName: string;
 }
 
-export interface CountryProps {
+export interface CountryState {
   id: number;
-  code?: string;
+  code: string;
   fullName: string;
   emojiUnicode?: string;
+  imageUrl?: string;
+  countryStatus?: {
+    id: number;
+    messageCount: number;
+    likeCount: number;
+    level: number;
+    population: string | null;
+  };
 }
 
-export const selectedCountryState = atom({
-  key: 'selectedCountry',
+interface SelectedCountryState extends CountryState {
+  scrollTop?: number;
+}
+
+export const selectedCountryAtom = atom<SelectedCountryState>({
+  key: 'selectedCountryAtom',
   default: {
     id: 0,
     code: '',
-    fullName: 'Whole world',
+    fullName: '',
   },
 });
 
-export const countriesState = selector({
-  key: 'countries',
+export const countriesSelector = selector<CountryState[]>({
+  key: 'countriesSelector',
   get: async () => {
-    const response = await getCountries();
+    const {
+      data: { countries },
+    } = await getCountries();
 
-    return response.data.countries;
+    return countries;
   },
 });
 
-export const countriesCountState = selector({
-  key: 'countriesCount',
+export const countriesCountSelector = selector<CountryState[]>({
+  key: 'countriesCountSelector',
   get: async () => {
     const {
       data: { countries },
@@ -43,8 +57,8 @@ export const countriesCountState = selector({
   },
 });
 
-export const countriesRankState = selector({
-  key: 'countriesRank',
+export const countriesRankSelector = selector<CountryState[]>({
+  key: 'countriesRankSelector',
   get: async () => {
     const {
       data: { ranking },
