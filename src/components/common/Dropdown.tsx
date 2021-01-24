@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { useOnClickOutside } from '../../hooks';
 import { CountryState, OrderingState } from '../../store';
 
-const ITEM_HEIGHT = 38;
+const ITEM_HEIGHT = 46;
 
 const Wrapper = styled.div`
   position: relative;
@@ -40,7 +40,7 @@ export const ToggleButton = styled.button`
 const ItemBox = styled.div`
   position: absolute;
   margin-top: 10px;
-  max-width: 270px;
+  max-width: 280px;
   min-width: 170px;
   border: 2px solid ${props => props.theme.borderColor.filter};
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
@@ -62,7 +62,7 @@ const ItemBox = styled.div`
 `;
 
 const ItemList = styled.ul`
-  max-width: 270px;
+  max-width: 280px;
   max-height: 260px;
   padding: 0;
   margin: 0;
@@ -72,14 +72,15 @@ const ItemList = styled.ul`
 `;
 
 const SearchInput = styled.input`
-  width: 242px;
-  height: 38px;
+  width: 280px;
+  height: 45px;
   padding: 3px 12px;
   border: 0;
   border-radius: 20px;
   outline: 0;
   font-size: 18px;
   font-weight: bold;
+  box-sizing: border-box;
 
   color: ${props => props.theme.color.filter};
   background: ${props => props.theme.backgroundColor.filter};
@@ -104,9 +105,9 @@ const WholeWorldItem = styled.button`
   padding: 3px 12px;
   border: 0;
   text-align: left;
-  font-size: 18px;
+  font-size: 17px;
 
-  height: 45px;
+  height: 48px;
   border-top: 1px solid ${props => props.theme.borderColor.filter};
   border-bottom: 1px solid ${props => props.theme.borderColor.filter};
 
@@ -123,11 +124,11 @@ const Item = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 38px;
+  height: 46px;
   padding: 3px 12px;
   border: 0;
   text-align: left;
-  font-size: 18px;
+  font-size: 17px;
 
   color: ${props => props.theme.color.filter};
   background: ${props => props.theme.backgroundColor.filter};
@@ -234,8 +235,11 @@ const Dropdown: FC<DropdownProps> = ({
     setTimeout(() => {
       setSearchValue('');
       setFilteredItems(items);
+      const index = items.findIndex(
+        item => item.fullName === selectedItem?.fullName,
+      );
       if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
