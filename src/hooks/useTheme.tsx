@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
@@ -83,14 +84,17 @@ export const ThemeProvider: FC = ({ children }) => {
     return onBrowserThemeChanged(updateTheme);
   }, [theme, updateTheme]);
 
-  return (
-    <ThemeContext.Provider value={[theme, updateTheme]}>
-      <StyledThemeProvider
-        theme={theme === THEME.DARK ? themes.dark : themes.light}
-      >
-        {children}
-      </StyledThemeProvider>
-    </ThemeContext.Provider>
+  return useMemo(
+    () => (
+      <ThemeContext.Provider value={[theme, updateTheme]}>
+        <StyledThemeProvider
+          theme={theme === THEME.DARK ? themes.dark : themes.light}
+        >
+          {children}
+        </StyledThemeProvider>
+      </ThemeContext.Provider>
+    ),
+    [theme],
   );
 };
 
