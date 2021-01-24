@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { THEME } from '../../../hooks';
+import { messageCountAtom, parsedMessageCountSelector } from '../../../store';
 
 const LogoWrapper = styled.span`
   display: flex;
@@ -42,10 +44,11 @@ const MessageCountBadge = styled.span`
 
 interface LogoProps {
   theme: string;
-  messageCount?: number;
 }
 
 const Logo: FC<LogoProps> = props => {
+  const messageCount = useRecoilValue(parsedMessageCountSelector);
+
   return (
     <LogoWrapper>
       <img
@@ -55,7 +58,7 @@ const Logo: FC<LogoProps> = props => {
             : '/images/logo-light.svg'
         }
       />
-      <MessageCountBadge>{`+${props.messageCount || 34.5}K`}</MessageCountBadge>
+      <MessageCountBadge>{messageCount}</MessageCountBadge>
     </LogoWrapper>
   );
 };

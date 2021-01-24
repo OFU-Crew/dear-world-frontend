@@ -4,16 +4,11 @@ import {
   OnLayoutComplete,
 } from '@egjs/react-infinitegrid';
 import React, { ComponentType, FC, Suspense, useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { getMessages } from '../api';
-import {
-  countriesQueryState,
-  decodeURI,
-  orderingQueryState,
-  selectedCountryAtom,
-} from '../store';
+import { getMessageCount, getMessages } from '../api';
+import { decodeURI, messageCountAtom, selectedCountryAtom } from '../store';
 import Loading from './common/Loading';
 import MessageCard, { MessageCardProps } from './MessageCard';
 
@@ -21,17 +16,25 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-interface AsyncMessageListProps {
+interface MessageListProps {
+  countriesQuery?: string;
+  orderingQuery: string;
+}
+
+interface AsyncMessageListProps extends MessageListProps {
   visible: boolean;
 }
 
-const AsyncMessageList: FC<AsyncMessageListProps> = ({ visible }) => {
-  const orderingQuery = useRecoilValue(orderingQueryState);
+const AsyncMessageList: FC<AsyncMessageListProps> = ({
+  visible,
+  orderingQuery,
+}) => {
   const selectedCountry = useRecoilValue(selectedCountryAtom);
   const [messageList, setMessageList] = useState<
     ComponentType<MessageCardProps>[]
   >([]);
   const [lastId, setLastId] = useState<string>();
+  const setMessageCount = useSetRecoilState(messageCountAtom);
 
   const onAppend = async ({ groupKey, startLoading }: OnAppend) => {
     if (
@@ -59,6 +62,14 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({ visible }) => {
       />
     ));
 
+    let messageCount = data.messages.length;
+    if (orderingQuery === 'Recent') {
+      const response = await getMessageCount({
+        countryCode: selectedCountry ? selectedCountry.code : '',
+      });
+      messageCount = response.data.messageCount;
+    }
+    setMessageCount(messageCount);
     setMessageList([...messageList, messages]);
     setLastId(data.lastId);
   };
@@ -92,10 +103,11 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({ visible }) => {
   );
 };
 
-const MessageList: FC = () => {
+const MessageList: FC<MessageListProps> = ({
+  countriesQuery,
+  orderingQuery,
+}) => {
   const [visible, setVisible] = useState(false);
-  const countriesQuery = useRecoilValue(countriesQueryState);
-  const orderingQuery = useRecoilValue(orderingQueryState);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -109,7 +121,13 @@ const MessageList: FC = () => {
 
   return (
     <Suspense fallback={<div />}>
-      <Wrapper>{visible ? <AsyncMessageList visible /> : <Loading />}</Wrapper>
+      <Wrapper>
+        {visible ? (
+          <AsyncMessageList visible orderingQuery={orderingQuery} />
+        ) : (
+          <Loading />
+        )}
+      </Wrapper>
     </Suspense>
   );
 };
