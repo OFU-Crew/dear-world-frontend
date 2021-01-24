@@ -1,23 +1,27 @@
-import { selector, selectorFamily, SerializableParam } from 'recoil';
+import { atom, selector } from 'recoil';
 
-import { getMessageCount, getMessages, messageCountParams } from '../api';
-
-export const messagesState = selector({
-  key: 'messages',
-  get: async () => {
-    const response = await getMessages({});
-
-    return response.data;
-  },
+export const messagesAtom = atom({
+  key: 'messagesAtom',
+  default: [],
 });
 
-export const messageCountState = selectorFamily({
-  key: 'messageCount',
-  get: (params: SerializableParam = {}) => async () => {
-    const {
-      data: { messageCount },
-    } = await getMessageCount(params as messageCountParams);
+export const messageCountAtom = atom<number>({
+  key: 'messageCountAtom',
+  default: 0,
+});
 
-    return messageCount;
+export const parsedMessageCountSelector = selector({
+  key: 'parsedMessageCountSelector',
+  get: ({ get }) => {
+    const messageCount = get(messageCountAtom);
+
+    if (messageCount < 1000) {
+      return messageCount;
+    }
+
+    const suffix = Math.floor(messageCount / 1000);
+    const decimal = (messageCount % 1000).toString()[0];
+
+    return `${suffix}.${decimal}k`;
   },
 });

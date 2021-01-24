@@ -1,9 +1,17 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 
 import { useOnClickOutside } from '../../hooks';
+import { CountryState, OrderingState } from '../../store';
 
-const ITEM_HEIGHT = 38;
+const ITEM_HEIGHT = 46;
 
 const Wrapper = styled.div`
   position: relative;
@@ -32,7 +40,7 @@ export const ToggleButton = styled.button`
 const ItemBox = styled.div`
   position: absolute;
   margin-top: 10px;
-  max-width: 270px;
+  max-width: 280px;
   min-width: 170px;
   border: 2px solid ${props => props.theme.borderColor.filter};
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
@@ -54,7 +62,7 @@ const ItemBox = styled.div`
 `;
 
 const ItemList = styled.ul`
-  max-width: 270px;
+  max-width: 280px;
   max-height: 260px;
   padding: 0;
   margin: 0;
@@ -63,17 +71,43 @@ const ItemList = styled.ul`
   border-radius: 20px;
 `;
 
+const SearchInput = styled.input`
+  width: 280px;
+  height: 45px;
+  padding: 3px 12px;
+  border: 0;
+  border-radius: 20px;
+  outline: 0;
+  font-size: 18px;
+  font-weight: bold;
+  box-sizing: border-box;
+
+  color: ${props => props.theme.color.filter};
+  background: ${props => props.theme.backgroundColor.filter};
+
+  &::placeholder {
+    color: ${props => props.theme.color.search};
+  }
+
+  & + i {
+    position: relative;
+    z-index: 1;
+    left: -25px;
+    color: ${props => props.theme.color.search};
+    width: 0;
+  }
+`;
+
 const WholeWorldItem = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 38px;
   padding: 3px 12px;
   border: 0;
   text-align: left;
-  font-size: 18px;
+  font-size: 17px;
 
-  height: 45px;
+  height: 48px;
   border-top: 1px solid ${props => props.theme.borderColor.filter};
   border-bottom: 1px solid ${props => props.theme.borderColor.filter};
 
@@ -90,11 +124,11 @@ const Item = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 38px;
+  height: 46px;
   padding: 3px 12px;
   border: 0;
   text-align: left;
-  font-size: 18px;
+  font-size: 17px;
 
   color: ${props => props.theme.color.filter};
   background: ${props => props.theme.backgroundColor.filter};
@@ -105,33 +139,31 @@ const Item = styled.button`
   }
 `;
 
-interface ItemProps {
-  id: number;
-  code?: string;
-  fullName: string;
-  emojiUnicode?: string;
-}
+type ItemType = CountryState | OrderingState;
 
 interface DropdownProps {
-  type: string;
-  selectedItem?: ItemProps | undefined;
-  items: ItemProps[];
-  onClickButton?: () => void;
+  wholeItem?: boolean;
+  searchBar?: boolean;
+  selectedItem?: ItemType | undefined;
+  items: ItemType[];
   onClickItem?: (country: string) => void;
+  // setSearchValue?: () => void;
 }
 
 const Dropdown: FC<DropdownProps> = ({
-  children,
-  type,
+  searchBar,
+  wholeItem,
   selectedItem,
   items,
-  onClickButton,
   onClickItem,
 }) => {
   const buttonRef = useRef(null);
   const boxRef = useRef(null);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [searchValue, setSearchValue] = useState('');
   const [selectedItemId, setSelectedItemId] = useState<number>(
     selectedItem ? selectedItem.id : 0,
   );
@@ -150,6 +182,8 @@ const Dropdown: FC<DropdownProps> = ({
     setVisible(false);
     setSelectedItemTitle(title);
     onClickItem && onClickItem(title);
+    setSearchValue('');
+    setFilteredItems(items);
 
     const index = items.findIndex(item => item.fullName === title);
 
@@ -165,21 +199,47 @@ const Dropdown: FC<DropdownProps> = ({
 
   const handleClickButton = () => {
     setVisible(prev => !prev);
-    onClickButton && onClickButton();
+    setSearchValue('');
+    setFilteredItems(items);
 
     setTimeout(() => {
-      if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
+      if (inputRef && inputRef.current) {
+        inputRef.current!.focus();
       }
     }, 200);
+
+    setTimeout(() => {
+      const index = items.findIndex(
+        item => item.fullName === selectedItem?.fullName,
+      );
+      if (listRef.current) {
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
+      }
+    }, 300);
+  };
+
+  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const exp = new RegExp(value, 'gi');
+    const filteredItems = items.filter((item: ItemType) =>
+      item.fullName.match(exp),
+    );
+
+    setSearchValue(value);
+    setFilteredItems(filteredItems);
   };
 
   const handleClickOutside = () => {
     setVisible(false);
 
     setTimeout(() => {
+      setSearchValue('');
+      setFilteredItems(items);
+      const index = items.findIndex(
+        item => item.fullName === selectedItem?.fullName,
+      );
       if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
       }
     }, 200);
   };
@@ -187,18 +247,17 @@ const Dropdown: FC<DropdownProps> = ({
   useOnClickOutside([buttonRef, boxRef], handleClickOutside);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = 0;
-    }
-  }, [items]);
-
-  useEffect(() => {
     setSelectedItemId(selectedItem ? selectedItem.id : 0);
     setSelectedItemTitle(selectedItem ? selectedItem.fullName : 'Whole world');
 
-    if (listRef.current) {
-      listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
-    }
+    const index = items.findIndex(
+      item => item.fullName === selectedItem?.fullName,
+    );
+    setTimeout(() => {
+      if (listRef.current) {
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
+      }
+    }, 200);
   }, [selectedItem]);
 
   return (
@@ -207,8 +266,18 @@ const Dropdown: FC<DropdownProps> = ({
         {selectedItemTitle}
       </ToggleButton>
       <ItemBox ref={boxRef} className={visible ? 'active' : 'unactive'}>
-        {children}
-        {type === 'countries' && (
+        {searchBar && (
+          <Fragment>
+            <SearchInput
+              ref={inputRef}
+              placeholder="Search the country"
+              value={searchValue}
+              onChange={onChangeValue}
+            />
+            <i className="fas fa-search"></i>
+          </Fragment>
+        )}
+        {wholeItem && (
           <WholeWorldItem
             className={isSelected(0) ? 'selected' : ''}
             onClick={handleClickItem}
@@ -217,7 +286,7 @@ const Dropdown: FC<DropdownProps> = ({
           </WholeWorldItem>
         )}
         <ItemList ref={listRef} onClick={handleClickItem}>
-          {items.map(item => (
+          {filteredItems.map((item: ItemType) => (
             <li key={item.id}>
               <Item className={isSelected(item.id) ? 'selected' : ''}>
                 {item.fullName}

@@ -1,43 +1,54 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
-import {
-  countriesQueryState,
-  decodeURI,
-  encodeURI,
-  OrderingProps,
-  orderingQueryState,
-} from '../../store';
-import Dropdown from '../common/Dropdown';
+import { decodeURI, encodeURI, OrderingState } from '../../store';
+import Dropdown, { ToggleButton } from '../common/Dropdown';
 
-const OrderingFilter: FC = () => {
-  const orderings = [
-    { id: 0, fullName: 'Recent' },
-    { id: 1, fullName: 'Weekly HOT' },
-  ];
+const orderings = [
+  { id: 0, fullName: 'Recent' },
+  { id: 1, fullName: 'Weekly HOT' },
+];
+
+interface OrderingFilterProps {
+  countriesQuery: string;
+  orderingQuery: string;
+}
+
+const OrderingFilter: FC<OrderingFilterProps> = ({
+  countriesQuery,
+  orderingQuery,
+}) => {
   const history = useHistory();
-  const countryQuery = useRecoilValue(countriesQueryState);
-  const orderingQuery = useRecoilValue(orderingQueryState);
-  const selectedOrdering = orderings.find(
-    (ordering: OrderingProps) => ordering.fullName === decodeURI(orderingQuery),
-  );
+  const [selectedOrdering, setSelectedOrdering] = useState<OrderingState>({
+    id: 0,
+    fullName: orderingQuery,
+  });
 
   const onClickItem = (ordering: string) => {
     ordering = encodeURI(ordering);
     history.push({
       pathname: '',
-      search: `countries=${countryQuery}&ordering=${ordering}`,
+      search: `countries=${countriesQuery}&ordering=${ordering}`,
     });
   };
 
+  useEffect(() => {
+    const selectedOrdering = orderings.find(
+      (ordering: OrderingState) =>
+        ordering.fullName === decodeURI(orderingQuery),
+    );
+
+    setSelectedOrdering(selectedOrdering!);
+  }, [orderingQuery]);
+
   return (
-    <Dropdown
-      type="ordering"
-      selectedItem={selectedOrdering}
-      items={orderings}
-      onClickItem={onClickItem}
-    />
+    <Suspense fallback={<ToggleButton>Recent</ToggleButton>}>
+      <Dropdown
+        selectedItem={selectedOrdering}
+        items={orderings}
+        onClickItem={onClickItem}
+      />
+    </Suspense>
   );
 };
 

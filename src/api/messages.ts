@@ -10,6 +10,7 @@ export const getMessages = ({ countryCode, type, lastId }: getMessagesParams) =>
 
 export interface messageCountParams {
   countryCode?: string;
+  type?: string;
 }
 export const getMessageCount = ({ countryCode }: messageCountParams) =>
   getApi('/countries/messagecount', { params: { countryCode } });
