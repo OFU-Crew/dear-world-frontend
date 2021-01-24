@@ -1,7 +1,6 @@
 import React, { FC, Suspense, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSearchParams } from '../../hooks';
 import { decodeURI, encodeURI, OrderingState } from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
@@ -10,9 +9,16 @@ const orderings = [
   { id: 1, fullName: 'Weekly HOT' },
 ];
 
-const OrderingFilter: FC = () => {
+interface OrderingFilterProps {
+  countriesQuery: string;
+  orderingQuery: string;
+}
+
+const OrderingFilter: FC<OrderingFilterProps> = ({
+  countriesQuery,
+  orderingQuery,
+}) => {
   const history = useHistory();
-  const [countryQuery, orderingQuery] = useSearchParams();
   const [selectedOrdering, setSelectedOrdering] = useState<OrderingState>({
     id: 0,
     fullName: orderingQuery,
@@ -22,7 +28,7 @@ const OrderingFilter: FC = () => {
     ordering = encodeURI(ordering);
     history.push({
       pathname: '',
-      search: `countries=${countryQuery}&ordering=${ordering}`,
+      search: `countries=${countriesQuery}&ordering=${ordering}`,
     });
   };
 

@@ -13,10 +13,18 @@ import {
 } from '../../store';
 import Dropdown, { ToggleButton } from '../common/Dropdown';
 
-const AsyncCountriesFilter: FC = () => {
-  const countries = useRecoilValue(countriesSelector);
+interface CountriesFilterProps {
+  countriesQuery: string;
+  orderingQuery: string;
+  countries: CountryState[];
+}
+
+const AsyncCountriesFilter: FC<CountriesFilterProps> = ({
+  countriesQuery,
+  orderingQuery,
+  countries,
+}) => {
   const history = useHistory();
-  const [countriesQuery, orderingQuery] = useSearchParams();
   const [selectedCountry, setSelectedCountry] = useRecoilState(
     selectedCountryAtom,
   );
@@ -48,14 +56,14 @@ const AsyncCountriesFilter: FC = () => {
   );
 };
 
-const CountriesFilter: FC = () => {
+const CountriesFilter: FC<CountriesFilterProps> = props => {
   const countriesQuery = useRecoilValue(countriesQueryState);
 
   return (
     <Suspense
       fallback={<ToggleButton>{decodeURI(countriesQuery)}</ToggleButton>}
     >
-      <AsyncCountriesFilter />
+      <AsyncCountriesFilter {...props} />
     </Suspense>
   );
 };
