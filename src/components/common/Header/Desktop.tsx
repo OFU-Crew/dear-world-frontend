@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 
+const ColorWrapper = styled.div`
+  background-color: ${props => props.theme.backgroundColor.header};
+`;
+
 const DesktopHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -76,28 +80,30 @@ interface DesktopHeaderProps {
 
 const DesktopHeader: FC<DesktopHeaderProps> = props => {
   return (
-    <DesktopHeaderWrapper>
-      <LeftWrapper>
-        <Link to="/">
-          <Logo theme={props.theme} />
-        </Link>
-        <Menu exact to="/" activeClassName="selected">
-          Dear, world
-        </Menu>
-        <Menu exact to="/cheering-map" activeClassName="selected">
-          Cheering map
-        </Menu>
-        <Menu exact to="/about" activeClassName="selected">
-          About
-        </Menu>
-      </LeftWrapper>
-      <RightWrapper>
-        <MessageSendButton>
-          <i className="fa fa-plus"></i>
-          Send Message
-        </MessageSendButton>
-      </RightWrapper>
-    </DesktopHeaderWrapper>
+    <ColorWrapper>
+      <DesktopHeaderWrapper>
+        <LeftWrapper>
+          <Link to="/">
+            <Logo theme={props.theme} />
+          </Link>
+          <Menu exact to="/" activeClassName="selected">
+            Dear, world
+          </Menu>
+          <Menu exact to="/cheering-map" activeClassName="selected">
+            Cheering map
+          </Menu>
+          <Menu exact to="/about" activeClassName="selected">
+            About
+          </Menu>
+        </LeftWrapper>
+        <RightWrapper>
+          <MessageSendButton>
+            <i className="fa fa-plus"></i>
+            Send Message
+          </MessageSendButton>
+        </RightWrapper>
+      </DesktopHeaderWrapper>
+    </ColorWrapper>
   );
 };
 

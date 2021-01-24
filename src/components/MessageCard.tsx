@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { THEME, useTheme } from '../hooks';
 import FadeIn from './common/animation/FadeIn';
 import Emoji from './common/Emoji';
 
@@ -13,6 +14,8 @@ const MessageCardWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
+  background-color: ${props => props.theme.backgroundColor.card};
 `;
 
 const MessageHeader = styled.div`
@@ -26,7 +29,7 @@ const HeaderImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(/images/message-bg.svg) no-repeat center;
+  background: url(${props => props.theme.url.messageBg}) no-repeat center;
   background-size: cover;
   margin-right: 12px;
 `;
@@ -38,26 +41,29 @@ const HeaderDescription = styled.div`
 
 const HeaderDescriptionName = styled.div`
   flex: 0 1 100%;
-  color: #212e5a;
   font-weight: 700;
   font-size: 18px;
+
+  color: ${props => props.theme.color.messageNickname};
 `;
 
 const HeaderDescriptionCountry = styled.div`
   flex: 0 1 100%;
-  color: #445282;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   display: flex;
+
+  color: ${props => props.theme.color.messageCountry};
 `;
 
 const Contents = styled.div`
   font-size: 14px;
   line-height: 22px;
-  color: #212e5a;
   font-weight: 400;
   margin-bottom: 10px;
+
+  color: ${props => props.theme.color.messageDescription};
 `;
 const MessageFooter = styled.div`
   display: flex;
@@ -65,16 +71,29 @@ const MessageFooter = styled.div`
   align-items: center;
 `;
 
-const MessageHeart = styled.img`
-  margin-right: 4px;
-`;
+const MessageHeart = styled.img``;
 
 const LikeWrapper = styled.div<{ like: boolean }>`
   display: flex;
   align-items: center;
   font-size: 14px;
   font-weight: 400;
-  color: ${props => (props.like ? '#fa3766' : '#d6ddfb')};
+  color: ${props =>
+    props.like
+      ? props.theme.backgroundColor.activeHeart
+      : props.theme.backgroundColor.heart};
+`;
+
+const LikeCountWrapper = styled.div<{ like: boolean }>`
+  display: flex;
+  align-items: center;
+  margin-left: 9px;
+  font-size: 16px;
+  font-weight: 400;
+  color: ${props =>
+    props.like
+      ? props.theme.backgroundColor.activeHeart
+      : props.theme.backgroundColor.heart};
 `;
 
 const LikeButton = styled.button`
@@ -83,9 +102,9 @@ const LikeButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
   background-size: cover;
   border-style: none;
+  background: ${props => props.theme.backgroundColor.card};
 `;
 
 const ShareButton = styled.button`
@@ -94,9 +113,14 @@ const ShareButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(/images/share-bg.svg) no-repeat center;
+  background: url(${props => props.theme.url.shareButton}) no-repeat center;
   background-size: cover;
   border-style: none;
+
+  &:hover {
+    background: url(${props => props.theme.url.shareButtonHover}) no-repeat
+      center;
+  }
 `;
 
 export interface MessageCardProps {
@@ -117,6 +141,8 @@ export interface MessageCardProps {
 }
 
 const MessageCard = (props: MessageCardProps) => {
+  const [theme] = useTheme();
+
   return (
     <FadeIn show={true}>
       <MessageCardWrapper>
@@ -144,16 +170,18 @@ const MessageCard = (props: MessageCardProps) => {
                 src={
                   props.like
                     ? '/images/heart-activate.svg'
-                    : '/images/heart-inactivate.svg'
+                    : theme === THEME.LIGHT
+                    ? '/images/heart-inactivate.svg'
+                    : '/images/heart-inactivate-dark.svg'
                 }
               />
+              <LikeCountWrapper like={props.like}>
+                {props.likeCount}
+              </LikeCountWrapper>
             </LikeButton>
-            {props.likeCount}
           </LikeWrapper>
 
-          <ShareButton>
-            <img src="/images/share-icon.svg"></img>
-          </ShareButton>
+          <ShareButton />
         </MessageFooter>
       </MessageCardWrapper>
     </FadeIn>

@@ -14,6 +14,8 @@ const CountWrapper = styled.span`
 
 const UnitWrapper = styled.span`
   font-size: 25px;
+
+  color: ${props => props.theme.color.filter};
 `;
 
 const AsyncMessageCount: FC = () => {
