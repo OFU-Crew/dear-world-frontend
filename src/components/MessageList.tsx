@@ -21,7 +21,11 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const AsyncMessageList: FC = () => {
+interface AsyncMessageListProps {
+  visible: boolean;
+}
+
+const AsyncMessageList: FC<AsyncMessageListProps> = ({ visible }) => {
   const orderingQuery = useRecoilValue(orderingQueryState);
   const selectedCountry = useRecoilValue(selectedCountryAtom);
   const [messageList, setMessageList] = useState<
@@ -30,7 +34,10 @@ const AsyncMessageList: FC = () => {
   const [lastId, setLastId] = useState<string>();
 
   const onAppend = async ({ groupKey, startLoading }: OnAppend) => {
-    if (decodeURI(orderingQuery) === 'Weekly HOT' && messageList.length) {
+    if (
+      !visible ||
+      (decodeURI(orderingQuery) === 'Weekly HOT' && messageList.length)
+    ) {
       return;
     }
     startLoading && startLoading();
@@ -101,12 +108,8 @@ const MessageList: FC = () => {
   }, [countriesQuery, orderingQuery]);
 
   return (
-    <Suspense fallback={<Loading />}>
-      {visible && (
-        <Wrapper>
-          <AsyncMessageList />
-        </Wrapper>
-      )}
+    <Suspense fallback={<div />}>
+      <Wrapper>{visible ? <AsyncMessageList visible /> : <Loading />}</Wrapper>
     </Suspense>
   );
 };
