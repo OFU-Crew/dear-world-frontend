@@ -181,6 +181,8 @@ const Dropdown: FC<DropdownProps> = ({
     setVisible(false);
     setSelectedItemTitle(title);
     onClickItem && onClickItem(title);
+    setSearchValue('');
+    setFilteredItems(items);
 
     const index = items.findIndex(item => item.fullName === title);
 
@@ -196,6 +198,8 @@ const Dropdown: FC<DropdownProps> = ({
 
   const handleClickButton = () => {
     setVisible(prev => !prev);
+    setSearchValue('');
+    setFilteredItems(items);
 
     setTimeout(() => {
       if (inputRef && inputRef.current) {
@@ -204,10 +208,13 @@ const Dropdown: FC<DropdownProps> = ({
     }, 200);
 
     setTimeout(() => {
+      const index = items.findIndex(
+        item => item.fullName === selectedItem?.fullName,
+      );
       if (listRef.current) {
-        listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
       }
-    }, 200);
+    }, 300);
   };
 
   const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -225,6 +232,8 @@ const Dropdown: FC<DropdownProps> = ({
     setVisible(false);
 
     setTimeout(() => {
+      setSearchValue('');
+      setFilteredItems(items);
       if (listRef.current) {
         listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
       }
@@ -234,18 +243,17 @@ const Dropdown: FC<DropdownProps> = ({
   useOnClickOutside([buttonRef, boxRef], handleClickOutside);
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = 0;
-    }
-  }, [items]);
-
-  useEffect(() => {
     setSelectedItemId(selectedItem ? selectedItem.id : 0);
     setSelectedItemTitle(selectedItem ? selectedItem.fullName : 'Whole world');
 
-    if (listRef.current) {
-      listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
-    }
+    const index = items.findIndex(
+      item => item.fullName === selectedItem?.fullName,
+    );
+    setTimeout(() => {
+      if (listRef.current) {
+        listRef.current.scrollTop = index * ITEM_HEIGHT - 3;
+      }
+    }, 200);
   }, [selectedItem]);
 
   return (
