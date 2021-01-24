@@ -1,27 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
-import {
-  countriesQueryState,
-  decodeURI,
-  encodeURI,
-  orderingQueryState,
-  OrderingState,
-} from '../../store';
-import Dropdown from '../common/Dropdown';
+import { useSearchParams } from '../../hooks';
+import { decodeURI, encodeURI, OrderingState } from '../../store';
+import Dropdown, { ToggleButton } from '../common/Dropdown';
+
+const orderings = [
+  { id: 0, fullName: 'Recent' },
+  { id: 1, fullName: 'Weekly HOT' },
+];
 
 const OrderingFilter: FC = () => {
-  const orderings = [
-    { id: 0, fullName: 'Recent' },
-    { id: 1, fullName: 'Weekly HOT' },
-  ];
   const history = useHistory();
-  const countryQuery = useRecoilValue(countriesQueryState);
-  const orderingQuery = useRecoilValue(orderingQueryState);
-  const selectedOrdering = orderings.find(
-    (ordering: OrderingState) => ordering.fullName === decodeURI(orderingQuery),
-  );
+  const [countryQuery, orderingQuery] = useSearchParams();
+  const [selectedOrdering, setSelectedOrdering] = useState<OrderingState>({
+    id: 0,
+    fullName: orderingQuery,
+  });
 
   const onClickItem = (ordering: string) => {
     ordering = encodeURI(ordering);
@@ -31,13 +26,23 @@ const OrderingFilter: FC = () => {
     });
   };
 
+  useEffect(() => {
+    const selectedOrdering = orderings.find(
+      (ordering: OrderingState) =>
+        ordering.fullName === decodeURI(orderingQuery),
+    );
+
+    setSelectedOrdering(selectedOrdering!);
+  }, [orderingQuery]);
+
   return (
-    <Dropdown
-      type="ordering"
-      selectedItem={selectedOrdering}
-      items={orderings}
-      onClickItem={onClickItem}
-    />
+    <Suspense fallback={<ToggleButton>Recent</ToggleButton>}>
+      <Dropdown
+        selectedItem={selectedOrdering}
+        items={orderings}
+        onClickItem={onClickItem}
+      />
+    </Suspense>
   );
 };
 

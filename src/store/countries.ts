@@ -31,7 +31,7 @@ export const selectedCountryAtom = atom<SelectedCountryState>({
   default: {
     id: 0,
     code: '',
-    fullName: '',
+    fullName: 'Whole world',
   },
 });
 

@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 
 import { useOnClickOutside } from '../../hooks';
@@ -64,6 +71,32 @@ const ItemList = styled.ul`
   border-radius: 20px;
 `;
 
+const SearchInput = styled.input`
+  width: 242px;
+  height: 38px;
+  padding: 3px 12px;
+  border: 0;
+  border-radius: 20px;
+  outline: 0;
+  font-size: 18px;
+  font-weight: bold;
+
+  color: ${props => props.theme.color.filter};
+  background: ${props => props.theme.backgroundColor.filter};
+
+  &::placeholder {
+    color: ${props => props.theme.color.search};
+  }
+
+  & + i {
+    position: relative;
+    z-index: 1;
+    left: -25px;
+    color: ${props => props.theme.color.search};
+    width: 0;
+  }
+`;
+
 const WholeWorldItem = styled.button`
   display: flex;
   align-items: center;
@@ -108,26 +141,28 @@ const Item = styled.button`
 type ItemType = CountryState | OrderingState;
 
 interface DropdownProps {
-  type: string;
+  wholeItem?: boolean;
+  searchBar?: boolean;
   selectedItem?: ItemType | undefined;
   items: ItemType[];
-  onClickButton?: () => void;
   onClickItem?: (country: string) => void;
   // setSearchValue?: () => void;
 }
 
 const Dropdown: FC<DropdownProps> = ({
-  children,
-  type,
+  searchBar,
+  wholeItem,
   selectedItem,
   items,
-  onClickButton,
   onClickItem,
 }) => {
   const buttonRef = useRef(null);
   const boxRef = useRef(null);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [searchValue, setSearchValue] = useState('');
   const [selectedItemId, setSelectedItemId] = useState<number>(
     selectedItem ? selectedItem.id : 0,
   );
@@ -161,13 +196,29 @@ const Dropdown: FC<DropdownProps> = ({
 
   const handleClickButton = () => {
     setVisible(prev => !prev);
-    onClickButton && onClickButton();
+
+    setTimeout(() => {
+      if (inputRef && inputRef.current) {
+        inputRef.current!.focus();
+      }
+    }, 200);
 
     setTimeout(() => {
       if (listRef.current) {
         listRef.current.scrollTop = (selectedItemIndex - 1) * ITEM_HEIGHT - 3;
       }
     }, 200);
+  };
+
+  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const exp = new RegExp(value, 'gi');
+    const filteredItems = items.filter((item: ItemType) =>
+      item.fullName.match(exp),
+    );
+
+    setSearchValue(value);
+    setFilteredItems(filteredItems);
   };
 
   const handleClickOutside = () => {
@@ -203,8 +254,18 @@ const Dropdown: FC<DropdownProps> = ({
         {selectedItemTitle}
       </ToggleButton>
       <ItemBox ref={boxRef} className={visible ? 'active' : 'unactive'}>
-        {children}
-        {type === 'countries' && (
+        {searchBar && (
+          <Fragment>
+            <SearchInput
+              ref={inputRef}
+              placeholder="Search the country"
+              value={searchValue}
+              onChange={onChangeValue}
+            />
+            <i className="fas fa-search"></i>
+          </Fragment>
+        )}
+        {wholeItem && (
           <WholeWorldItem
             className={isSelected(0) ? 'selected' : ''}
             onClick={handleClickItem}
@@ -213,7 +274,7 @@ const Dropdown: FC<DropdownProps> = ({
           </WholeWorldItem>
         )}
         <ItemList ref={listRef} onClick={handleClickItem}>
-          {items.map((item: ItemType) => (
+          {filteredItems.map((item: ItemType) => (
             <li key={item.id}>
               <Item className={isSelected(item.id) ? 'selected' : ''}>
                 {item.fullName}
