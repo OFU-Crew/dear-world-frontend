@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { THEME, useTheme } from '../hooks';
+import { THEME, useModal, useTheme } from '../hooks';
+import { Confirmation, Modal } from '.';
 import FadeIn from './common/animation/FadeIn';
 import Emoji from './common/Emoji';
 
@@ -16,6 +17,10 @@ const MessageCardWrapper = styled.div`
   flex-direction: column;
 
   background-color: ${props => props.theme.backgroundColor.card};
+
+  ${({ theme }) => theme.media.mobile`
+    width: 90%;
+  `};
 `;
 
 const MessageHeader = styled.div`
@@ -143,48 +148,75 @@ export interface MessageCardProps {
 const MessageCard = (props: MessageCardProps) => {
   const [theme] = useTheme();
 
-  return (
-    <FadeIn show={true}>
-      <MessageCardWrapper>
-        <MessageHeader>
-          <HeaderImage>
-            <Emoji code={props.anonymousUser.emoji.unicode} />
-          </HeaderImage>
-          <HeaderDescription>
-            <HeaderDescriptionName>
-              {props.anonymousUser.nickname}
-            </HeaderDescriptionName>
-            <HeaderDescriptionCountry>
-              <span style={{ marginRight: 5 }}>
-                <Emoji code={props.anonymousUser.country.emojiUnicode} />
-              </span>
-              {props.anonymousUser.country.fullName}
-            </HeaderDescriptionCountry>
-          </HeaderDescription>
-        </MessageHeader>
-        <Contents>{props.content}</Contents>
-        <MessageFooter>
-          <LikeWrapper like={props.like}>
-            <LikeButton>
-              <MessageHeart
-                src={
-                  props.like
-                    ? '/images/heart-activate.svg'
-                    : theme === THEME.LIGHT
-                    ? '/images/heart-inactivate.svg'
-                    : '/images/heart-inactivate-dark.svg'
-                }
-              />
-              <LikeCountWrapper like={props.like}>
-                {props.likeCount}
-              </LikeCountWrapper>
-            </LikeButton>
-          </LikeWrapper>
+  const { isShown, toggle } = useModal();
 
-          <ShareButton />
-        </MessageFooter>
+  const onConfirm = () => toggle();
+  const onCancel = () => toggle();
+
+  return (
+    <>
+      <MessageCardWrapper onClick={toggle}>
+        <FadeIn show={true}>
+          {/* <a href="#" onClick={toggle}> */}
+          <MessageHeader>
+            <HeaderImage>
+              <Emoji code={props.anonymousUser.emoji.unicode} />
+            </HeaderImage>
+            <HeaderDescription>
+              <HeaderDescriptionName>
+                {props.anonymousUser.nickname}
+              </HeaderDescriptionName>
+              <HeaderDescriptionCountry>
+                <span style={{ marginRight: 5 }}>
+                  <Emoji code={props.anonymousUser.country.emojiUnicode} />
+                </span>
+                {props.anonymousUser.country.fullName}
+              </HeaderDescriptionCountry>
+            </HeaderDescription>
+          </MessageHeader>
+          <Contents>{props.content}</Contents>
+          <MessageFooter>
+            <LikeWrapper like={props.like}>
+              <LikeButton>
+                <MessageHeart
+                  src={
+                    props.like
+                      ? '/images/heart-activate.svg'
+                      : theme === THEME.LIGHT
+                      ? '/images/heart-inactivate.svg'
+                      : '/images/heart-inactivate-dark.svg'
+                  }
+                />
+                <LikeCountWrapper like={props.like}>
+                  {props.likeCount}
+                </LikeCountWrapper>
+              </LikeButton>
+            </LikeWrapper>
+
+            <ShareButton
+              onClick={e => {
+                e.stopPropagation();
+                console.log('share');
+              }}
+            />
+          </MessageFooter>
+          {/* </a> */}
+        </FadeIn>
       </MessageCardWrapper>
-    </FadeIn>
+
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        headerText="Confirmation"
+        modalContent={
+          <Confirmation
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            message="Are you sure you want to delete element?"
+          />
+        }
+      />
+    </>
   );
 };
 
