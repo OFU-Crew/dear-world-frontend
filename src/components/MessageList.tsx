@@ -3,11 +3,13 @@ import {
   OnAppend,
   OnLayoutComplete,
 } from '@egjs/react-infinitegrid';
-import React, { ComponentType, FC, Suspense, useEffect, useState } from 'react';
+import React, { FC, Suspense, useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { getMessageCount, getMessages } from '../api';
+import { sizes } from '../constants';
+import { useWindowDimensions } from '../hooks';
 import { decodeURI, messageCountAtom, selectedCountryAtom } from '../store';
 import Loading from './common/Loading';
 import MessageCard, { MessageCardProps } from './MessageCard';
@@ -15,6 +17,11 @@ import MessageCard, { MessageCardProps } from './MessageCard';
 const Wrapper = styled.div`
   width: 100%;
 `;
+
+interface messageComponentProps extends MessageCardProps {
+  groupKey: number;
+  key: number;
+}
 
 interface MessageListProps {
   countriesQuery?: string;
@@ -29,10 +36,9 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
   visible,
   orderingQuery,
 }) => {
+  const [width] = useWindowDimensions();
   const selectedCountry = useRecoilValue(selectedCountryAtom);
-  const [messageList, setMessageList] = useState<
-    ComponentType<MessageCardProps>[]
-  >([]);
+  const [messageList, setMessageList] = useState<messageComponentProps[]>([]); //ComponentType<MessageCardProps>[]
   const [lastId, setLastId] = useState<string>();
   const setMessageCount = useSetRecoilState(messageCountAtom);
 
@@ -51,16 +57,14 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
       lastId,
     });
 
-    const messages = data.messages.map((message: MessageCardProps) => (
-      <MessageCard
-        groupKey={groupKey}
-        key={message.id}
-        anonymousUser={message.anonymousUser}
-        content={message.content}
-        like={message.like}
-        likeCount={message.likeCount}
-      />
-    ));
+    const messages = data.messages.map((message: MessageCardProps) => ({
+      groupKey: (+groupKey! || 0) + 1,
+      key: message.id,
+      anonymousUser: message.anonymousUser,
+      content: message.content,
+      like: message.like,
+      likeCount: message.likeCount,
+    }));
 
     let messageCount = data.messages.length;
     if (orderingQuery === 'Recent') {
@@ -70,7 +74,7 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
       messageCount = response.data.messageCount;
     }
     setMessageCount(messageCount);
-    setMessageList([...messageList, messages]);
+    setMessageList([...messageList, ...messages]);
     setLastId(data.lastId);
   };
 
@@ -84,21 +88,32 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
       useFirstRender={false}
       onAppend={onAppend}
       onLayoutComplete={onLayoutComplete}
+      groupBy={item => item.props['data-groupkey']}
       layoutOptions={{
         margin: 30,
-        align: 'center',
-        itemSize: 380,
+        align: 'justify',
+        itemSize: width > sizes.desktop ? 380 : +'90%',
       }}
       options={{
         threshold: 1000,
         isOverflowScroll: false,
         isEqualSize: false,
-        useFit: false,
-        useRecycle: false,
+        useFit: true,
+        useRecycle: true,
         horizontal: false,
+        transitionDuration: 0.4,
       }}
     >
-      {messageList}
+      {messageList.map((message: messageComponentProps) => (
+        <MessageCard
+          data-groupkey={message.groupKey}
+          key={message.key}
+          anonymousUser={message.anonymousUser}
+          content={message.content}
+          like={message.like}
+          likeCount={message.likeCount}
+        />
+      ))}
     </GridLayout>
   );
 };
