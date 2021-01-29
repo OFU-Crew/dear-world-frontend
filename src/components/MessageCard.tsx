@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { postMessageLike } from '../api';
 import { THEME, useModal, useTheme } from '../hooks';
+import { messageAtomFamily } from '../store';
 import { Confirmation, Modal } from '.';
 import FadeIn from './common/animation/FadeIn';
 import Emoji from './common/Emoji';
@@ -147,49 +150,67 @@ export interface MessageCardProps {
 
 const MessageCard = (props: MessageCardProps) => {
   const [theme] = useTheme();
-
   const { isShown, toggle } = useModal();
-
   const onConfirm = () => toggle();
   const onCancel = () => toggle();
+
+  const [message, setMessage] = useRecoilState(messageAtomFamily(props.id!));
+  const [like, setLike] = useState(props.like);
+  const [likeCount, setLikeCount] = useState(props.likeCount);
+
+  const clickLikeButton = useCallback(
+    e => {
+      e.stopPropagation();
+      setLike(!like);
+      setLikeCount(prev => (like ? prev - 1 : prev + 1));
+      postMessageLike({ messageId: props.id! });
+    },
+    [like, likeCount],
+  );
+
+  useEffect(() => {
+    setMessage(prev => ({
+      ...prev,
+      ...props,
+      like,
+      likeCount,
+    }));
+  }, [setMessage]);
 
   return (
     <>
       <MessageCardWrapper onClick={toggle}>
         <FadeIn show={true}>
-          {/* <a href="#" onClick={toggle}> */}
           <MessageHeader>
             <HeaderImage>
-              <Emoji code={props.anonymousUser.emoji.unicode} />
+              <Emoji code={message.anonymousUser.emoji.unicode} />
             </HeaderImage>
             <HeaderDescription>
               <HeaderDescriptionName>
-                {props.anonymousUser.nickname}
+                {message.anonymousUser.nickname}
               </HeaderDescriptionName>
               <HeaderDescriptionCountry>
                 <span style={{ marginRight: 5 }}>
-                  <Emoji code={props.anonymousUser.country.emojiUnicode} />
+                  <Emoji code={message.anonymousUser.country.emojiUnicode} />
                 </span>
-                {props.anonymousUser.country.fullName}
+                {message.anonymousUser.country.fullName}
               </HeaderDescriptionCountry>
             </HeaderDescription>
           </MessageHeader>
-          <Contents>{props.content}</Contents>
+          <Contents>{message.content}</Contents>
           <MessageFooter>
-            <LikeWrapper like={props.like}>
-              <LikeButton>
+            <LikeWrapper like={like}>
+              <LikeButton onClick={clickLikeButton}>
                 <MessageHeart
                   src={
-                    props.like
+                    like
                       ? '/images/heart-activate.svg'
                       : theme === THEME.LIGHT
                       ? '/images/heart-inactivate.svg'
                       : '/images/heart-inactivate-dark.svg'
                   }
                 />
-                <LikeCountWrapper like={props.like}>
-                  {props.likeCount}
-                </LikeCountWrapper>
+                <LikeCountWrapper like={like}>{likeCount}</LikeCountWrapper>
               </LikeButton>
             </LikeWrapper>
 
@@ -200,7 +221,6 @@ const MessageCard = (props: MessageCardProps) => {
               }}
             />
           </MessageFooter>
-          {/* </a> */}
         </FadeIn>
       </MessageCardWrapper>
 

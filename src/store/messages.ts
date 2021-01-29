@@ -1,8 +1,34 @@
-import { atom, selector } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
-export const messagesAtom = atom({
-  key: 'messagesAtom',
-  default: [],
+interface MessageState {
+  anonymousUser: {
+    id: number;
+    emoji: { unicode: string };
+    nickname: string;
+    country: {
+      emojiUnicode: string;
+      fullName: string;
+    };
+  };
+  content: string;
+  like: boolean;
+  likeCount: number;
+}
+
+export const messageAtomFamily = atomFamily<MessageState, number>({
+  key: 'messageAtomFamily',
+  default: id => ({
+    id,
+    anonymousUser: {
+      id: 0,
+      emoji: { unicode: '' },
+      nickname: '',
+      country: { emojiUnicode: '', fullName: '' },
+    },
+    content: '',
+    like: false,
+    likeCount: 0,
+  }),
 });
 
 export const messageCountAtom = atom<number>({

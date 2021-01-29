@@ -8,5 +8,5 @@ const axiosInstance = axios.create({
 export const getApi = (url: string, config = {}) =>
   axiosInstance.get(url, config).then(response => response.data);
 
-export const postApi = (url: string, data: any, config = {}) =>
+export const postApi = (url: string, data: any = {}, config = {}) =>
   axiosInstance.post(url, data, config).then(response => response.data);

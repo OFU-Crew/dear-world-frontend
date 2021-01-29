@@ -60,6 +60,7 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
     const messages = data.messages.map((message: MessageCardProps) => ({
       groupKey: (+groupKey! || 0) + 1,
       key: message.id,
+      id: message.id,
       anonymousUser: message.anonymousUser,
       content: message.content,
       like: message.like,
@@ -108,6 +109,7 @@ const AsyncMessageList: FC<AsyncMessageListProps> = ({
         <MessageCard
           data-groupkey={message.groupKey}
           key={message.key}
+          id={message.id}
           anonymousUser={message.anonymousUser}
           content={message.content}
           like={message.like}
