@@ -39,45 +39,14 @@ export const StyledModal = styled.div`
   background: white;
   position: relative;
   margin: auto;
-  border-radius: 8px;
-`;
-
-export const Header = styled.div`
-  border-radius: 8px 8px 0 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.3rem;
-`;
-
-export const HeaderText = styled.div`
-  color: #fff;
-  align-self: center;
-  color: lightgray;
-`;
-
-export const CloseButton = styled.button`
-  font-size: 0.8rem;
-  border: none;
-  border-radius: 3px;
-  margin-left: 0.5rem;
-  background: none;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-export const Content = styled.div`
-  padding: 10px;
-  max-height: 30rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+  border-radius: 20px;
 `;
 
 export interface ModalProps {
   isShown: boolean;
   hide: () => void;
   modalContent: JSX.Element;
-  headerText: string;
+  headerText?: string;
 }
 
 const Modal: FunctionComponent<ModalProps> = ({
@@ -112,13 +81,7 @@ const Modal: FunctionComponent<ModalProps> = ({
         tabIndex={-1}
         role="dialog"
       >
-        <StyledModal>
-          <Header>
-            <HeaderText>{headerText}</HeaderText>
-            <CloseButton onClick={hide}>X</CloseButton>
-          </Header>
-          <Content>{modalContent}</Content>
-        </StyledModal>
+        <StyledModal>{modalContent}</StyledModal>
       </Wrapper>
     </React.Fragment>
   );

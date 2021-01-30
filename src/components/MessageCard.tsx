@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { ComponentType, useCallback, useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postMessageLike } from '../api';
@@ -8,6 +8,7 @@ import { messageAtomFamily } from '../store';
 import { Confirmation, Modal } from '.';
 import FadeIn from './common/animation/FadeIn';
 import Emoji from './common/Emoji';
+import ShareLinkBox from './ShareLinkBox';
 
 const MessageCardWrapper = styled.div`
   background: #fff;
@@ -158,6 +159,8 @@ const MessageCard = (props: MessageCardProps) => {
   const [like, setLike] = useState(props.like);
   const [likeCount, setLikeCount] = useState(props.likeCount);
 
+  const [isClickedShareButton, setIsClickedShareButton] = useState(false);
+
   const clickLikeButton = useCallback(
     e => {
       e.stopPropagation();
@@ -167,6 +170,19 @@ const MessageCard = (props: MessageCardProps) => {
     },
     [like, likeCount],
   );
+
+  const clickShareButton = useCallback(e => {
+    e.stopPropagation();
+    setIsClickedShareButton(prev => !prev);
+    toggle();
+  }, []);
+
+  const hideModal = useCallback(() => {
+    if (isClickedShareButton) {
+      setIsClickedShareButton(prev => !prev);
+    }
+    toggle();
+  }, [toggle, setIsClickedShareButton]);
 
   useEffect(() => {
     setMessage(prev => ({
@@ -214,26 +230,25 @@ const MessageCard = (props: MessageCardProps) => {
               </LikeButton>
             </LikeWrapper>
 
-            <ShareButton
-              onClick={e => {
-                e.stopPropagation();
-                console.log('share');
-              }}
-            />
+            <ShareButton onClick={clickShareButton} />
           </MessageFooter>
         </FadeIn>
       </MessageCardWrapper>
 
       <Modal
         isShown={isShown}
-        hide={toggle}
+        hide={hideModal}
         headerText="Confirmation"
         modalContent={
-          <Confirmation
-            onConfirm={onConfirm}
-            onCancel={onCancel}
-            message="Are you sure you want to delete element?"
-          />
+          isClickedShareButton ? (
+            <ShareLinkBox hide={hideModal} messageId={props.id} />
+          ) : (
+            <Confirmation
+              onConfirm={onConfirm}
+              onCancel={onCancel}
+              message="Are you sure you want to delete element?"
+            />
+          )
         }
       />
     </>
