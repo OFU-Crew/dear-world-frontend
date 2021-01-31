@@ -1,7 +1,6 @@
 export { default as CheerRank } from './CheerRank';
 export { default as Confirmation } from './common/Confirmation';
 export { default as Dropdown } from './common/Dropdown';
-export { default as Emoji } from './common/Emoji';
 export { default as Header } from './common/Header';
 export { default as Layout } from './common/Layout';
 export { default as Loading } from './common/Loading';

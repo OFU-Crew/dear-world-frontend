@@ -3,11 +3,15 @@ import { atom, atomFamily, selector } from 'recoil';
 interface MessageState {
   anonymousUser: {
     id: number;
-    emoji: { unicode: string };
+    emoji: {
+      unicode: string;
+      imageUrl: string;
+    };
     nickname: string;
     country: {
       emojiUnicode: string;
       fullName: string;
+      imageUrl: string;
     };
   };
   content: string;
@@ -21,9 +25,9 @@ export const messageAtomFamily = atomFamily<MessageState, number>({
     id,
     anonymousUser: {
       id: 0,
-      emoji: { unicode: '' },
+      emoji: { unicode: '', imageUrl: '' },
       nickname: '',
-      country: { emojiUnicode: '', fullName: '' },
+      country: { emojiUnicode: '', fullName: '', imageUrl: '' },
     },
     content: '',
     like: false,

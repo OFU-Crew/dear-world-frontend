@@ -7,7 +7,7 @@ import { THEME, useModal, useTheme } from '../hooks';
 import { messageAtomFamily } from '../store';
 import { Confirmation, Modal } from '.';
 import FadeIn from './common/animation/FadeIn';
-import Emoji from './common/Emoji';
+import MessageCardDetail from './MessageCardDetail';
 import ShareLinkBox from './ShareLinkBox';
 
 const MessageCardWrapper = styled.div`
@@ -32,7 +32,7 @@ const MessageHeader = styled.div`
   margin-bottom: 10px;
 `;
 
-const HeaderImage = styled.div`
+const HeaderImageWrapper = styled.div`
   flex: 0 0 50px;
   height: 50px;
   display: flex;
@@ -41,6 +41,18 @@ const HeaderImage = styled.div`
   background: url(${props => props.theme.url.messageBg}) no-repeat center;
   background-size: cover;
   margin-right: 12px;
+`;
+
+const Image = styled.img<{
+  width?: number;
+  height?: number;
+  marginRight?: number;
+  marginTop?: number;
+}>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  margin-top: ${({ marginTop }) => marginTop}px;
+  margin-right: ${({ marginRight }) => marginRight}px;
 `;
 
 const HeaderDescription = styled.div`
@@ -136,11 +148,15 @@ export interface MessageCardProps {
   id?: number;
   anonymousUser: {
     id: number;
-    emoji: { unicode: string };
+    emoji: {
+      unicode: string;
+      imageUrl: string;
+    };
     nickname: string;
     country: {
       emojiUnicode: string;
       fullName: string;
+      imageUrl: string;
     };
   };
   content: string;
@@ -152,8 +168,6 @@ export interface MessageCardProps {
 const MessageCard = (props: MessageCardProps) => {
   const [theme] = useTheme();
   const { isShown, toggle } = useModal();
-  const onConfirm = () => toggle();
-  const onCancel = () => toggle();
 
   const [message, setMessage] = useRecoilState(messageAtomFamily(props.id!));
   const [like, setLike] = useState(props.like);
@@ -166,6 +180,11 @@ const MessageCard = (props: MessageCardProps) => {
       e.stopPropagation();
       setLike(!like);
       setLikeCount(prev => (like ? prev - 1 : prev + 1));
+      setMessage(prev => ({
+        ...prev,
+        like: !like,
+        likeCount: like ? likeCount - 1 : likeCount + 1,
+      }));
       postMessageLike({ messageId: props.id! });
     },
     [like, likeCount],
@@ -185,12 +204,9 @@ const MessageCard = (props: MessageCardProps) => {
   }, [toggle, setIsClickedShareButton]);
 
   useEffect(() => {
-    setMessage(prev => ({
-      ...prev,
+    setMessage({
       ...props,
-      like,
-      likeCount,
-    }));
+    });
   }, [setMessage]);
 
   return (
@@ -198,35 +214,41 @@ const MessageCard = (props: MessageCardProps) => {
       <MessageCardWrapper onClick={toggle}>
         <FadeIn show={true}>
           <MessageHeader>
-            <HeaderImage>
-              <Emoji code={message.anonymousUser.emoji.unicode} />
-            </HeaderImage>
+            <HeaderImageWrapper>
+              <Image src={message.anonymousUser.emoji.imageUrl} width={25} />
+            </HeaderImageWrapper>
             <HeaderDescription>
               <HeaderDescriptionName>
                 {message.anonymousUser.nickname}
               </HeaderDescriptionName>
               <HeaderDescriptionCountry>
-                <span style={{ marginRight: 5 }}>
-                  <Emoji code={message.anonymousUser.country.emojiUnicode} />
-                </span>
+                <Image
+                  src={message.anonymousUser.country.imageUrl}
+                  width={14}
+                  height={14}
+                  marginTop={3}
+                  marginRight={5}
+                />
                 {message.anonymousUser.country.fullName}
               </HeaderDescriptionCountry>
             </HeaderDescription>
           </MessageHeader>
           <Contents>{message.content}</Contents>
           <MessageFooter>
-            <LikeWrapper like={like}>
+            <LikeWrapper like={message.like}>
               <LikeButton onClick={clickLikeButton}>
                 <MessageHeart
                   src={
-                    like
+                    message.like
                       ? '/images/heart-activate.svg'
                       : theme === THEME.LIGHT
                       ? '/images/heart-inactivate.svg'
                       : '/images/heart-inactivate-dark.svg'
                   }
                 />
-                <LikeCountWrapper like={like}>{likeCount}</LikeCountWrapper>
+                <LikeCountWrapper like={message.like}>
+                  {message.likeCount}
+                </LikeCountWrapper>
               </LikeButton>
             </LikeWrapper>
 
@@ -243,11 +265,7 @@ const MessageCard = (props: MessageCardProps) => {
           isClickedShareButton ? (
             <ShareLinkBox hide={hideModal} messageId={props.id} />
           ) : (
-            <Confirmation
-              onConfirm={onConfirm}
-              onCancel={onCancel}
-              message="Are you sure you want to delete element?"
-            />
+            <MessageCardDetail {...props} />
           )
         }
       />

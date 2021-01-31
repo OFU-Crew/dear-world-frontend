@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { CountryState } from '../../store';
-import Emoji from '../common/Emoji';
 
 const CheerRankWrapper = styled.div`
   border-radius: 10px;
@@ -86,6 +85,18 @@ const CountryMessageCount = styled.span`
   `}
 `;
 
+const Image = styled.img<{
+  width?: number;
+  height?: number;
+  marginRight?: number;
+  marginTop?: number;
+}>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  margin-top: ${({ marginTop }) => marginTop}px;
+  margin-right: ${({ marginRight }) => marginRight}px;
+`;
+
 interface CheerRank {
   countries: CountryState[];
 }
@@ -107,7 +118,7 @@ const CheerRank: FC<CheerRank> = ({ countries }) => {
             <CheerRankNumber index={index}>
               {convertNumberToOrdinalNumber(index + 1)}
             </CheerRankNumber>
-            <Emoji code={country.emojiUnicode!} />
+            <Image src={country.imageUrl} width={20} height={20} />
             <CheerRankCountry>
               <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
