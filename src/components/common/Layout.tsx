@@ -32,10 +32,14 @@ const Main = styled.main`
   `};
 `;
 
-const Layout: FC = ({ children }) => {
+interface LayoutProps {
+  isMessagePage?: boolean;
+}
+
+const Layout: FC<LayoutProps> = ({ isMessagePage, children }) => {
   return (
     <LayoutWrapper>
-      <Header />
+      <Header isMessagePage={isMessagePage} />
       <Main>{children}</Main>
     </LayoutWrapper>
   );

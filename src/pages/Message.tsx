@@ -9,7 +9,7 @@ import { sizes } from '../constants';
 import { useWindowDimensions } from '../hooks';
 import { messageSelectorFamily } from '../store';
 
-const Wrapper = styled.div`
+const DesktopWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@ const AsyncMessage: FC<AsyncMesssageProps> = ({ id }) => {
   const messgae = useRecoilValue(messageSelectorFamily(id));
 
   return width > sizes.desktop ? (
-    <Wrapper>
+    <DesktopWrapper>
       <MessageCardDetail
         key={id}
         id={id}
@@ -35,7 +35,7 @@ const AsyncMessage: FC<AsyncMesssageProps> = ({ id }) => {
         like={messgae.like}
         likeCount={messgae.likeCount}
       />
-    </Wrapper>
+    </DesktopWrapper>
   ) : (
     <MessageCard
       key={id}
@@ -53,7 +53,7 @@ const Message: FC = () => {
   const id = parseInt(location.pathname.split('/')[2], 10);
 
   return (
-    <Layout>
+    <Layout isMessagePage>
       <Suspense fallback={<div />}>
         <AsyncMessage id={id} />
       </Suspense>
