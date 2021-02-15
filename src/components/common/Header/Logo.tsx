@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { THEME } from '../../../hooks';
+import { parsedMessageCountSelector } from '../../../store';
 
-const LogoWrapper = styled.span`
+const LogoWrapper = styled.span<{ isMessagePage?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 48px;
-  height: 48px;
+  width: ${props => (props.isMessagePage ? '24px' : '48px')};
+  height: ${props => (props.isMessagePage ? '24px' : '48px')};
   margin-right: 17px;
 
   span {
@@ -42,20 +44,25 @@ const MessageCountBadge = styled.span`
 
 interface LogoProps {
   theme: string;
-  messageCount?: number;
+  isMessagePage?: boolean;
 }
 
 const Logo: FC<LogoProps> = props => {
+  const messageCount = useRecoilValue(parsedMessageCountSelector);
+
   return (
-    <LogoWrapper>
+    <LogoWrapper isMessagePage={props.isMessagePage}>
       <img
         src={
           props.theme === THEME.DARK
             ? '/images/logo-dark.svg'
             : '/images/logo-light.svg'
         }
+        width={props.isMessagePage ? '25' : '48'}
       />
-      <MessageCountBadge>{`+${props.messageCount || 34.5}K`}</MessageCountBadge>
+      {!props.isMessagePage && (
+        <MessageCountBadge>{messageCount}</MessageCountBadge>
+      )}
     </LogoWrapper>
   );
 };

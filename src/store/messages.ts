@@ -1,23 +1,68 @@
-import { selector, selectorFamily, SerializableParam } from 'recoil';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 
-import { getMessageCount, getMessages, messageCountParams } from '../api';
+import { getMessage } from '../api';
 
-export const messagesState = selector({
-  key: 'messages',
-  get: async () => {
-    const response = await getMessages({});
+interface MessageState {
+  anonymousUser: {
+    id: number;
+    emoji: {
+      unicode: string;
+      imageUrl: string;
+    };
+    nickname: string;
+    country: {
+      emojiUnicode: string;
+      fullName: string;
+      imageUrl: string;
+    };
+  };
+  content: string;
+  like: boolean;
+  likeCount: number;
+}
 
-    return response.data;
+export const messageSelectorFamily = selectorFamily<MessageState, number>({
+  key: 'messageSelectorFamily',
+  get: id => async () => {
+    const { data } = await getMessage({ messageId: id });
+
+    return data;
   },
 });
 
-export const messageCountState = selectorFamily({
-  key: 'messageCount',
-  get: (params: SerializableParam = {}) => async () => {
-    const {
-      data: { messageCount },
-    } = await getMessageCount(params as messageCountParams);
+export const messageAtomFamily = atomFamily<MessageState, number>({
+  key: 'messageAtomFamily',
+  default: id => ({
+    id,
+    anonymousUser: {
+      id: 0,
+      emoji: { unicode: '', imageUrl: '' },
+      nickname: '',
+      country: { emojiUnicode: '', fullName: '', imageUrl: '' },
+    },
+    content: '',
+    like: false,
+    likeCount: 0,
+  }),
+});
 
-    return messageCount;
+export const messageCountAtom = atom<number>({
+  key: 'messageCountAtom',
+  default: 0,
+});
+
+export const parsedMessageCountSelector = selector({
+  key: 'parsedMessageCountSelector',
+  get: ({ get }) => {
+    const messageCount = get(messageCountAtom);
+
+    if (messageCount < 1000) {
+      return messageCount;
+    }
+
+    const suffix = Math.floor(messageCount / 1000);
+    const decimal = (messageCount % 1000).toString()[0];
+
+    return `${suffix}.${decimal}k`;
   },
 });

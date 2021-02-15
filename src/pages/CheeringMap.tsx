@@ -6,7 +6,7 @@ import { getCountriesCount } from '../api';
 import { CheerRank, Layout, PixelMap } from '../components';
 import { sizes } from '../constants';
 import { useWindowDimensions } from '../hooks';
-import { countriesCountState, countriesRankState } from '../store';
+import { countriesCountSelector, countriesRankSelector } from '../store';
 
 const CheeringMapWrapper = styled.div`
   width: 100%;
@@ -20,9 +20,20 @@ const CheeringMapWrapper = styled.div`
   `};
 
   ${({ theme }) => theme.media.mobile`
-    grid-template-rows: 300px auto;
+    grid-template-rows: 46vw auto;
     gap: 20px;
   `};
+`;
+
+const PixelMapWrapper = styled.div<{ isDesktop?: boolean }>`
+  ${props =>
+    props.isDesktop &&
+    `
+      height: 95%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `}
 `;
 
 const CheeringMapTitle = styled.div`
@@ -34,28 +45,29 @@ const CheeringMapTitle = styled.div`
 `;
 
 const AsyncCheerRank = () => {
-  const ranking = useRecoilValue(countriesRankState);
+  const ranking = useRecoilValue(countriesRankSelector);
 
   return <CheerRank countries={ranking} />;
 };
 
 const AsyncPixelMap = () => {
-  const countries = useRecoilValue(countriesCountState);
+  const countries = useRecoilValue(countriesCountSelector);
 
   return <PixelMap countries={countries} />;
 };
 
 const CheeringMap = () => {
   const [width] = useWindowDimensions();
+  const isDesktop = width > sizes.desktop;
 
   return (
     <Layout>
-      {width < sizes.desktop && (
-        <CheeringMapTitle>Cheering Map</CheeringMapTitle>
-      )}
+      {!isDesktop && <CheeringMapTitle>Cheering Map</CheeringMapTitle>}
       <CheeringMapWrapper>
         <Suspense fallback={<div />}>
-          <AsyncPixelMap />
+          <PixelMapWrapper isDesktop={isDesktop}>
+            <AsyncPixelMap />
+          </PixelMapWrapper>
         </Suspense>
         <Suspense fallback={<div />}>
           <AsyncCheerRank />

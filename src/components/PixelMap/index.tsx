@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import styled from 'styled-components';
 
+import { CountryState } from '../../store';
 import maps from './maps';
 
 const PixelMapWrapper = styled.div`
@@ -9,7 +10,8 @@ const PixelMapWrapper = styled.div`
   display: grid;
   gap: 1px;
   width: 100%;
-  height: 100%;
+  height: 45vw;
+  max-height: 513px;
 `;
 
 const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
@@ -25,28 +27,20 @@ const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({
     props.theme.backgroundColor[`level${props.level}`]};
 `;
 
-const PixelMap = ({
-  countries,
-}: {
-  countries: {
-    countryStatus: {
-      id: number;
-      level: number;
-      likeCount: string;
-      population: string;
-    };
-    emojiUnicode: string;
-    code: string;
-    fullName: string;
-    id: string;
-  }[];
-}) => {
+interface PixelMapProps {
+  countries: CountryState[];
+}
+
+const PixelMap: FC<PixelMapProps> = ({ countries }) => {
   return (
     <PixelMapWrapper>
       {maps.map(({ name, locations, countryId }) => {
-        const level =
-          countries.filter(item => item.code === countryId)[0]?.countryStatus
-            .level ?? 0;
+        const filteredCountries = countries.filter(
+          item => item.code === countryId,
+        );
+        const level = filteredCountries.length
+          ? filteredCountries[0].countryStatus!.level
+          : 0;
 
         return (
           <Fragment key={name}>
@@ -59,4 +53,5 @@ const PixelMap = ({
     </PixelMapWrapper>
   );
 };
+
 export default PixelMap;

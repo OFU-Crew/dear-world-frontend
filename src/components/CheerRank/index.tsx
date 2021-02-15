@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import Emoji from '../common/Emoji';
+import { CountryState } from '../../store';
 
 const CheerRankWrapper = styled.div`
   border-radius: 10px;
   background-color: ${props => props.theme.backgroundColor.cheerRank};
   font-size: 20px;
   font-weight: bold;
+  height: 97%;
+  min-height: 600px;
+  min-width: 317px;
 `;
 
 const CheerRankTitle = styled.div`
@@ -24,7 +27,7 @@ const CheerRankTitle = styled.div`
 const CheerRankList = styled.div`
   display: grid;
   grid-template-rows: repeat(10, 1fr);
-  height: 90%;
+  height: 89%;
   margin-left: 16px;
   margin-right: 16px;
   margin-top: 16px;
@@ -85,6 +88,22 @@ const CountryMessageCount = styled.span`
   `}
 `;
 
+const Image = styled.img<{
+  width?: number;
+  height?: number;
+  marginRight?: number;
+  marginTop?: number;
+}>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  margin-top: ${({ marginTop }) => marginTop}px;
+  margin-right: ${({ marginRight }) => marginRight}px;
+`;
+
+interface CheerRank {
+  countries: CountryState[];
+}
+
 const convertNumberToOrdinalNumber = (n: number) => {
   if (n === 1) return '1st';
   else if (n === 2) return '2nd';
@@ -92,23 +111,7 @@ const convertNumberToOrdinalNumber = (n: number) => {
   else return `${n}th`;
 };
 
-const CheerRank = ({
-  countries,
-}: {
-  countries: {
-    countryStatus: {
-      id: number;
-      level: number;
-      likeCount: string;
-      messageCount: number;
-      population: string;
-    };
-    emojiUnicode: string;
-    code: string;
-    fullName: string;
-    id: string;
-  }[];
-}) => {
+const CheerRank: FC<CheerRank> = ({ countries }) => {
   return (
     <CheerRankWrapper>
       <CheerRankTitle>Cheer Rank</CheerRankTitle>
@@ -118,12 +121,12 @@ const CheerRank = ({
             <CheerRankNumber index={index}>
               {convertNumberToOrdinalNumber(index + 1)}
             </CheerRankNumber>
-            <Emoji code={country.emojiUnicode} />
+            <Image src={country.imageUrl} width={20} height={20} />
             <CheerRankCountry>
               <CountryName>{country.fullName}</CountryName>
               <CountryMessageCount>
                 <img className="emoji" src="/images/message-icon.svg" />
-                {`   ${country.countryStatus.messageCount}`}
+                {`   ${country.countryStatus!.messageCount}`}
               </CountryMessageCount>
             </CheerRankCountry>
           </CheerRankItem>

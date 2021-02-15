@@ -2,7 +2,7 @@ import React, { FC, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { messageCountState, selectedCountryState } from '../../store';
+import { messageCountAtom } from '../../store';
 
 const CountWrapper = styled.span`
   font-size: 26px;
@@ -14,15 +14,12 @@ const CountWrapper = styled.span`
 
 const UnitWrapper = styled.span`
   font-size: 25px;
+
+  color: ${props => props.theme.color.filter};
 `;
 
 const AsyncMessageCount: FC = () => {
-  const selectedCountry = useRecoilValue(selectedCountryState);
-  const messageCount = useRecoilValue(
-    messageCountState({
-      countryCode: selectedCountry ? selectedCountry.code : '',
-    }),
-  );
+  const messageCount = useRecoilValue(messageCountAtom);
 
   return (
     <React.Fragment>

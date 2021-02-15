@@ -25,14 +25,13 @@ const RightWrapper = styled.span`
 
 interface DesktopHeaderProps {
   theme: string;
-  messageCount: number;
 }
 
 const MobileHeader: FC<DesktopHeaderProps> = props => {
   return (
     <MobileHeaderWrapper>
       <LeftWrapper />
-      <Logo theme={props.theme} messageCount={props.messageCount} />
+      <Logo theme={props.theme} />
       <RightWrapper />
     </MobileHeaderWrapper>
   );

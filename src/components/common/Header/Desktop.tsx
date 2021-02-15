@@ -2,7 +2,12 @@ import React, { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+import ThemeButton from '../ThemeButton';
 import Logo from './Logo';
+
+const ColorWrapper = styled.div`
+  background-color: ${props => props.theme.backgroundColor.header};
+`;
 
 const DesktopHeaderWrapper = styled.div`
   display: flex;
@@ -28,7 +33,7 @@ const LeftWrapper = styled.span`
 `;
 
 const Menu = styled(NavLink)`
-  width: 135px;
+  padding: 0 24px;
   height: 45px;
   border-radius: 9px;
   margin-left: 15px;
@@ -70,34 +75,44 @@ const MessageSendButton = styled.button`
   }
 `;
 
+const Divider = styled.span`
+  width: 10px;
+  height: 42px;
+  margin-top: 4px;
+  border-right: 1px solid black;
+`;
+
 interface DesktopHeaderProps {
   theme: string;
 }
 
 const DesktopHeader: FC<DesktopHeaderProps> = props => {
   return (
-    <DesktopHeaderWrapper>
-      <LeftWrapper>
-        <Link to="/">
-          <Logo theme={props.theme} />
-        </Link>
-        <Menu exact to="/" activeClassName="selected">
-          Dear, world
-        </Menu>
-        <Menu exact to="/cheering-map" activeClassName="selected">
-          Cheering map
-        </Menu>
-        <Menu exact to="/about" activeClassName="selected">
-          About
-        </Menu>
-      </LeftWrapper>
-      <RightWrapper>
-        <MessageSendButton>
-          <i className="fa fa-plus"></i>
-          Send Message
-        </MessageSendButton>
-      </RightWrapper>
-    </DesktopHeaderWrapper>
+    <ColorWrapper>
+      <DesktopHeaderWrapper>
+        <LeftWrapper>
+          <Link to="/">
+            <Logo theme={props.theme} />
+          </Link>
+          <Menu exact to="/" activeClassName="selected">
+            Dear, world
+          </Menu>
+          <Menu exact to="/cheering-map" activeClassName="selected">
+            Cheering map
+          </Menu>
+          <Menu exact to="/about" activeClassName="selected">
+            About
+          </Menu>
+        </LeftWrapper>
+        <RightWrapper>
+          <MessageSendButton>
+            <i className="fa fa-plus"></i>
+            Send Message
+          </MessageSendButton>
+          <ThemeButton />
+        </RightWrapper>
+      </DesktopHeaderWrapper>
+    </ColorWrapper>
   );
 };
 
