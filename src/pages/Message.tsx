@@ -10,7 +10,11 @@ import { useWindowDimensions } from '../hooks';
 import { messageSelectorFamily } from '../store';
 
 const Wrapper = styled.div`
-  margin-top: 7%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-14%);
 `;
 
 interface AsyncMesssageProps {
