@@ -10,7 +10,8 @@ const PixelMapWrapper = styled.div`
   display: grid;
   gap: 1px;
   width: 100%;
-  height: 100%;
+  height: 45vw;
+  max-height: 513px;
 `;
 
 const Cell = styled.div.attrs(({ x, y }: { x: number; y: number }) => ({

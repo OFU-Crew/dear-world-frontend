@@ -20,9 +20,20 @@ const CheeringMapWrapper = styled.div`
   `};
 
   ${({ theme }) => theme.media.mobile`
-    grid-template-rows: 300px auto;
+    grid-template-rows: 46vw auto;
     gap: 20px;
   `};
+`;
+
+const PixelMapWrapper = styled.div<{ isDesktop?: boolean }>`
+  ${props =>
+    props.isDesktop &&
+    `
+      height: 95%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `}
 `;
 
 const CheeringMapTitle = styled.div`
@@ -47,15 +58,16 @@ const AsyncPixelMap = () => {
 
 const CheeringMap = () => {
   const [width] = useWindowDimensions();
+  const isDesktop = width > sizes.desktop;
 
   return (
     <Layout>
-      {width < sizes.desktop && (
-        <CheeringMapTitle>Cheering Map</CheeringMapTitle>
-      )}
+      {!isDesktop && <CheeringMapTitle>Cheering Map</CheeringMapTitle>}
       <CheeringMapWrapper>
         <Suspense fallback={<div />}>
-          <AsyncPixelMap />
+          <PixelMapWrapper isDesktop={isDesktop}>
+            <AsyncPixelMap />
+          </PixelMapWrapper>
         </Suspense>
         <Suspense fallback={<div />}>
           <AsyncCheerRank />

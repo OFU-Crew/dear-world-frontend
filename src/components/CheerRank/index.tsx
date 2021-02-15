@@ -8,6 +8,9 @@ const CheerRankWrapper = styled.div`
   background-color: ${props => props.theme.backgroundColor.cheerRank};
   font-size: 20px;
   font-weight: bold;
+  height: 97%;
+  min-height: 600px;
+  min-width: 317px;
 `;
 
 const CheerRankTitle = styled.div`
@@ -24,7 +27,7 @@ const CheerRankTitle = styled.div`
 const CheerRankList = styled.div`
   display: grid;
   grid-template-rows: repeat(10, 1fr);
-  height: 90%;
+  height: 89%;
   margin-left: 16px;
   margin-right: 16px;
   margin-top: 16px;
