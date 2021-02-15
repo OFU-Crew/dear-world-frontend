@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Flip, toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -204,6 +204,12 @@ const MessageCardDetail = (props: MessageCardProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    setMessage({
+      ...props,
+    });
+  }, [setMessage]);
+
   return (
     <MessageCardWrapper>
       <MessageHeader>
@@ -231,11 +237,11 @@ const MessageCardDetail = (props: MessageCardProps) => {
       </MessageHeader>
       <Contents>{message.content}</Contents>
       <MessageFooter>
-        <LikeWrapper like={like}>
+        <LikeWrapper like={message.like}>
           <LikeButton onClick={clickLikeButton}>
             <Image
               src={
-                like
+                message.like
                   ? '/images/heart-activate.svg'
                   : theme === THEME.LIGHT
                   ? '/images/heart-inactivate.svg'
@@ -244,7 +250,9 @@ const MessageCardDetail = (props: MessageCardProps) => {
               width={38}
               height={32}
             />
-            <LikeCountWrapper like={like}>{likeCount}</LikeCountWrapper>
+            <LikeCountWrapper like={message.like}>
+              {message.likeCount}
+            </LikeCountWrapper>
           </LikeButton>
         </LikeWrapper>
 

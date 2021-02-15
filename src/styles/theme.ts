@@ -133,7 +133,7 @@ const lightTheme: DefaultTheme = {
   },
   url: {
     filterArrow: '/images/filter-arrow.svg',
-    messageBg: 'images/message-bg.svg',
+    messageBg: '/images/message-bg.svg',
     shareButton: '/images/share-button.svg',
     shareButtonHover: '/images/share-button-hover.svg',
     themeButton: '/images/theme.svg',

@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 
 import { ThemeProvider } from './hooks';
 import { About, CheeringMap, DearWorld, NotFound } from './pages';
+import Message from './pages/Message';
 import { GlobalStyle } from './styles/global-styles';
 
 const App: FC = () => {
@@ -20,6 +21,7 @@ const App: FC = () => {
             <Route exact path="/" component={DearWorld} />
             <Route exact path="/cheering-map" component={CheeringMap} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/messages/:id?" component={Message} />
             <Route component={NotFound} />
           </Switch>
         </ThemeProvider>
