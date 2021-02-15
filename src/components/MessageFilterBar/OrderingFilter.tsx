@@ -21,7 +21,7 @@ const OrderingFilter: FC<OrderingFilterProps> = ({
   const history = useHistory();
   const [selectedOrdering, setSelectedOrdering] = useState<OrderingState>({
     id: 0,
-    fullName: orderingQuery,
+    fullName: decodeURI(orderingQuery),
   });
 
   const onClickItem = (ordering: string) => {

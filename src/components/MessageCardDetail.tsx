@@ -1,24 +1,20 @@
-import React, { ComponentType, useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import React, { useCallback, useState } from 'react';
+import { Flip, toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postMessageLike } from '../api';
-import { THEME, useModal, useTheme } from '../hooks';
+import { THEME, useTheme } from '../hooks';
 import { messageAtomFamily } from '../store';
-import { Confirmation, Modal } from '.';
-import FadeIn from './common/animation/FadeIn';
-import MessageCardDetail from './MessageCardDetail';
-import ShareLinkBox from './ShareLinkBox';
 
 const MessageCardWrapper = styled.div`
   box-shadow: 0px 4px 10px 10px rgba(33, 46, 90, 0.02);
   border-radius: 30px;
-  width: 380px;
-  padding: 30px;
+  width: 800px;
+  padding: 50px 70px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
 
   background-color: ${props => props.theme.backgroundColor.card};
 
@@ -33,8 +29,8 @@ const MessageHeader = styled.div`
 `;
 
 const HeaderImageWrapper = styled.div`
-  flex: 0 0 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,12 +54,15 @@ const Image = styled.img<{
 const HeaderDescription = styled.div`
   display: flex;
   flex-direction: column;
+  width: 540px;
+  margin-left: 14px;
 `;
 
 const HeaderDescriptionName = styled.div`
   flex: 0 1 100%;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 40px;
+  margin-top: 3px;
 
   color: ${props => props.theme.color.messageNickname};
 `;
@@ -71,18 +70,19 @@ const HeaderDescriptionName = styled.div`
 const HeaderDescriptionCountry = styled.div`
   flex: 0 1 100%;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 12px;
   display: flex;
 
   color: ${props => props.theme.color.messageCountry};
 `;
 
 const Contents = styled.div`
-  font-size: 14px;
+  font-size: 22px;
   line-height: 22px;
   font-weight: 400;
-  margin-bottom: 10px;
+  margin: 30px 0 45px 0;
 
   color: ${props => props.theme.color.messageDescription};
 `;
@@ -92,12 +92,10 @@ const MessageFooter = styled.div`
   align-items: center;
 `;
 
-const MessageHeart = styled.img``;
-
 const LikeWrapper = styled.div<{ like: boolean }>`
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 22px;
   font-weight: 400;
   color: ${props =>
     props.like
@@ -108,8 +106,8 @@ const LikeWrapper = styled.div<{ like: boolean }>`
 const LikeCountWrapper = styled.div<{ like: boolean }>`
   display: flex;
   align-items: center;
-  margin-left: 9px;
-  font-size: 16px;
+  margin-left: 12px;
+  font-size: 22px;
   font-weight: 400;
   color: ${props =>
     props.like
@@ -118,8 +116,8 @@ const LikeCountWrapper = styled.div<{ like: boolean }>`
 `;
 
 const LikeButton = styled.button`
-  flex: 0 0 48px;
-  height: 40px;
+  flex: 0 0 72px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,8 +127,8 @@ const LikeButton = styled.button`
 `;
 
 const ShareButton = styled.button`
-  flex: 0 0 48px;
-  height: 40px;
+  flex: 0 0 72px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,6 +139,7 @@ const ShareButton = styled.button`
   &:hover {
     background: url(${props => props.theme.url.shareButtonHover}) no-repeat
       center;
+    background-size: cover;
   }
 `;
 
@@ -162,18 +161,14 @@ export interface MessageCardProps {
   content: string;
   like: boolean;
   likeCount: number;
-  groupKey?: any;
 }
 
-const MessageCard = (props: MessageCardProps) => {
+const MessageCardDetail = (props: MessageCardProps) => {
   const [theme] = useTheme();
-  const { isShown, toggle } = useModal();
 
   const [message, setMessage] = useRecoilState(messageAtomFamily(props.id!));
-  const [like, setLike] = useState(props.like);
-  const [likeCount, setLikeCount] = useState(props.likeCount);
-
-  const [isClickedShareButton, setIsClickedShareButton] = useState(false);
+  const [like, setLike] = useState(message.like);
+  const [likeCount, setLikeCount] = useState(message.likeCount);
 
   const clickLikeButton = useCallback(
     e => {
@@ -192,85 +187,71 @@ const MessageCard = (props: MessageCardProps) => {
 
   const clickShareButton = useCallback(e => {
     e.stopPropagation();
-    setIsClickedShareButton(prev => !prev);
-    toggle();
+    const url = `https://dear-world.live/messages/${props.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      toast('Successfully copied link to clipboard.', {
+        style: {
+          borderRadius: '16px',
+          padding: '13px',
+          backgroundColor: theme === THEME.LIGHT ? '#fff' : '#212E5A',
+          color: theme === THEME.LIGHT ? '#212E5A' : '#D6DDFB',
+        },
+        autoClose: 3000,
+        closeButton: false,
+        position: 'bottom-left',
+        transition: Flip,
+      });
+    });
   }, []);
 
-  const hideModal = useCallback(() => {
-    if (isClickedShareButton) {
-      setIsClickedShareButton(prev => !prev);
-    }
-    toggle();
-  }, [toggle, setIsClickedShareButton]);
-
-  useEffect(() => {
-    setMessage({
-      ...props,
-    });
-  }, [setMessage]);
-
   return (
-    <>
-      <MessageCardWrapper onClick={toggle}>
-        <FadeIn show={true}>
-          <MessageHeader>
-            <HeaderImageWrapper>
-              <Image src={message.anonymousUser.emoji.imageUrl} width={25} />
-            </HeaderImageWrapper>
-            <HeaderDescription>
-              <HeaderDescriptionName>
-                {message.anonymousUser.nickname}
-              </HeaderDescriptionName>
-              <HeaderDescriptionCountry>
-                <Image
-                  src={message.anonymousUser.country.imageUrl}
-                  width={14}
-                  height={14}
-                  marginTop={3}
-                  marginRight={5}
-                />
-                {message.anonymousUser.country.fullName}
-              </HeaderDescriptionCountry>
-            </HeaderDescription>
-          </MessageHeader>
-          <Contents>{message.content}</Contents>
-          <MessageFooter>
-            <LikeWrapper like={message.like}>
-              <LikeButton onClick={clickLikeButton}>
-                <MessageHeart
-                  src={
-                    message.like
-                      ? '/images/heart-activate.svg'
-                      : theme === THEME.LIGHT
-                      ? '/images/heart-inactivate.svg'
-                      : '/images/heart-inactivate-dark.svg'
-                  }
-                />
-                <LikeCountWrapper like={message.like}>
-                  {message.likeCount}
-                </LikeCountWrapper>
-              </LikeButton>
-            </LikeWrapper>
+    <MessageCardWrapper>
+      <MessageHeader>
+        <HeaderImageWrapper>
+          <Image
+            src={message.anonymousUser.emoji.imageUrl}
+            width={60}
+            height={60}
+          />
+        </HeaderImageWrapper>
+        <HeaderDescription>
+          <HeaderDescriptionName>
+            {message.anonymousUser.nickname}
+          </HeaderDescriptionName>
+          <HeaderDescriptionCountry>
+            <Image
+              src={message.anonymousUser.country.imageUrl}
+              width={26}
+              height={26}
+              marginRight={8}
+            />
+            {message.anonymousUser.country.fullName}
+          </HeaderDescriptionCountry>
+        </HeaderDescription>
+      </MessageHeader>
+      <Contents>{message.content}</Contents>
+      <MessageFooter>
+        <LikeWrapper like={like}>
+          <LikeButton onClick={clickLikeButton}>
+            <Image
+              src={
+                like
+                  ? '/images/heart-activate.svg'
+                  : theme === THEME.LIGHT
+                  ? '/images/heart-inactivate.svg'
+                  : '/images/heart-inactivate-dark.svg'
+              }
+              width={38}
+              height={32}
+            />
+            <LikeCountWrapper like={like}>{likeCount}</LikeCountWrapper>
+          </LikeButton>
+        </LikeWrapper>
 
-            <ShareButton onClick={clickShareButton} />
-          </MessageFooter>
-        </FadeIn>
-      </MessageCardWrapper>
-
-      <Modal
-        isShown={isShown}
-        hide={hideModal}
-        headerText="Confirmation"
-        modalContent={
-          isClickedShareButton ? (
-            <ShareLinkBox hide={hideModal} messageId={props.id} />
-          ) : (
-            <MessageCardDetail {...props} />
-          )
-        }
-      />
-    </>
+        <ShareButton onClick={clickShareButton} />
+      </MessageFooter>
+    </MessageCardWrapper>
   );
 };
 
-export default MessageCard;
+export default MessageCardDetail;

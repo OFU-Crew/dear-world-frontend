@@ -1,4 +1,4 @@
-import { getApi } from './core';
+import { getApi, postApi } from './core';
 
 interface getMessagesParams {
   countryCode?: string;
@@ -8,9 +8,15 @@ interface getMessagesParams {
 export const getMessages = ({ countryCode, type, lastId }: getMessagesParams) =>
   getApi('/messages', { params: { countryCode, type, lastId } });
 
-export interface messageCountParams {
+interface messageCountParams {
   countryCode?: string;
   type?: string;
 }
 export const getMessageCount = ({ countryCode }: messageCountParams) =>
   getApi('/countries/messagecount', { params: { countryCode } });
+
+interface messageLikeParams {
+  messageId: number;
+}
+export const postMessageLike = ({ messageId }: messageLikeParams) =>
+  postApi(`messages/${messageId}/like`);
