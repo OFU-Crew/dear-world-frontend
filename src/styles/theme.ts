@@ -58,6 +58,7 @@ const darkTheme: DefaultTheme = {
     level4: '#FFE134',
     level5: '#FFE600',
     filter: '#212E5A',
+    themeButton: '#212E5A',
   },
   color: {
     message: '#212E5A',
@@ -77,12 +78,14 @@ const darkTheme: DefaultTheme = {
   borderColor: {
     cheerRank: '#445282',
     filter: '#445282',
+    themeButton: '#F8E36C',
   },
   url: {
     filterArrow: '/images/filter-arrow-dark.svg',
     messageBg: '/images/message-bg-dark.svg',
     shareButton: '/images/share-button-dark.svg',
     shareButtonHover: '/images/share-button-hover-dark.svg',
+    themeButton: '/images/theme-dark.svg',
   },
   media,
 };
@@ -105,6 +108,7 @@ const lightTheme: DefaultTheme = {
     level4: '#22D7D7',
     level5: '#07C9C9',
     filter: '#f4f7ff',
+    themeButton: '#F4F7FF',
   },
   color: {
     message: '#212E5A',
@@ -125,12 +129,14 @@ const lightTheme: DefaultTheme = {
   borderColor: {
     cheerRank: '#F4F7FF',
     filter: '#D6DDFB',
+    themeButton: '#212E5A',
   },
   url: {
     filterArrow: '/images/filter-arrow.svg',
     messageBg: 'images/message-bg.svg',
     shareButton: '/images/share-button.svg',
     shareButtonHover: '/images/share-button-hover.svg',
+    themeButton: '/images/theme.svg',
   },
   media,
 };
