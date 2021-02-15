@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { sizes } from '../../constants';
+import { useWindowDimensions } from '../../hooks';
 import { countriesQueryState, countriesSelector } from '../../store';
 import CountriesFilter from './CountriesFilter';
 import MessageCount from './MessageCount';
@@ -24,9 +26,10 @@ const MessageFilterBar: FC<MessageFilterBarProps> = ({
   countriesQuery,
   orderingQuery,
 }) => {
+  const [width] = useWindowDimensions();
   const countries = useRecoilValue(countriesSelector);
 
-  return (
+  return width > sizes.desktop ? (
     <Wrapper>
       <span>
         <CountriesFilter
@@ -43,6 +46,8 @@ const MessageFilterBar: FC<MessageFilterBarProps> = ({
         <MessageCount />
       </span>
     </Wrapper>
+  ) : (
+    <Wrapper></Wrapper>
   );
 };
 
