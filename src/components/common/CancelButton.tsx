@@ -14,7 +14,7 @@ const Cancel = styled.div<{ size: number }>`
     position: absolute;
     width: ${props => props.size * 4.1}px;
     height: 2px;
-    background-color: #212e5a;
+    background-color: ${props => props.theme.color.messageNickname};
     border-radius: 2px;
     top: 16px;
   }

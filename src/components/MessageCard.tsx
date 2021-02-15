@@ -11,7 +11,6 @@ import MessageCardDetail from './MessageCardDetail';
 import ShareLinkBox from './ShareLinkBox';
 
 const MessageCardWrapper = styled.div`
-  background: #fff;
   box-shadow: 0px 4px 10px 10px rgba(33, 46, 90, 0.02);
   border-radius: 30px;
   width: 380px;
@@ -19,6 +18,7 @@ const MessageCardWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   background-color: ${props => props.theme.backgroundColor.card};
 

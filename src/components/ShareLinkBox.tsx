@@ -1,11 +1,14 @@
 import React, { Fragment, FunctionComponent, useCallback } from 'react';
+import { Flip, toast } from 'react-toastify';
 import styled from 'styled-components';
 
+import { THEME, useTheme } from '../hooks';
 import CancelButton from './common/CancelButton';
 
 const Wrapper = styled.div`
   padding: 40px 38px 48px 38px;
-  border-radius: 100px;
+  border-radius: 20px;
+  background-color: ${props => props.theme.backgroundColor.card};
 `;
 
 export const Header = styled.div`
@@ -17,7 +20,7 @@ export const Header = styled.div`
 
 export const HeaderText = styled.div`
   font-size: 24px;
-  color: #212e5a;
+  color: ${props => props.theme.color.messageNickname};
   align-self: center;
 `;
 
@@ -62,9 +65,21 @@ interface ConfirmationModalProps {
 
 const ShareLinkBox: FunctionComponent<ConfirmationModalProps> = props => {
   const url = `https://dear-world.live/messages/${props.messageId}`;
+  const [theme] = useTheme();
   const onClick = useCallback(() => {
-    navigator.clipboard.writeText(url).then(function () {
-      console.log('success');
+    navigator.clipboard.writeText(url).then(() => {
+      toast('Successfully copied link to clipboard.', {
+        style: {
+          borderRadius: '16px',
+          padding: '13px',
+          backgroundColor: theme === THEME.LIGHT ? '#fff' : '#212E5A',
+          color: theme === THEME.LIGHT ? '#212E5A' : '#D6DDFB',
+        },
+        autoClose: 3000,
+        closeButton: false,
+        position: 'bottom-left',
+        transition: Flip,
+      });
     });
   }, []);
 

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { Flip, toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -7,7 +8,6 @@ import { THEME, useTheme } from '../hooks';
 import { messageAtomFamily } from '../store';
 
 const MessageCardWrapper = styled.div`
-  background: #fff;
   box-shadow: 0px 4px 10px 10px rgba(33, 46, 90, 0.02);
   border-radius: 30px;
   width: 800px;
@@ -54,6 +54,7 @@ const Image = styled.img<{
 const HeaderDescription = styled.div`
   display: flex;
   flex-direction: column;
+  width: 540px;
   margin-left: 14px;
 `;
 
@@ -186,6 +187,21 @@ const MessageCardDetail = (props: MessageCardProps) => {
 
   const clickShareButton = useCallback(e => {
     e.stopPropagation();
+    const url = `https://dear-world.live/messages/${props.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      toast('Successfully copied link to clipboard.', {
+        style: {
+          borderRadius: '16px',
+          padding: '13px',
+          backgroundColor: theme === THEME.LIGHT ? '#fff' : '#212E5A',
+          color: theme === THEME.LIGHT ? '#212E5A' : '#D6DDFB',
+        },
+        autoClose: 3000,
+        closeButton: false,
+        position: 'bottom-left',
+        transition: Flip,
+      });
+    });
   }, []);
 
   return (

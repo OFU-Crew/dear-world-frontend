@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+import ThemeButton from '../ThemeButton';
 import Logo from './Logo';
 
 const ColorWrapper = styled.div`
@@ -74,6 +75,13 @@ const MessageSendButton = styled.button`
   }
 `;
 
+const Divider = styled.span`
+  width: 10px;
+  height: 42px;
+  margin-top: 4px;
+  border-right: 1px solid black;
+`;
+
 interface DesktopHeaderProps {
   theme: string;
 }
@@ -101,6 +109,7 @@ const DesktopHeader: FC<DesktopHeaderProps> = props => {
             <i className="fa fa-plus"></i>
             Send Message
           </MessageSendButton>
+          <ThemeButton />
         </RightWrapper>
       </DesktopHeaderWrapper>
     </ColorWrapper>
