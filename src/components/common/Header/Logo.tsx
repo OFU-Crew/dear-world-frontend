@@ -58,7 +58,7 @@ const Logo: FC<LogoProps> = props => {
             ? '/images/logo-dark.svg'
             : '/images/logo-light.svg'
         }
-        width={props.isMessagePage ? '25' : '52'}
+        width={props.isMessagePage ? '25' : '48'}
       />
       {!props.isMessagePage && (
         <MessageCountBadge>{messageCount}</MessageCountBadge>

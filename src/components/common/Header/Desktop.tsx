@@ -33,7 +33,7 @@ const LeftWrapper = styled.span`
 `;
 
 const Menu = styled(NavLink)`
-  width: 135px;
+  padding: 0 24px;
   height: 45px;
   border-radius: 9px;
   margin-left: 15px;
