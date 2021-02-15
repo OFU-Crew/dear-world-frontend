@@ -1,5 +1,11 @@
 import { getApi, postApi } from './core';
 
+interface messageParams {
+  messageId: number;
+}
+export const getMessage = ({ messageId }: messageParams) =>
+  getApi(`/messages/${messageId}`);
+
 interface getMessagesParams {
   countryCode?: string;
   type?: string;
@@ -19,4 +25,4 @@ interface messageLikeParams {
   messageId: number;
 }
 export const postMessageLike = ({ messageId }: messageLikeParams) =>
-  postApi(`messages/${messageId}/like`);
+  postApi(`/messages/${messageId}/like`);
