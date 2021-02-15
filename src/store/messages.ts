@@ -1,4 +1,6 @@
-import { atom, atomFamily, selector } from 'recoil';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
+
+import { getMessage } from '../api';
 
 interface MessageState {
   anonymousUser: {
@@ -18,6 +20,15 @@ interface MessageState {
   like: boolean;
   likeCount: number;
 }
+
+export const messageSelectorFamily = selectorFamily<MessageState, number>({
+  key: 'messageSelectorFamily',
+  get: id => async () => {
+    const { data } = await getMessage({ messageId: id });
+
+    return data;
+  },
+});
 
 export const messageAtomFamily = atomFamily<MessageState, number>({
   key: 'messageAtomFamily',
