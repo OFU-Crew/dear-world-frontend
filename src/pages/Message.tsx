@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { Layout, MessageCard, MessageFilterBar } from '../components';
+import { Layout, MessageCard } from '../components';
 import MessageCardDetail from '../components/MessageCardDetail';
 import { sizes } from '../constants';
 import { useWindowDimensions } from '../hooks';

@@ -3,14 +3,15 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postMessageLike } from '../api';
-import { THEME, useModal, useTheme } from '../hooks';
+import { sizes } from '../constants';
+import { THEME, useModal, useTheme, useWindowDimensions } from '../hooks';
 import { messageAtomFamily } from '../store';
 import { Confirmation, Modal } from '.';
 import FadeIn from './common/animation/FadeIn';
 import MessageCardDetail from './MessageCardDetail';
 import ShareLinkBox from './ShareLinkBox';
 
-const MessageCardWrapper = styled.div`
+const MessageCardWrapper = styled.div<{ isDesktop?: boolean }>`
   box-shadow: 0px 4px 10px 10px rgba(33, 46, 90, 0.02);
   border-radius: 30px;
   width: 380px;
@@ -18,7 +19,7 @@ const MessageCardWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
+  cursor: ${props => (props.isDesktop ? 'pointer' : '')};
 
   background-color: ${props => props.theme.backgroundColor.card};
 
@@ -166,8 +167,10 @@ export interface MessageCardProps {
 }
 
 const MessageCard = (props: MessageCardProps) => {
+  const [width] = useWindowDimensions();
   const [theme] = useTheme();
   const { isShown, toggle } = useModal();
+  const isDesktop = width > sizes.desktop;
 
   const [message, setMessage] = useRecoilState(messageAtomFamily(props.id!));
   const [like, setLike] = useState(props.like);
@@ -211,7 +214,10 @@ const MessageCard = (props: MessageCardProps) => {
 
   return (
     <>
-      <MessageCardWrapper onClick={toggle}>
+      <MessageCardWrapper
+        isDesktop={isDesktop}
+        onClick={isDesktop ? toggle : () => {}}
+      >
         <FadeIn show={true}>
           <MessageHeader>
             <HeaderImageWrapper>
