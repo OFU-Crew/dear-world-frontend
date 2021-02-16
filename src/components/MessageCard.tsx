@@ -258,7 +258,7 @@ const MessageCard = (props: MessageCardProps) => {
               </LikeButton>
             </LikeWrapper>
 
-            <ShareButton onClick={clickShareButton} />
+            <ShareButton onClick={isDesktop ? clickShareButton : () => {}} />
           </MessageFooter>
         </FadeIn>
       </MessageCardWrapper>
