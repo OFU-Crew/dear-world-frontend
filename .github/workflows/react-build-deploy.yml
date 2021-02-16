@@ -35,3 +35,10 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             dist s3://${{ secrets.S3_BUCKET_NAME }}
+      
+      - name: Invalidate Cloudfront Cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id E311ZW05VM8204 --paths "/*"
